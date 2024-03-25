@@ -29,9 +29,6 @@ class HeaderNavBarResource extends JsonResource
         $aboutUniversityPageData = AboutUniversityPage::query()->with('getName')->get();
         $aboutUniversityPageResourceData = AboutUniversityPageResource::collection($aboutUniversityPageData);
 
-        // $data = AboutUniversityPage::first()->parent_id;
-        // dd($data);
-
         $enrollmentPageData = EnrollmentPage::query()->with('getName')->get();
         $enrollmentPageResourceData = EnrollmentPageResource::collection($enrollmentPageData);
 
@@ -43,9 +40,6 @@ class HeaderNavBarResource extends JsonResource
 
         $sciencePageData = SciencePage::query()->with('getName')->get();
         $sciencePageResourceData = SciencePageResource::collection($sciencePageData);
-        
-        // $aboutUniversityPageResourceData2 = AboutUniversityPageResource::collection($aboutUniversityPageData2);
-
 
         $resourcesData = [
             AboutUniversityPage::first()->parent_id => $aboutUniversityPageResourceData,
@@ -55,41 +49,11 @@ class HeaderNavBarResource extends JsonResource
             SciencePage::first()->parent_id => $sciencePageResourceData
         ];
 
-        // dd($resourcesData);
-
         $structuredData = [
             'id' => $this->id,
             'name' => $this->getName ? $this->getName->{$lang} : '',
             'child' => $resourcesData[$this->id]
         ];
-        // foreach ($aboutUniversityPageResourceData->collection as $item) {
-        //     // Получаем значение parent_id с использованием атрибута доступа getParentIdAttribute()
-        //     $parentId = $item->getParentId;
-        
-        //     dd($parentId); // Проверяем, что значение parent_id не равно null
-        // }
-        
-        // dd($aboutUniversityPageResourceData->collection);
-        // $arr = (array) $aboutUniversityPageResourceData;
-        // // dd($aboutUniversityPageResourceData);
-        // // foreach ($arr as $item) {
-        // //     // $collects = $item->collects; // Получаем информацию о классе, используемом для сбора ресурсов
-        // //     // $collection = $item->collection; // Получаем коллекцию данных
-        // //     // $resource[] = $item->resource; // Получаем ресурсы
-        // //     // $with = $item->with; // Получаем дополнительные данные или связанные ресурсы
-        // //     // $additional = $item->additional; // Получаем дополнительные данные
-        // //     echo '<pre>';
-        // //     print_r($item);
-        // //     echo '</pre>';
-        // //     // Далее можно работать с полученными данными
-        // // }        
-        // // return $resource;
-        // foreach ($arr['collection'] as $item)
-        // {
-        //     $arrItem = (array) $item;
-        //     return $arrItem;
-        // }
-        // return $arr['collection'];
         return $structuredData;
     }
 }

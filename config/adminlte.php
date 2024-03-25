@@ -191,7 +191,6 @@ return [
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
 
@@ -232,16 +231,16 @@ return [
         ],
 
         [
-            'text'    => 'Заголовок',
+            'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Категорий заголовка',
+                    'text' => 'Категорий навигационного меню',
                     'icon' => 'fas fa-fw fa-info',
                     'url'  => '/admin/navbar',
                 ],
                 [
-                    'text'    => 'Пункты заголовка',
+                    'text'    => 'Пункты навигационного меню',
                     'icon'    => 'fas fa-fw fa-share',
                     'submenu' => [
                         [

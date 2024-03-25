@@ -48,4 +48,5 @@ Route::resource('admin/enrollment', 'App\Http\Controllers\EnrollmentPageControll
 Route::resource('admin/students', 'App\Http\Controllers\StudentsPageController');
 Route::resource('admin/schools', 'App\Http\Controllers\SchoolsPageController');
 Route::resource('admin/science', 'App\Http\Controllers\SciencePageController');
+Route::resource('admin/contacts', 'App\Http\Controllers\ContactController');
 
