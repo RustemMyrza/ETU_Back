@@ -49,4 +49,4 @@ Route::resource('admin/students', 'App\Http\Controllers\StudentsPageController')
 Route::resource('admin/schools', 'App\Http\Controllers\SchoolsPageController');
 Route::resource('admin/science', 'App\Http\Controllers\SciencePageController');
 Route::resource('admin/contacts', 'App\Http\Controllers\ContactController');
-
+Route::resource('admin/mainPage', 'App\Http\Controllers\MainPageController');
