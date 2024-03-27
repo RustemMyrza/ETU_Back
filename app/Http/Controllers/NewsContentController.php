@@ -22,7 +22,9 @@ class NewsContentController extends Controller
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $newsContent = NewsContent::latest()->paginate($perPage);
+            $newsContent = NewsContent::where('parent_id', $newsId)
+                ->latest()
+                ->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
@@ -34,9 +36,10 @@ class NewsContentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function create($newsId)
     {
-        return view('newsContent.create');
+        // dd($newsId);
+        return view('newsContent.create', compact('newsId'));
     }
 
     /**
@@ -48,7 +51,6 @@ class NewsContentController extends Controller
      */
     public function store(Request $request, $newsId)
     {
-        dd($newsId);
         // dd($request->all());
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -69,21 +71,22 @@ class NewsContentController extends Controller
         $content->save();
         $contentId = $content->id;
 
-        $header = new Translate();
-        $header->ru = $requestData['header']['ru'];
-        $header->en = $requestData['header']['en'];
-        $header->kz = $requestData['header']['kz'];
-        $header->save();
-        $headerId = $header->id;
+        $title = new Translate();
+        $title->ru = $requestData['title']['ru'];
+        $title->en = $requestData['title']['en'];
+        $title->kz = $requestData['title']['kz'];
+        $title->save();
+        $titleId = $title->id;
 
 
         $newsContent= new NewsContent();
-        $newsContent->header = $headerId;
+        $newsContent->title = $titleId;
         $newsContent->content = $contentId;
         $newsContent->image = $path ?? null;
+        $newsContent->parent_id = $newsId;
         $newsContent->save();
 
-        return redirect('admin/newsContent')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/news/' . $newsId . '/content')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -93,16 +96,15 @@ class NewsContentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show($newsId, $id)
     {
         $newsContent = NewsContent::findOrFail($id);
-        $translatedHeader = Translate::findOrFail($newsContent->header);
+        $translatedTitle = Translate::findOrFail($newsContent->title);
         $translatedContent = Translate::findOrFail($newsContent->content);
-        $image = Translate::findOrFail($newsContent->content);
-        $translatedData['header'] = $translatedHeader;
+        $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
-        $translatedData['image'] = $image;
-        return view('newsContent.show', compact('newsContent', 'translatedData'));
+        $translatedData['image'] = $newsContent->image;
+        return view('newsContent.show', compact('newsContent', 'translatedData', 'newsId'));
     }
 
     /**
@@ -112,16 +114,16 @@ class NewsContentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($newsId, $id)
     {
         $newsContent = NewsContent::findOrFail($id);
-        $translatedHeader = Translate::findOrFail($newsContent->header);
+        $translatedTitle = Translate::findOrFail($newsContent->title);
         $translatedContent = Translate::findOrFail($newsContent->content);
         $image = Translate::findOrFail($newsContent->content);
-        $translatedData['header'] = $translatedHeader;
+        $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('newsContent.edit', compact('newsContent', 'translatedData'));
+        return view('newsContent.edit', compact('newsContent', 'translatedData', 'newsId'));
     }
 
     /**
@@ -132,7 +134,7 @@ class NewsContentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $newsId)
     {
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -158,15 +160,15 @@ class NewsContentController extends Controller
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $header = Translate::find($newsContent->header);
-        $header->ru = $requestData['header']['ru'];
-        $header->en = $requestData['header']['en'];
-        $header->kz = $requestData['header']['kz'];
-        $header->update();
+        $title = Translate::find($newsContent->title);
+        $title->ru = $requestData['title']['ru'];
+        $title->en = $requestData['title']['en'];
+        $title->kz = $requestData['title']['kz'];
+        $title->update();
 
         $newsContent->update();
 
-        return redirect('admin/newsContent')->with('flash_message', 'Блок изменен');
+        return redirect('admin/news/' . $newsId . '/content')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -176,16 +178,19 @@ class NewsContentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($newsId, $id)
     {
         $newsContent = NewsContent::find($id);
         if ($newsContent->image != null) {
             Storage::disk('static')->delete($newsContent->image);
         }
+
         $content = Translate::find($newsContent->content);
+        $title = Translate::find($newsContent->title);
+        $title->delete();
         $content->delete();
         $newsContent->delete();
 
-        return redirect('admin/newsContent')->with('flash_message', 'Блок удален');
+        return redirect('admin/news/' . $newsId . '/content')->with('flash_message', 'Блок удален');
     }
 }

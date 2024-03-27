@@ -19,7 +19,7 @@ class CreateNewsContentsTable extends Migration
             $table->string('title')->nullable();
             $table->string('content')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('parent_id')->unique();
+            $table->unsignedBigInteger('parent_id');
             $table->foreign('parent_id')->references('id')->on('news')->onDelete('cascade');
         });
     }

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card-body">
-        <a href="{{ url('/admin/mainPage') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/news/' . $newsId . '/content') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -20,11 +20,11 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/mainPage/' . $mainPage->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/news/' . $newsId . '/content/' . $newsContent->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 
-            @include ('mainPage.form', ['formMode' => 'edit'])
+            @include ('newsContent.form', ['formMode' => 'edit'])
 
         </form>
 

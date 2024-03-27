@@ -47,7 +47,7 @@
                         @if($item->getContent != null)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->header ? Str::limit($translatesData->find($item->header)->ru, 50) : '' }}</td>
+                                <td>{{ $item->title ? Str::limit($translatesData->find($item->title)->ru, 50) : '' }}</td>
                                 <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
                                 <td><img src="{{ url("$item->image")}}" alt="" width="200px;"></td>
                                 <!-- {{ url("$item->image")}} -->

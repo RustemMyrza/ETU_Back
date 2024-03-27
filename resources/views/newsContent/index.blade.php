@@ -45,18 +45,17 @@
                 </thead>
                 <tbody>
                 @if (isset($translatesData))
-                {
                     @foreach($newsContent as $item)
                         @if($item->getContent != null)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->header ? Str::limit($translatesData->find($item->header)->ru, 50) : '' }}</td>
+                                <td>{{ $item->title ? Str::limit($translatesData->find($item->title)->ru, 50) : '' }}</td>
                                 <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
-                                <td><img src="{{ url("$item->image")}}" alt="" width="200px;"></td>
+                                <td><img src="{{ url("$item->image")}}" alt="{{ url("$item->image")}}" width="200px;"></td>
                                 <!-- {{ url("$item->image")}} -->
                                 <td>
-                                <a href="{{ url('/admin/news/' . $newsId . '/content/create/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/news/' . $newsId . '/content/create/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/news/' . $newsId . '/content/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/news/' . $newsId . '/content/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
@@ -75,7 +74,6 @@
                             </tr>
                         @endif
                     @endforeach
-                    }
                 @endif
                 </tbody>
             </table>

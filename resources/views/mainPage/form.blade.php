@@ -13,24 +13,24 @@
 <div class="tab-content col-md-12" id="custom-tabs-one-tabContent">
     <div class="tab-pane active in ru-content" id="custom-tabs-one-ru" role="tabpanel" aria-labelledby="custom-tabs-one-ru-tab">
         <div class="form-group {{ $errors->has('content') ? 'has-error' : ''}}">
-            <label for="header[ru]" class="control-label">{{ 'Заголовок RU' }}</label>
-            <input class="form-control" name="header[ru]" type="text" id="header_ru" value="{{ isset($translatedData['header']->ru) ? $translatedData['header']->ru : ''}}" >
+            <label for="title[ru]" class="control-label">{{ 'Заголовок RU' }}</label>
+            <input class="form-control" name="title[ru]" type="text" id="title_ru" value="{{ isset($translatedData['title']->ru) ? $translatedData['title']->ru : ''}}" >
             {!! $errors->first('content[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
         <div class="form-group {{ $errors->has('content') ? 'has-error' : ''}}">
-            <label for="header[en]" class="control-label">{{ 'Заголовок EN' }}</label>
-            <input class="form-control" name="header[en]" type="text" id="header_en" value="{{ isset($translatedData['header']->en) ? $translatedData['header']->en : ''}}" >
+            <label for="title[en]" class="control-label">{{ 'Заголовок EN' }}</label>
+            <input class="form-control" name="title[en]" type="text" id="title_en" value="{{ isset($translatedData['title']->en) ? $translatedData['title']->en : ''}}" >
             {!! $errors->first('content[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade kz-content" id="custom-tabs-one-kz" role="tabpanel" aria-labelledby="custom-tabs-one-kz-tab">
         <div class="form-group {{ $errors->has('content') ? 'has-error' : ''}}">
-            <label for="header[kz]" class="control-label">{{ 'Заголовок KZ' }}</label>
-            <input class="form-control" name="header[kz]" type="text" id="header_kz" value="{{ isset($translatedData['header']->kz) ? $translatedData['header']->kz : ''}}" >
+            <label for="title[kz]" class="control-label">{{ 'Заголовок KZ' }}</label>
+            <input class="form-control" name="title[kz]" type="text" id="title_kz" value="{{ isset($translatedData['title']->kz) ? $translatedData['title']->kz : ''}}" >
             {!! $errors->first('content[kz]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

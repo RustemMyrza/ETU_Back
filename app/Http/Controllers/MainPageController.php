@@ -65,16 +65,16 @@ class MainPageController extends Controller
         $content->save();
         $contentId = $content->id;
 
-        $header = new Translate();
-        $header->ru = $requestData['header']['ru'];
-        $header->en = $requestData['header']['en'];
-        $header->kz = $requestData['header']['kz'];
-        $header->save();
-        $headerId = $header->id;
+        $title = new Translate();
+        $title->ru = $requestData['title']['ru'];
+        $title->en = $requestData['title']['en'];
+        $title->kz = $requestData['title']['kz'];
+        $title->save();
+        $titleId = $title->id;
 
 
         $mainPage= new MainPage();
-        $mainPage->header = $headerId;
+        $mainPage->title = $titleId;
         $mainPage->content = $contentId;
         $mainPage->image = $path ?? null;
         $mainPage->save();
@@ -92,10 +92,10 @@ class MainPageController extends Controller
     public function show($id)
     {
         $mainPage = MainPage::findOrFail($id);
-        $translatedHeader = Translate::findOrFail($mainPage->header);
+        $translatedTitle = Translate::findOrFail($mainPage->title);
         $translatedContent = Translate::findOrFail($mainPage->content);
         $image = Translate::findOrFail($mainPage->content);
-        $translatedData['header'] = $translatedHeader;
+        $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
         return view('mainPage.show', compact('mainPage', 'translatedData'));
@@ -111,10 +111,10 @@ class MainPageController extends Controller
     public function edit($id)
     {
         $mainPage = MainPage::findOrFail($id);
-        $translatedHeader = Translate::findOrFail($mainPage->header);
+        $translatedTitle = Translate::findOrFail($mainPage->title);
         $translatedContent = Translate::findOrFail($mainPage->content);
         $image = Translate::findOrFail($mainPage->content);
-        $translatedData['header'] = $translatedHeader;
+        $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
         return view('mainPage.edit', compact('mainPage', 'translatedData'));
@@ -154,11 +154,11 @@ class MainPageController extends Controller
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $header = Translate::find($mainPage->header);
-        $header->ru = $requestData['header']['ru'];
-        $header->en = $requestData['header']['en'];
-        $header->kz = $requestData['header']['kz'];
-        $header->update();
+        $title = Translate::find($mainPage->title);
+        $title->ru = $requestData['title']['ru'];
+        $title->en = $requestData['title']['en'];
+        $title->kz = $requestData['title']['kz'];
+        $title->update();
 
         $mainPage->update();
 
