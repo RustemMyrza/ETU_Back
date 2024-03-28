@@ -25,9 +25,9 @@ class NewsContent extends Model
      */
     protected $fillable = ['header', 'content', 'image'];
 
-    public function getHeader()
+    public function getTitle()
     {
-        return $this->hasOne(Translate::class, 'id', 'header');
+        return $this->hasOne(Translate::class, 'id', 'title');
     }
 
     public function getContent()

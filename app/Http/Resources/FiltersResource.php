@@ -23,7 +23,7 @@ class FiltersResource extends JsonResource
         $childData[178] = MonthResource::collection($months);
         $childData[177] = [2024, 2023, 2022, 2021];
         $childData[176] = SortResource::collection($sort);
-        $childData[179] = [range(1, 31)];
+        $childData[179] = range(1, 31);
 
         return[
             'id' => $this->id,

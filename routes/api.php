@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/headerNavBar', [ApiController::class, 'headerNavBar'])->name('headerNavBar');
 Route::get('/contacts', [ApiController::class, 'contacts'])->name('contacts');
 Route::get('/newsPage', [ApiController::class, 'newsPage'])->name('newsPage');
+Route::get('/news', [ApiController::class, 'news'])->name('news');
 
 Route::prefix('v1')->group(function (): void {
     Route::prefix('/parsing')->group(function (): void {

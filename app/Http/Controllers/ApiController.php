@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\FooterNavBarResource;
 use App\Models\HeaderNavBar;
 use App\Models\Contact;
 use App\Models\Translate;
+use App\Models\News;
+use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
 use App\Http\Resources\NewsPageResource;
@@ -37,5 +38,11 @@ class ApiController extends Controller
     {
         $newsPageData = Translate::where('id', 175)->get();
         return NewsPageResource::collection($newsPageData);
+    }
+
+    public function news ()
+    {
+        $news = News::query()->with(['getName', 'getChild'])->get();
+        return NewsResource::collection($news);
     }
 }

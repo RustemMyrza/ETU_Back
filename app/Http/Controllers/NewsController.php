@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\NewsContent;
 use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
@@ -164,6 +165,24 @@ class NewsController extends Controller
             Storage::disk('static')->delete($news->background_image);
         }
         $name = Translate::findOrFail($news->name);
+        $newsContent = NewsContent::where('parent_id', $id)->get();
+        if (count($newsContent) > 0)
+        {
+            foreach($newsContent as $item)
+            {
+                if ($item->title)
+                {
+                    $title = Translate::findOrFail($item->title);
+                    $title->delete();
+                }
+                if ($item->content)
+                {
+                    $content = Translate::findOrFail($item->content);
+                    $content->delete();
+                }
+                $item->delete();
+            }
+        }
         $name->delete();
         $news->delete();
 
