@@ -235,6 +235,16 @@ return [
             'url'  => '/admin/contacts',
         ],
         [
+            'text' => 'Новости',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/news',
+        ],
+        [
+            'text' => 'Руководители',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/supervisors',
+        ],
+        [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -286,9 +296,9 @@ return [
                     'url'  => '/admin/mainPage',
                 ],
                 [
-                    'text' => 'Новости',
+                    'text' => 'О нас',
                     'icon' => 'fas fa-fw fa-info',
-                    'url'  => '/admin/news',
+                    'url'  => '/admin/aboutUs',
                 ]
             ]
         ],

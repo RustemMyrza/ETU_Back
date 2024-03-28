@@ -27,6 +27,8 @@ Route::get('/newsPage', [ApiController::class, 'newsPage'])->name('newsPage');
 Route::get('/news', [ApiController::class, 'news'])->name('news');
 Route::get('/mainPage', [ApiController::class, 'mainPage'])->name('mainPage');
 Route::get('/aboutUs', [ApiController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/authority', [ApiController::class, 'authority'])->name('authority');
+Route::get('/supervisor', [ApiController::class, 'supervisor'])->name('supervisor');
 
 Route::prefix('v1')->group(function (): void {
     Route::prefix('/parsing')->group(function (): void {

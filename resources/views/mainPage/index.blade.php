@@ -48,7 +48,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->title ? Str::limit($translatesData->find($item->title)->ru, 50) : '' }}</td>
                                 <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
-                                <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="image" width="200px;"></td>
+                                <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}" width="200px;"></td>
                                 <td>
                                 <a href="{{ url('/admin/mainPage/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('/admin/mainPage/' . $item->id . '/edit') }}" title="Редактировать блок">

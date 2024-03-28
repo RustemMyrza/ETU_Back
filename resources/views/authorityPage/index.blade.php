@@ -1,20 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'О нас')
+@section('title', 'Руководство')
 
 @section('content_header')
-    <h1>О нас</h1>
+    <h1>Руководство</h1>
 @stop
 
 @section('content')
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/aboutUs/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/authority/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
 
-        <form method="GET" action="{{ url('/admin/aboutUs') }}" accept-charset="UTF-8"
+        <form method="GET" action="{{ url('/admin/authority') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                 @if (isset($translatesData))
-                    @foreach($aboutUs as $item)
+                    @foreach($authority as $item)
                         @if($item->getContent != null)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -50,14 +50,14 @@
                                 <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
                                 <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}" width="200px;"></td>
                                 <td>
-                                <a href="{{ url('/admin/aboutUs/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/aboutUs/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/authority/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/authority/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/aboutUs' . '/' . $item->id) }}"
+                                    <form method="POST" action="{{ url('/admin/authority' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
@@ -74,7 +74,7 @@
                 @endif
                 </tbody>
             </table>
-            <div class="pagination-wrapper"> {!! $aboutUs->appends(['search' => Request::get('search')])->render() !!} </div>
+            <div class="pagination-wrapper"> {!! $authority->appends(['search' => Request::get('search')])->render() !!} </div>
         </div>
 
     </div>
