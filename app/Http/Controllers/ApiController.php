@@ -7,10 +7,14 @@ use App\Models\HeaderNavBar;
 use App\Models\Contact;
 use App\Models\Translate;
 use App\Models\News;
+use App\Models\MainPage;
+use App\Models\AboutUsPage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
 use App\Http\Resources\NewsPageResource;
+use App\Http\Resources\MainPageResource;
+use App\Http\Resources\AboutUsPageResource;
 
 use function Ramsey\Uuid\v1;
 
@@ -44,5 +48,17 @@ class ApiController extends Controller
     {
         $news = News::query()->with(['getName', 'getChild'])->get();
         return NewsResource::collection($news);
+    }
+
+    public function mainPage ()
+    {
+        $mainPage = MainPage::query()->with(['getTitle', 'getContent'])->get();
+        return MainPageResource::collection($mainPage);
+    }
+
+    public function aboutUs ()
+    {
+        $aboutUs = AboutUsPage::query()->with(['getTitle', 'getContent'])->get();
+        return AboutUsPageResource::collection($aboutUs);
     }
 }

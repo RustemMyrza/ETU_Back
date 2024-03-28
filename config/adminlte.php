@@ -229,7 +229,11 @@ return [
             'url'  => 'home',
             'icon' => 'fas fa-fw fa-home',
         ],
-
+        [
+            'text' => 'Контакты',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/contacts',
+        ],
         [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
@@ -269,6 +273,22 @@ return [
                             'url'  => '/admin/science',
                         ],
                     ]
+                ]
+            ]
+        ],
+        [
+            'text'    => 'Страницы',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Главная страница',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/mainPage',
+                ],
+                [
+                    'text' => 'Новости',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/news',
                 ]
             ]
         ],

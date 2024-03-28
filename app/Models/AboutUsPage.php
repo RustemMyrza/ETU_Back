@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MainPage extends Model
+class AboutUsPage extends Model
 {
     use HasFactory;
 
-    protected $table = 'main_pages';
+    protected $table = 'about_us_pages';
 
     /**
     * The database primary key value.

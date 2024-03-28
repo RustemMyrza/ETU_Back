@@ -25,6 +25,8 @@ Route::get('/headerNavBar', [ApiController::class, 'headerNavBar'])->name('heade
 Route::get('/contacts', [ApiController::class, 'contacts'])->name('contacts');
 Route::get('/newsPage', [ApiController::class, 'newsPage'])->name('newsPage');
 Route::get('/news', [ApiController::class, 'news'])->name('news');
+Route::get('/mainPage', [ApiController::class, 'mainPage'])->name('mainPage');
+Route::get('/aboutUs', [ApiController::class, 'aboutUs'])->name('aboutUs');
 
 Route::prefix('v1')->group(function (): void {
     Route::prefix('/parsing')->group(function (): void {

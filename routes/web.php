@@ -50,6 +50,7 @@ Route::resource('admin/schools', 'App\Http\Controllers\SchoolsPageController');
 Route::resource('admin/science', 'App\Http\Controllers\SciencePageController');
 Route::resource('admin/contacts', 'App\Http\Controllers\ContactController');
 Route::resource('admin/mainPage', 'App\Http\Controllers\MainPageController');
+Route::resource('admin/aboutUs', 'App\Http\Controllers\AboutUsPageController');
 Route::resource('admin/news', 'App\Http\Controllers\NewsController');
 Route::get('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController@index')->name('news.content.index');
 Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@create')->name('news.content.create');

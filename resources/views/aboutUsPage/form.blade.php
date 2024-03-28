@@ -68,12 +68,12 @@
 
 <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
     <label for="image" class="control-label">{{ 'Изображение' }}</label>
-    <input class="form-control" name="image" type="file" id="image" value="{{ isset($mainPage->image) ? $mainPage->image : ''}}" >
+    <input class="form-control" name="image" type="file" id="image" value="{{ isset($aboutUs->image) ? $aboutUs->image : ''}}" >
     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 </div>
-@if (isset($mainPage->image))
+@if (isset($aboutUs->image))
     <div class="form-group">
-        <img src="{{ \Config::get('constants.alias.cdn_url').$mainPage->image }}" alt="" width="300px;">
+        <img src="{{ \Config::get('constants.alias.cdn_url').$aboutUs->image }}" alt="" width="300px;">
     </div>
 @endif
 
