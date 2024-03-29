@@ -11,6 +11,10 @@ use App\Models\MainPage;
 use App\Models\AboutUsPage;
 use App\Models\AuthorityPage;
 use App\Models\Supervisor;
+use App\Models\Accreditation;
+use App\Models\Specialty;
+use App\Models\Partner;
+use App\Models\PartnersPage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -19,6 +23,11 @@ use App\Http\Resources\MainPageResource;
 use App\Http\Resources\AboutUsPageResource;
 use App\Http\Resources\AuthorityPageResource;
 use App\Http\Resources\SupervisorResource;
+use App\Http\Resources\AccreditationResource;
+use App\Http\Resources\SpecialtyResource;
+use App\Http\Resources\PartnerResource;
+use App\Http\Resources\PartnersPageResource;
+use Illuminate\Http\Request;
 
 use function Ramsey\Uuid\v1;
 
@@ -76,5 +85,48 @@ class ApiController extends Controller
     {
         $supervisor = Supervisor::query()->with(['getName', 'getPosition', 'getAddress'])->get();
         return SupervisorResource::collection($supervisor);
+    }
+
+    public function accreditation ()
+    {
+        $accreditation = Accreditation::query()->with(['getTitle', 'getContent'])->get();
+        return AccreditationResource::collection($accreditation);
+    }
+
+    public function specialty (Request $request)
+    {
+        $limit = $request->limit;
+        $specialty = Specialty::query()->with(['getName'])->take($limit)->get();
+        return SpecialtyResource::collection($specialty);
+    }
+
+    public function partnersPage ()
+    {
+        $partnersPage = PartnersPage::query()->with(['getTitle', 'getContent'])->get();
+        return PartnersPageResource::collection($partnersPage);
+    }
+
+    public function partner ()
+    {
+        $partner = Partner::query()->get();
+
+        $partnersByType = [];
+
+        foreach ($partner as $item) {
+            $partnersByType[$item->type][] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'image' => $item->image,
+                'type' => $item->type
+            ];
+        }
+
+        $data['data'] = [];
+
+        foreach ($partnersByType as $type => $partners) {
+            $data['data'][$type] = array_chunk($partners, 8);
+        }
+
+        return response()->json($data, 200);
     }
 }

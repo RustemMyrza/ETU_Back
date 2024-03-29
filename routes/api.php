@@ -29,6 +29,10 @@ Route::get('/mainPage', [ApiController::class, 'mainPage'])->name('mainPage');
 Route::get('/aboutUs', [ApiController::class, 'aboutUs'])->name('aboutUs');
 Route::get('/authority', [ApiController::class, 'authority'])->name('authority');
 Route::get('/supervisor', [ApiController::class, 'supervisor'])->name('supervisor');
+Route::get('/accreditation', [ApiController::class, 'accreditation'])->name('accreditation');
+Route::get('/specialty', [ApiController::class, 'specialty'])->name('specialty');
+Route::get('/partnersPage', [ApiController::class, 'partnersPage'])->name('partnersPage');
+Route::get('/partner', [ApiController::class, 'partner'])->name('partner');
 
 Route::prefix('v1')->group(function (): void {
     Route::prefix('/parsing')->group(function (): void {

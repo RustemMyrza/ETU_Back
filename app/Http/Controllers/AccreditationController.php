@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuthorityPage;
+use App\Models\Accreditation;
 use App\Models\Translate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AuthorityPageController extends Controller
+class AccreditationController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class AuthorityPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $authority = AuthorityPage::where('content', 'LIKE', "%$keyword%")
+            $accreditation = Accreditation::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $authority = AuthorityPage::latest()->paginate($perPage);
+            $accreditation = Accreditation::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('authorityPage.index', compact('authority', 'translatesData'));
+        return view('accreditation.index', compact('accreditation', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AuthorityPageController extends Controller
      */
     public function create()
     {
-        return view('authorityPage.create');
+        return view('accreditation.create');
     }
 
     /**
@@ -73,13 +73,13 @@ class AuthorityPageController extends Controller
         $titleId = $title->id;
 
 
-        $authority= new AuthorityPage();
-        $authority->title = $titleId;
-        $authority->content = $contentId;
-        $authority->image = $path ?? null;
-        $authority->save();
+        $accreditation= new Accreditation();
+        $accreditation->title = $titleId;
+        $accreditation->content = $contentId;
+        $accreditation->image = $path ?? null;
+        $accreditation->save();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/accreditation')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -91,14 +91,14 @@ class AuthorityPageController extends Controller
      */
     public function show($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $accreditation = Accreditation::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($accreditation->title);
+        $translatedContent = Translate::findOrFail($accreditation->content);
+        $image = Translate::findOrFail($accreditation->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.show', compact('authority', 'translatedData'));
+        return view('accreditation.show', compact('accreditation', 'translatedData'));
     }
 
     /**
@@ -110,14 +110,14 @@ class AuthorityPageController extends Controller
      */
     public function edit($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $accreditation = Accreditation::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($accreditation->title);
+        $translatedContent = Translate::findOrFail($accreditation->content);
+        $image = Translate::findOrFail($accreditation->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.edit', compact('authority', 'translatedData'));
+        return view('accreditation.edit', compact('accreditation', 'translatedData'));
     }
 
     /**
@@ -139,30 +139,30 @@ class AuthorityPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $authority = AuthorityPage::findOrFail($id);
+        $accreditation = Accreditation::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($authority->image != null) {
-                Storage::disk('static')->delete($authority->image);
+            if ($accreditation->image != null) {
+                Storage::disk('static')->delete($accreditation->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $authority->image = $path;
+            $accreditation->image = $path;
         }
 
-        $content = Translate::find($authority->content);
+        $content = Translate::find($accreditation->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($authority->title);
+        $title = Translate::find($accreditation->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $authority->update();
+        $accreditation->update();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок изменен');
+        return redirect('admin/accreditation')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -174,14 +174,14 @@ class AuthorityPageController extends Controller
      */
     public function destroy($id)
     {
-        $authority = AuthorityPage::find($id);
-        if ($authority->image != null) {
-            Storage::disk('static')->delete($authority->image);
+        $accreditation = Accreditation::find($id);
+        if ($accreditation->image != null) {
+            Storage::disk('static')->delete($accreditation->image);
         }
-        $content = Translate::find($authority->content);
+        $content = Translate::find($accreditation->content);
         $content->delete();
-        $authority->delete();
+        $accreditation->delete();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок удален');
+        return redirect('admin/accreditation')->with('flash_message', 'Блок удален');
     }
 }

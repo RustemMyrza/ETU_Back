@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuthorityPage;
-use App\Models\Translate;
 use Illuminate\Http\Request;
+use App\Models\PartnersPage;
+use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class AuthorityPageController extends Controller
+class PartnersPageController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class AuthorityPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $authority = AuthorityPage::where('content', 'LIKE', "%$keyword%")
+            $partnersPage = PartnersPage::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $authority = AuthorityPage::latest()->paginate($perPage);
+            $partnersPage = PartnersPage::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('authorityPage.index', compact('authority', 'translatesData'));
+        return view('partnersPage.index', compact('partnersPage', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AuthorityPageController extends Controller
      */
     public function create()
     {
-        return view('authorityPage.create');
+        return view('partnersPage.create');
     }
 
     /**
@@ -73,13 +73,13 @@ class AuthorityPageController extends Controller
         $titleId = $title->id;
 
 
-        $authority= new AuthorityPage();
-        $authority->title = $titleId;
-        $authority->content = $contentId;
-        $authority->image = $path ?? null;
-        $authority->save();
+        $partnersPage= new PartnersPage();
+        $partnersPage->title = $titleId;
+        $partnersPage->content = $contentId;
+        $partnersPage->image = $path ?? null;
+        $partnersPage->save();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/partnersPage')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -91,14 +91,14 @@ class AuthorityPageController extends Controller
      */
     public function show($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $partnersPage = PartnersPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($partnersPage->title);
+        $translatedContent = Translate::findOrFail($partnersPage->content);
+        $image = Translate::findOrFail($partnersPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.show', compact('authority', 'translatedData'));
+        return view('partnersPage.show', compact('partnersPage', 'translatedData'));
     }
 
     /**
@@ -110,14 +110,14 @@ class AuthorityPageController extends Controller
      */
     public function edit($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $partnersPage = PartnersPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($partnersPage->title);
+        $translatedContent = Translate::findOrFail($partnersPage->content);
+        $image = Translate::findOrFail($partnersPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.edit', compact('authority', 'translatedData'));
+        return view('partnersPage.edit', compact('partnersPage', 'translatedData'));
     }
 
     /**
@@ -139,30 +139,30 @@ class AuthorityPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $authority = AuthorityPage::findOrFail($id);
+        $partnersPage = PartnersPage::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($authority->image != null) {
-                Storage::disk('static')->delete($authority->image);
+            if ($partnersPage->image != null) {
+                Storage::disk('static')->delete($partnersPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $authority->image = $path;
+            $partnersPage->image = $path;
         }
 
-        $content = Translate::find($authority->content);
+        $content = Translate::find($partnersPage->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($authority->title);
+        $title = Translate::find($partnersPage->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $authority->update();
+        $partnersPage->update();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок изменен');
+        return redirect('admin/partnersPage')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -174,14 +174,14 @@ class AuthorityPageController extends Controller
      */
     public function destroy($id)
     {
-        $authority = AuthorityPage::find($id);
-        if ($authority->image != null) {
-            Storage::disk('static')->delete($authority->image);
+        $partnersPage = PartnersPage::find($id);
+        if ($partnersPage->image != null) {
+            Storage::disk('static')->delete($partnersPage->image);
         }
-        $content = Translate::find($authority->content);
+        $content = Translate::find($partnersPage->content);
         $content->delete();
-        $authority->delete();
+        $partnersPage->delete();
 
-        return redirect('admin/university/authority')->with('flash_message', 'Блок удален');
+        return redirect('admin/partnersPage')->with('flash_message', 'Блок удален');
     }
 }
