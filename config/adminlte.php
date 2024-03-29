@@ -245,6 +245,16 @@ return [
             'url'  => '/admin/supervisors',
         ],
         [
+            'text' => 'Партнеры',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/partner',
+        ],
+        [
+            'text' => 'Специальности',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/specialty',
+        ],
+        [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -299,6 +309,16 @@ return [
                     'text' => 'О нас',
                     'icon' => 'fas fa-fw fa-info',
                     'url'  => '/admin/aboutUs',
+                ],
+                [
+                    'text' => 'Аккредитация',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/accreditation',
+                ],
+                [
+                    'text' => 'Партнеры',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/partnersPage',
                 ]
             ]
         ],
