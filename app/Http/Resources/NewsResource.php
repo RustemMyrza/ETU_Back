@@ -27,7 +27,7 @@ class NewsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getName ? $this->getName->{$lang} : '',
             'date' => $this->date,
-            'image' => $this->background_image,
+            'image' => $this->background_image ? url($this->background_image) : '',
             'news_contents' => $this->getChild->map(function ($item) use ($lang) {
                 return [
                     'id' => $item->id,

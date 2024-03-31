@@ -20,7 +20,7 @@ class AccreditationResource extends JsonResource
             'id' => $this->id,
             'title' => $this->getTitle ? $this->getTitle->{$lang} : '',
             'content' => $this->getContent ? $this->getContent->{$lang} : '',
-            'image' => $this->image
+            'image' => $this->image ? url($this->image) : ''
         ];
     }
 }

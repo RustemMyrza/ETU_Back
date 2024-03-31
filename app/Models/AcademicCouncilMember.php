@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MainPage extends Model
+class AcademicCouncilMember extends Model
 {
     use HasFactory;
 
-    protected $table = 'main_pages';
+    protected $table = 'academic_council_members';
 
     /**
     * The database primary key value.
@@ -23,15 +23,15 @@ class MainPage extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'image'];
+    protected $fillable = ['name', 'description'];
 
-    public function getTitle()
+    public function getName()
     {
-        return $this->hasOne(Translate::class, 'id', 'title');
+        return $this->hasOne(Translate::class, 'id', 'name');
     }
 
-    public function getContent()
+    public function getDescription()
     {
-        return $this->hasOne(Translate::class, 'id', 'content');
+        return $this->hasOne(Translate::class, 'id', 'description');
     }
 }

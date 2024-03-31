@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MainPage extends Model
+class RectorsBlogQuestion extends Model
 {
     use HasFactory;
 
-    protected $table = 'main_pages';
+    protected $table = 'rectors_blog_questions';
 
     /**
     * The database primary key value.
@@ -23,7 +23,7 @@ class MainPage extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'image'];
+    protected $fillable = ['question', 'answer', 'author'];
 
     public function getTitle()
     {

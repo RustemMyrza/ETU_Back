@@ -15,6 +15,11 @@ use App\Models\Accreditation;
 use App\Models\Specialty;
 use App\Models\Partner;
 use App\Models\PartnersPage;
+use App\Models\CareerPage;
+use App\Models\Vacancy;
+use App\Models\RectorsBlogPage;
+use App\Models\AcademicCouncilPage;
+use App\Models\AcademicCouncilMember;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -27,6 +32,11 @@ use App\Http\Resources\AccreditationResource;
 use App\Http\Resources\SpecialtyResource;
 use App\Http\Resources\PartnerResource;
 use App\Http\Resources\PartnersPageResource;
+use App\Http\Resources\CareerPageResource;
+use App\Http\Resources\VacancyResource;
+use App\Http\Resources\RectorsBlogPageResource;
+use App\Http\Resources\AcademicCouncilPageResource;
+use App\Http\Resources\AcademicCouncilMemberResource;
 use Illuminate\Http\Request;
 
 use function Ramsey\Uuid\v1;
@@ -128,5 +138,35 @@ class ApiController extends Controller
         }
 
         return response()->json($data, 200);
+    }
+
+    public function careerPage ()
+    {
+        $careerPage = CareerPage::query()->with(['getTitle', 'getContent'])->get();
+        return CareerPageResource::collection($careerPage);
+    }
+
+    public function vacancy ()
+    {
+        $vacancy = Vacancy::query()->get();
+        return VacancyResource::collection($vacancy);
+    }
+
+    public function rectorsBlogPage ()
+    {
+        $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
+        return RectorsBlogPageResource::collection($rectorsBlogPage);
+    }
+
+    public function academicCouncilPage ()
+    {
+        $academicCouncilPage = AcademicCouncilPage::query()->with(['getTitle', 'getContent'])->get();
+        return AcademicCouncilPageResource::collection($academicCouncilPage);
+    }
+
+    public function academicCouncilMember ()
+    {
+        $academicCouncilMember = AcademicCouncilMember::query()->with(['getName', 'getDescription'])->get();
+        return AcademicCouncilMemberResource::collection($academicCouncilMember);
     }
 }

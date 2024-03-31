@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MainPage extends Model
+class Vacancy extends Model
 {
     use HasFactory;
 
-    protected $table = 'main_pages';
+    protected $table = 'vacancies';
 
     /**
     * The database primary key value.
@@ -23,15 +23,10 @@ class MainPage extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'image'];
+    protected $fillable = ['position', 'description', 'date', 'experience'];
 
-    public function getTitle()
+    public function getChild()
     {
-        return $this->hasOne(Translate::class, 'id', 'title');
-    }
-
-    public function getContent()
-    {
-        return $this->hasOne(Translate::class, 'id', 'content');
+        return $this->hasMany(VacancyApplication::class, 'parent_id', 'id');
     }
 }

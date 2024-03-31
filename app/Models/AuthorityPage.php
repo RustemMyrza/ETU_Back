@@ -23,7 +23,7 @@ class AuthorityPage extends Model
      *
      * @var array
      */
-    protected $fillable = ['header', 'content', 'image'];
+    protected $fillable = ['title', 'content', 'image'];
 
     public function getTitle()
     {
