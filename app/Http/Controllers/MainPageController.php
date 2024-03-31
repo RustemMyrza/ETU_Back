@@ -45,7 +45,7 @@ class MainPageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ],
@@ -139,6 +139,7 @@ class MainPageController extends Controller
             ]);
 
         $requestData = $request->all();
+        dd($requestData);
         $mainPage = MainPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($mainPage->image != null) {
