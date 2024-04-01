@@ -14,6 +14,15 @@ class RectorsBlogQuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        if ($this->answer)
+        {
+            return [
+                'name' => $this->name . ' ' .$this->surname,
+                'phone' => $this->phone,
+                'email' => $this->email,
+                'question' => $this->question,
+                'answer' => $this->answer
+            ];
+        }
     }
 }

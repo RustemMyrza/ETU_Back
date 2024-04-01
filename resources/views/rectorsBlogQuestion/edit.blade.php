@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card-body">
-        <a href="{{ url('/admin/rectorsBlogPage') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/rectorsBlogQuestion') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -20,11 +20,11 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/rectorsBlogPage/' . $rectorsBlogPage->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/rectorsBlogQuestion/' . $question->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 
-            @include ('rectorsBlogPage.form', ['formMode' => 'edit'])
+            @include ('rectorsBlogQuestion.form', ['formMode' => 'edit'])
 
         </form>
 

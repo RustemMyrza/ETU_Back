@@ -36,20 +36,20 @@ class RectorsBlogQuestionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, $vacancyId)
+    public function store(Request $request)
     {
         // dd($request->all());
         $requestData = $request->all();
 
-        $vacancyApplication= new RectorsBlogQuestion();
-        $vacancyApplication->name = $requestData['name'];
-        $vacancyApplication->surname = $requestData['surname'];
-        $vacancyApplication->phone = $requestData['phone'];
-        $vacancyApplication->email = $requestData['email'];
-        $vacancyApplication->question = $requestData['question'];
-        $vacancyApplication->save();
+        $question= new RectorsBlogQuestion();
+        $question->name = $requestData['name'];
+        $question->surname = $requestData['surname'];
+        $question->phone = $requestData['phone'];
+        $question->email = $requestData['email'];
+        $question->question = $requestData['question'];
+        $result = $question->save();
 
-        return redirect('admin/rectorsBlogQuestion')->with('flash_message', 'Блок добавлен');
+        return $result;
     }
 
     /**
@@ -76,8 +76,8 @@ class RectorsBlogQuestionController extends Controller
 
      public function edit ($id)
     {
-        $schoolsPages = RectorsBlogQuestion::findOrFail($id);
-        return view('schoolsPages.edit', compact('schoolsPages'));
+        $question = RectorsBlogQuestion::findOrFail($id);
+        return view('rectorsBlogQuestion.edit', compact('question'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,6 +87,17 @@ class RectorsBlogQuestionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
+
+    public function update(Request $request, $id)
+    {
+        $requestData = $request->all();
+        $question = RectorsBlogQuestion::findOrFail($id);
+        $question->answer = $requestData['answer'];
+        $question->update();
+
+        return redirect('admin/rectorsBlogQuestion')->with('flash_message', 'Блок изменен');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

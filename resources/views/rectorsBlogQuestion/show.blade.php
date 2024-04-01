@@ -10,10 +10,10 @@
 
     <div class="card-body">
 
-        <a href="{{ url('/admin/rectorsBlogPage') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
-        <a href="{{ url('/admin/rectorsBlogPage/' . $rectorsBlogPage->id . '/edit') }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Редактировать</button></a>
+        <a href="{{ url('/admin/rectorsBlogQuestion') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/rectorsBlogQuestion/' . $question->id . '/edit') }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Редактировать</button></a>
 
-        <form method="POST" action="{{ url('admin/rectorsBlogPage' . '/' . $rectorsBlogPage->id) }}" accept-charset="UTF-8" style="display:inline">
+        <form method="POST" action="{{ url('admin/rectorsBlogQuestion' . '/' . $question->id) }}" accept-charset="UTF-8" style="display:inline">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок" onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt" aria-hidden="true"></i> Удалить</button>
@@ -25,11 +25,14 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <th>ID</th><td>{{ $rectorsBlogPage->id }}</td>
+                        <th>ID</th><td>{{ $question->id }}</td>
                     </tr>
-                    <tr><th> Заголовок </th><td> {{ $translatedData['title']->ru }} </td></tr>
-                    <tr><th> Описание </th><td> {{ $translatedData['content']->ru }} </td></tr>
-                    <tr><th> Изображение </th><td><img src="{{\Config::get('constants.alias.cdn_url').$rectorsBlogPage->image}}" alt="url($rectorsBlogPage->image)" width="200px;"></td></tr>
+                    <tr><th> ФИО </th><td> {{ $question->name . ' ' . $question->surname }} </td></tr>
+                    <tr><th> Телефон </th><td> {{ $question->phone }} </td></tr>
+                    <tr><th> E-mail </th><td>{{ $question->email }}</td></tr>
+                    <tr><th> Дата </th><td>{{ $question->updated_at }}</td></tr>
+                    <tr><th> Вопрос </th><td>{{ $question->question }}</td></tr>
+                    <tr><th> Ответ </th><td>{{ $question->answer ? $question->answer : 'Не отвечено' }}</td></tr>
                 </tbody>
             </table>
         </div>

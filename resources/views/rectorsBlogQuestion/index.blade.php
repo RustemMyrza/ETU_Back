@@ -52,12 +52,12 @@
                             <td>{{ Str::limit($item->email, 50) }}</td>
                             <td>{{ Str::limit($item->updated_at, 50) }}</td>
                             <td>{{ Str::limit($item->question, 50) }}</td>
-                            <td>{{ $item->answer ? Str::limit($item->question, 50) : 'Не отвечено' }}</td>
+                            <td>{{ $item->answer ? Str::limit($item->answer, 50) : 'Не отвечено' }}</td>
                             <td>
                             <a href="{{ url('/admin/rectorsBlogQuestion/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                 <a href="{{ url('/admin/rectorsBlogQuestion/' . $item->id . '/edit') }}" title="Редактировать блок">
                                     <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
-                                                                            aria-hidden="true"></i> Редактировать
+                                                                            aria-hidden="true"></i> Ответить
                                     </button>
                                 </a>
 

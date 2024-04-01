@@ -18,6 +18,7 @@ use App\Models\PartnersPage;
 use App\Models\CareerPage;
 use App\Models\Vacancy;
 use App\Models\RectorsBlogPage;
+use App\Models\RectorsBlogQuestion;
 use App\Models\AcademicCouncilPage;
 use App\Models\AcademicCouncilMember;
 use App\Http\Resources\NewsResource;
@@ -35,6 +36,7 @@ use App\Http\Resources\PartnersPageResource;
 use App\Http\Resources\CareerPageResource;
 use App\Http\Resources\VacancyResource;
 use App\Http\Resources\RectorsBlogPageResource;
+use App\Http\Resources\RectorsBlogQuestionResource;
 use App\Http\Resources\AcademicCouncilPageResource;
 use App\Http\Resources\AcademicCouncilMemberResource;
 use Illuminate\Http\Request;
@@ -156,6 +158,12 @@ class ApiController extends Controller
     {
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
         return RectorsBlogPageResource::collection($rectorsBlogPage);
+    }
+
+    public function rectorsBlogQuestion ()
+    {
+        $questions = RectorsBlogQuestion::query()->get();
+        return RectorsBlogQuestionResource::collection($questions);
     }
 
     public function academicCouncilPage ()

@@ -62,6 +62,7 @@ Route::resource('admin/careerPage', 'App\Http\Controllers\CareerPageController')
 Route::resource('admin/vacancy', 'App\Http\Controllers\VacancyController');
 Route::resource('admin/rectorsBlogPage', 'App\Http\Controllers\RectorsBlogPageController');
 Route::resource('admin/rectorsBlogQuestion', 'App\Http\Controllers\RectorsBlogQuestionController');
+Route::post('admin/rectorsBlogQuestion/create', 'App\Http\Controllers\RectorsBlogQuestionController@store')->name('rectors.question.store');
 Route::resource('admin/academicCouncilPage', 'App\Http\Controllers\AcademicCouncilPageController');
 Route::resource('admin/academicCouncilMember', 'App\Http\Controllers\AcademicCouncilMemberController');
 
