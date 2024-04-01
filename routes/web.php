@@ -61,6 +61,7 @@ Route::resource('admin/partner', 'App\Http\Controllers\PartnerController');
 Route::resource('admin/careerPage', 'App\Http\Controllers\CareerPageController');
 Route::resource('admin/vacancy', 'App\Http\Controllers\VacancyController');
 Route::resource('admin/rectorsBlogPage', 'App\Http\Controllers\RectorsBlogPageController');
+Route::resource('admin/rectorsBlogQuestion', 'App\Http\Controllers\RectorsBlogQuestionController');
 Route::resource('admin/academicCouncilPage', 'App\Http\Controllers\AcademicCouncilPageController');
 Route::resource('admin/academicCouncilMember', 'App\Http\Controllers\AcademicCouncilMemberController');
 

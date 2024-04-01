@@ -16,6 +16,12 @@ class CreateRectorsBlogQuestionsTable extends Migration
         Schema::create('rectors_blog_questions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->string('surname');
+            $table->string('phone');
+            $table->string('email');
+            $table->text('question');
+            $table->text('answer')->nullable();
         });
     }
 

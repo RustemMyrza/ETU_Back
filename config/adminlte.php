@@ -242,7 +242,7 @@ return [
         [
             'text' => 'Руководители',
             'icon' => 'fas fa-fw fa-info',
-            'url'  => '/admin/supervisors',
+            'url'  => '/admin/supervisor',
         ],
         [
             'text' => 'Партнеры',
@@ -253,6 +253,21 @@ return [
             'text' => 'Специальности',
             'icon' => 'fas fa-fw fa-info',
             'url'  => '/admin/specialty',
+        ],
+        [
+            'text' => 'Вакансий',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/vacancy',
+        ],
+        [
+            'text' => 'Вопросы Блог ректора',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/rectorsBlogQuestion',
+        ],
+        [
+            'text' => 'Член ученого совета',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/academicCouncilMember',
         ],
         [
             'text'    => 'Навигационное меню',
@@ -319,6 +334,26 @@ return [
                     'text' => 'Партнеры',
                     'icon' => 'fas fa-fw fa-info',
                     'url'  => '/admin/partnersPage',
+                ],
+                [
+                    'text' => 'Руководство',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/authority',
+                ],
+                [
+                    'text' => 'Карьера',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/careerPage',
+                ],
+                [
+                    'text' => 'Блог ректора',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/rectorsBlogPage',
+                ],
+                [
+                    'text' => 'Ученый совет',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/academicCouncilPage',
                 ]
             ]
         ],

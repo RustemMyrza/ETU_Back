@@ -23,15 +23,5 @@ class RectorsBlogQuestion extends Model
      *
      * @var array
      */
-    protected $fillable = ['question', 'answer', 'author'];
-
-    public function getTitle()
-    {
-        return $this->hasOne(Translate::class, 'id', 'title');
-    }
-
-    public function getContent()
-    {
-        return $this->hasOne(Translate::class, 'id', 'content');
-    }
+    protected $fillable = ['name', 'surname', 'phone', 'email', 'question', 'answer'];
 }

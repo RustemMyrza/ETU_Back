@@ -20,16 +20,16 @@ class SchoolsPageController extends Controller
      {
          switch($id){
              case 1:
-                 $this->updateForLink('/1', $id);
+                 $this->updateForLink('school/1', $id);
                  break;
              case 2:
-                 $this->updateForLink('/2', $id);
+                 $this->updateForLink('school/2', $id);
                  break;
              case 3:
-                 $this->updateForLink('/3', $id);
+                 $this->updateForLink('school/3', $id);
                  break;
              case 4:
-                 $this->updateForLink('/4', $id);
+                 $this->updateForLink('school/4', $id);
                  break;
          }
      }
