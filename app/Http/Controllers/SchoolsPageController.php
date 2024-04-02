@@ -12,7 +12,7 @@ class SchoolsPageController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *oaisjdoiasjdad
      * @return \Illuminate\View\View
      */
 
