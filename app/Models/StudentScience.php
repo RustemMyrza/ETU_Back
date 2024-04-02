@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ScienceInnovationPage extends Model
+class StudentScience extends Model
 {
     use HasFactory;
 
-    protected $table = 'science_innovation_pages';
+    protected $table = 'student_sciences';
 
     /**
     * The database primary key value.

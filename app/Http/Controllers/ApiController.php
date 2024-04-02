@@ -21,6 +21,7 @@ use App\Models\RectorsBlogPage;
 use App\Models\RectorsBlogQuestion;
 use App\Models\AcademicCouncilPage;
 use App\Models\AcademicCouncilMember;
+use App\Models\ScienceInnovationPage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -39,6 +40,7 @@ use App\Http\Resources\RectorsBlogPageResource;
 use App\Http\Resources\RectorsBlogQuestionResource;
 use App\Http\Resources\AcademicCouncilPageResource;
 use App\Http\Resources\AcademicCouncilMemberResource;
+use App\Http\Resources\ScienceInnovationPageResource;
 use Illuminate\Http\Request;
 
 use function Ramsey\Uuid\v1;
@@ -176,5 +178,11 @@ class ApiController extends Controller
     {
         $academicCouncilMember = AcademicCouncilMember::query()->with(['getName', 'getDescription'])->get();
         return AcademicCouncilMemberResource::collection($academicCouncilMember);
+    }
+
+    public function scienceInnovationPage ()
+    {
+        $scienceInnovationPage = ScienceInnovationPage::query()->with(['getTitle', 'getContent'])->get();
+        return ScienceInnovationPageResource::collection($scienceInnovationPage);
     }
 }

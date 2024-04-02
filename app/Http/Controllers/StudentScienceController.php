@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MainPage;
+use App\Models\StudentScience;
 use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class MainPageController extends Controller
+class StudentScienceController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class MainPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $mainPage = MainPage::where('content', 'LIKE', "%$keyword%")
+            $studentScience = StudentScience::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $mainPage = MainPage::latest()->paginate($perPage);
+            $studentScience = StudentScience::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('mainPage.index', compact('mainPage', 'translatesData'));
+        return view('studentScience.index', compact('studentScience', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class MainPageController extends Controller
      */
     public function create()
     {
-        return view('mainPage.create');
+        return view('studentScience.create');
     }
 
     /**
@@ -72,13 +72,13 @@ class MainPageController extends Controller
         $titleId = $title->id;
 
 
-        $mainPage= new MainPage();
-        $mainPage->title = $titleId;
-        $mainPage->content = $contentId;
-        $mainPage->image = $path ?? null;
-        $mainPage->save();
+        $studentScience= new StudentScience();
+        $studentScience->title = $titleId;
+        $studentScience->content = $contentId;
+        $studentScience->image = $path ?? null;
+        $studentScience->save();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/studentScience')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -90,14 +90,14 @@ class MainPageController extends Controller
      */
     public function show($id)
     {
-        $mainPage = MainPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mainPage->title);
-        $translatedContent = Translate::findOrFail($mainPage->content);
-        $image = Translate::findOrFail($mainPage->content);
+        $studentScience = StudentScience::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($studentScience->title);
+        $translatedContent = Translate::findOrFail($studentScience->content);
+        $image = Translate::findOrFail($studentScience->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('mainPage.show', compact('mainPage', 'translatedData'));
+        return view('studentScience.show', compact('studentScience', 'translatedData'));
     }
 
     /**
@@ -109,14 +109,14 @@ class MainPageController extends Controller
      */
     public function edit($id)
     {
-        $mainPage = MainPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mainPage->title);
-        $translatedContent = Translate::findOrFail($mainPage->content);
-        $image = Translate::findOrFail($mainPage->content);
+        $studentScience = StudentScience::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($studentScience->title);
+        $translatedContent = Translate::findOrFail($studentScience->content);
+        $image = Translate::findOrFail($studentScience->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('mainPage.edit', compact('mainPage', 'translatedData'));
+        return view('studentScience.edit', compact('studentScience', 'translatedData'));
     }
 
     /**
@@ -138,30 +138,30 @@ class MainPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $mainPage = MainPage::findOrFail($id);
+        $studentScience = StudentScience::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($mainPage->image != null) {
-                Storage::disk('static')->delete($mainPage->image);
+            if ($studentScience->image != null) {
+                Storage::disk('static')->delete($studentScience->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $mainPage->image = $path;
+            $studentScience->image = $path;
         }
 
-        $content = Translate::find($mainPage->content);
+        $content = Translate::find($studentScience->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($mainPage->title);
+        $title = Translate::find($studentScience->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $mainPage->update();
+        $studentScience->update();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок изменен');
+        return redirect('admin/studentScience')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -173,14 +173,14 @@ class MainPageController extends Controller
      */
     public function destroy($id)
     {
-        $mainPage = MainPage::find($id);
-        if ($mainPage->image != null) {
-            Storage::disk('static')->delete($mainPage->image);
+        $studentScience = StudentScience::find($id);
+        if ($studentScience->image != null) {
+            Storage::disk('static')->delete($studentScience->image);
         }
-        $content = Translate::find($mainPage->content);
+        $content = Translate::find($studentScience->content);
         $content->delete();
-        $mainPage->delete();
+        $studentScience->delete();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок удален');
+        return redirect('admin/studentScience')->with('flash_message', 'Блок удален');
     }
 }

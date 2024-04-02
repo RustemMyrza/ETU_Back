@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ScienceInnovationPage extends Model
+class MastersSpecialty extends Model
 {
     use HasFactory;
 
-    protected $table = 'science_innovation_pages';
+    protected $table = 'masters_specialties';
 
     /**
     * The database primary key value.
@@ -23,15 +23,15 @@ class ScienceInnovationPage extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'image'];
+    protected $fillable = ['name'];
 
-    public function getTitle()
+    public function getName()
     {
-        return $this->hasOne(Translate::class, 'id', 'title');
+        return $this->hasOne(Translate::class, 'id', 'name');
     }
 
-    public function getContent()
+    public function getPage()
     {
-        return $this->hasOne(Translate::class, 'id', 'content');
+        return $this->hasMany(MastersSpecialtyPage::class, 'parent_id', 'id');
     }
 }

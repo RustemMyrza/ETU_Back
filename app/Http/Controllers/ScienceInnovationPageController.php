@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MainPage;
+use App\Models\ScienceInnovationPage;
 use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class MainPageController extends Controller
+class ScienceInnovationPageController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class MainPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $mainPage = MainPage::where('content', 'LIKE', "%$keyword%")
+            $scienceInnovationPage = ScienceInnovationPage::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $mainPage = MainPage::latest()->paginate($perPage);
+            $scienceInnovationPage = ScienceInnovationPage::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('mainPage.index', compact('mainPage', 'translatesData'));
+        return view('scienceInnovationPage.index', compact('scienceInnovationPage', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class MainPageController extends Controller
      */
     public function create()
     {
-        return view('mainPage.create');
+        return view('scienceInnovationPage.create');
     }
 
     /**
@@ -72,13 +72,13 @@ class MainPageController extends Controller
         $titleId = $title->id;
 
 
-        $mainPage= new MainPage();
-        $mainPage->title = $titleId;
-        $mainPage->content = $contentId;
-        $mainPage->image = $path ?? null;
-        $mainPage->save();
+        $scienceInnovationPage= new ScienceInnovationPage();
+        $scienceInnovationPage->title = $titleId;
+        $scienceInnovationPage->content = $contentId;
+        $scienceInnovationPage->image = $path ?? null;
+        $scienceInnovationPage->save();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/scienceInnovationPage')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -90,14 +90,14 @@ class MainPageController extends Controller
      */
     public function show($id)
     {
-        $mainPage = MainPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mainPage->title);
-        $translatedContent = Translate::findOrFail($mainPage->content);
-        $image = Translate::findOrFail($mainPage->content);
+        $scienceInnovationPage = ScienceInnovationPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scienceInnovationPage->title);
+        $translatedContent = Translate::findOrFail($scienceInnovationPage->content);
+        $image = Translate::findOrFail($scienceInnovationPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('mainPage.show', compact('mainPage', 'translatedData'));
+        return view('scienceInnovationPage.show', compact('scienceInnovationPage', 'translatedData'));
     }
 
     /**
@@ -109,14 +109,14 @@ class MainPageController extends Controller
      */
     public function edit($id)
     {
-        $mainPage = MainPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mainPage->title);
-        $translatedContent = Translate::findOrFail($mainPage->content);
-        $image = Translate::findOrFail($mainPage->content);
+        $scienceInnovationPage = ScienceInnovationPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scienceInnovationPage->title);
+        $translatedContent = Translate::findOrFail($scienceInnovationPage->content);
+        $image = Translate::findOrFail($scienceInnovationPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('mainPage.edit', compact('mainPage', 'translatedData'));
+        return view('scienceInnovationPage.edit', compact('scienceInnovationPage', 'translatedData'));
     }
 
     /**
@@ -138,30 +138,30 @@ class MainPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $mainPage = MainPage::findOrFail($id);
+        $scienceInnovationPage = ScienceInnovationPage::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($mainPage->image != null) {
-                Storage::disk('static')->delete($mainPage->image);
+            if ($scienceInnovationPage->image != null) {
+                Storage::disk('static')->delete($scienceInnovationPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $mainPage->image = $path;
+            $scienceInnovationPage->image = $path;
         }
 
-        $content = Translate::find($mainPage->content);
+        $content = Translate::find($scienceInnovationPage->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($mainPage->title);
+        $title = Translate::find($scienceInnovationPage->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $mainPage->update();
+        $scienceInnovationPage->update();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок изменен');
+        return redirect('admin/scienceInnovationPage')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -173,14 +173,14 @@ class MainPageController extends Controller
      */
     public function destroy($id)
     {
-        $mainPage = MainPage::find($id);
-        if ($mainPage->image != null) {
-            Storage::disk('static')->delete($mainPage->image);
+        $scienceInnovationPage = ScienceInnovationPage::find($id);
+        if ($scienceInnovationPage->image != null) {
+            Storage::disk('static')->delete($scienceInnovationPage->image);
         }
-        $content = Translate::find($mainPage->content);
+        $content = Translate::find($scienceInnovationPage->content);
         $content->delete();
-        $mainPage->delete();
+        $scienceInnovationPage->delete();
 
-        return redirect('admin/mainPage')->with('flash_message', 'Блок удален');
+        return redirect('admin/scienceInnovationPage')->with('flash_message', 'Блок удален');
     }
 }

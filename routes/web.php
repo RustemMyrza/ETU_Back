@@ -65,6 +65,11 @@ Route::resource('admin/rectorsBlogQuestion', 'App\Http\Controllers\RectorsBlogQu
 Route::post('admin/rectorsBlogQuestion/create', 'App\Http\Controllers\RectorsBlogQuestionController@store')->name('rectors.question.store');
 Route::resource('admin/academicCouncilPage', 'App\Http\Controllers\AcademicCouncilPageController');
 Route::resource('admin/academicCouncilMember', 'App\Http\Controllers\AcademicCouncilMemberController');
+Route::resource('admin/scienceInnovationPage', 'App\Http\Controllers\ScienceInnovationPageController');
+Route::resource('admin/studentScience', 'App\Http\Controllers\StudentScienceController');
+Route::resource('admin/discount', 'App\Http\Controllers\DiscountController');
+Route::resource('admin/honorsStudentDiscount', 'App\Http\Controllers\HonorsStudentDiscountController');
+Route::resource('admin/cost', 'App\Http\Controllers\CostController');
 
 Route::get('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController@index')->name('news.content.index');
 Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@create')->name('news.content.create');

@@ -270,6 +270,21 @@ return [
             'url'  => '/admin/academicCouncilMember',
         ],
         [
+            'text' => 'Скидки',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/discount',
+        ],
+        [
+            'text' => 'Скидки для студентов-отличников',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/honorsStudentDiscount',
+        ],
+        [
+            'text' => 'Стоимости',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/cost',
+        ],
+        [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -354,6 +369,21 @@ return [
                     'text' => 'Ученый совет',
                     'icon' => 'fas fa-fw fa-info',
                     'url'  => '/admin/academicCouncilPage',
+                ],
+                [
+                    'text' => 'Наука и инноваций',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/scienceInnovationPage',
+                ],
+                [
+                    'text' => 'Наука и инноваций',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/scienceInnovationPage',
+                ],
+                [
+                    'text' => 'Студенческая наука',
+                    'icon' => 'fas fa-fw fa-info',
+                    'url'  => '/admin/studentScience',
                 ]
             ]
         ],
