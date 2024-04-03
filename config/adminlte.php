@@ -285,6 +285,11 @@ return [
             'url'  => '/admin/cost',
         ],
         [
+            'text' => 'Общежитие',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/dormitory',
+        ],
+        [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -321,6 +326,86 @@ return [
                             'text' => 'Наука',
                             'icon' => 'fas fa-fw fa-info',
                             'url'  => '/admin/science',
+                        ],
+                        [
+                            'text' => 'Языковые курсы',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/languageCoursesPage',
+                        ],
+                        [
+                            'text' => 'Major + Minor',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/majorMinorPage',
+                        ],
+                        [
+                            'text' => 'Level Up',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/levelUpPage',
+                        ],
+                        [
+                            'text' => 'Олимпиада',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/olympicsPage',
+                        ],
+                        [
+                            'text' => 'Университет Линкольн',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/internationalStudentsPage',
+                        ],
+                        [
+                            'text' => 'Иностранные студенты',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/lincolnUniversityPage',
+                        ],
+                        [
+                            'text' => 'Академическая политика',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/academicPolicyPage',
+                        ],
+                        [
+                            'text' => 'Академический календарь',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/academicCalendarPage',
+                        ],
+                        [
+                            'text' => 'Библиотека',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/libraryPage',
+                        ],
+                        [
+                            'text' => 'Этический кодекс',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/ethicsCodePage',
+                        ],
+                        [
+                            'text' => 'Центр карьеры',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/careerCenterPage',
+                        ],
+                        [
+                            'text' => 'Военная кафедра',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/militaryDepartmentPage',
+                        ],
+                        [
+                            'text' => 'Медицинское обслуживание',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/medicalCarePage',
+                        ],
+                        [
+                            'text' => 'Дом студента',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/studentHousePage',
+                        ],
+                        [
+                            'text' => 'Путеводитель первокурсника',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/travelGuidePage',
+                        ],
+                        [
+                            'text' => 'Студенческие клубы',
+                            'icon' => 'fas fa-fw fa-info',
+                            'url'  => '/admin/studentClubPage',
                         ],
                     ]
                 ]

@@ -42,6 +42,8 @@ use App\Http\Resources\AcademicCouncilPageResource;
 use App\Http\Resources\AcademicCouncilMemberResource;
 use App\Http\Resources\ScienceInnovationPageResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 use function Ramsey\Uuid\v1;
 
@@ -77,22 +79,166 @@ class ApiController extends Controller
         return NewsResource::collection($news);
     }
 
+
+
+
     public function mainPage ()
     {
-        $mainPage = MainPage::query()->with(['getTitle', 'getContent'])->get();
-        return MainPageResource::collection($mainPage);
+        $mainPageData = MainPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($mainPageData as $key => $value)
+        {
+            switch($key){
+                case 0:
+                    $banner = new MainPageResource($value);
+                    break;
+                case 1:
+                    $educationProgram['title'] = new MainPageResource($value);
+                    break;
+                case 2:
+                    $educationProgram['items'] = new MainPageResource($value);
+                    break;
+                case 3:
+                    $educationProgram['items'] = new MainPageResource($value);
+                    break;
+                case 4:
+                    $professionalSchools['title'] = new MainPageResource($value);
+                    break;
+                case 5:
+                    $professionalSchools['items'][] = new MainPageResource($value);
+                    break;
+                case 6:
+                    $professionalSchools['items'][] = new MainPageResource($value);
+                    break;
+                case 7:
+                    $professionalSchools['items'][] = new MainPageResource($value);
+                    break;
+                case 8:
+                    $professionalSchools['items'][] = new MainPageResource($value);
+                    break;
+                case 9:
+                    $professionalSchools['items'][] = new MainPageResource($value);
+                    break;
+                case 10:
+                    $advantages['title'] = new MainPageResource($value);
+                    break;
+                case 11:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 12:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 13:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 14:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 15:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 16:
+                    $advantages['items'][] = new MainPageResource($value);
+                    break;
+                case 17:
+                    $inNumbers['title'] = new MainPageResource($value);
+                    break;
+                case 18:
+                    $inNumbers['items'][] = new MainPageResource($value);
+                    break;
+                case 19:
+                    $inNumbers['items'][] = new MainPageResource($value);
+                    break;
+                case 20:
+                    $inNumbers['items'][] = new MainPageResource($value);
+                    break;
+                case 21:
+                    $news = new MainPageResource($value);
+                    break;
+                case 22:
+                    $application = new MainPageResource($value);
+                    break;
+                }
+            }
+        $mainPageApi = new stdClass;
+        $mainPageApi->banner = $banner;
+        $mainPageApi->educationProgram = $educationProgram;
+        $mainPageApi->professionalSchools = $professionalSchools;
+        $mainPageApi->advantages = $advantages;
+        $mainPageApi->inNumbers = $inNumbers;
+        $mainPageApi->inNumbers = $inNumbers;
+        $mainPageApi->news = $news;
+        $mainPageApi->application = $application;
+        return $mainPageApi;
     }
+
+
+
 
     public function aboutUs ()
     {
         $aboutUs = AboutUsPage::query()->with(['getTitle', 'getContent'])->get();
-        return AboutUsPageResource::collection($aboutUs);
+        foreach ($aboutUs as $key => $value)
+        {
+            switch($key){
+                case 0:
+                    $banner = new AboutUsPageResource($value);
+                    break;
+                case 1:
+                    $history = new AboutUsPageResource($value);
+                    break;
+                case 2:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 3:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 4:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 5:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 6:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 7:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 8:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 9:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 10:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 11:
+                    $historyYears[] = new AboutUsPageResource($value);
+                    break;
+                case 12:
+                    $mission = new AboutUsPageResource($value);
+                    break;
+                case 13:
+                    $vision = new AboutUsPageResource($value);
+                    break;
+        }
+    }
+        $aboutUsApi = new stdClass;
+        $aboutUsApi->banner = $banner;
+        $aboutUsApi->history = $history;
+        $aboutUsApi->historyYears = $historyYears;
+        $aboutUsApi->mission = $mission;
+        $aboutUsApi->vision = $vision;
+        return $aboutUsApi;
     }
 
     public function authority ()
     {
-        $authority = AuthorityPage::query()->with(['getTitle', 'getContent'])->get();
-        return AuthorityPageResource::collection($authority);
+        $authority = new AuthorityPageResource(AuthorityPage::query()->with(['getTitle', 'getContent'])->first());
+        $authorityApi = new stdClass;
+        $authorityApi->title = $authority;
+        return $authorityApi;
     }
 
     public function supervisor ()

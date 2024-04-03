@@ -44,25 +44,16 @@ class MastersSpecialtyController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $content = new Translate();
-        $content->ru = $requestData['content']['ru'];
-        $content->en = $requestData['content']['en'];
-        $content->kz = $requestData['content']['kz'];
-        $content->save();
-        $contentId = $content->id;
-
-        $title = new Translate();
-        $title->ru = $requestData['title']['ru'];
-        $title->en = $requestData['title']['en'];
-        $title->kz = $requestData['title']['kz'];
-        $title->save();
-        $titleId = $title->id;
+        $name = new Translate();
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->save();
+        $nameId = $name->id;
 
 
         $mastersSpecialty= new MastersSpecialty();
-        $mastersSpecialty->title = $titleId;
-        $mastersSpecialty->content = $contentId;
-        $mastersSpecialty->image = $path ?? null;
+        $mastersSpecialty->name = $nameId;
         $mastersSpecialty->save();
 
         return redirect('admin/mastersSpecialty')->with('flash_message', 'Блок добавлен');
@@ -78,12 +69,8 @@ class MastersSpecialtyController extends Controller
     public function show($id)
     {
         $mastersSpecialty = MastersSpecialty::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mastersSpecialty->title);
-        $translatedContent = Translate::findOrFail($mastersSpecialty->content);
-        $image = Translate::findOrFail($mastersSpecialty->content);
-        $translatedData['title'] = $translatedTitle;
-        $translatedData['content'] = $translatedContent;
-        $translatedData['image'] = $image;
+        $translatedName = Translate::findOrFail($mastersSpecialty->name);
+        $translatedData['name'] = $translatedName;
         return view('mastersSpecialty.show', compact('mastersSpecialty', 'translatedData'));
     }
 
@@ -97,12 +84,8 @@ class MastersSpecialtyController extends Controller
     public function edit($id)
     {
         $mastersSpecialty = MastersSpecialty::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($mastersSpecialty->title);
-        $translatedContent = Translate::findOrFail($mastersSpecialty->content);
-        $image = Translate::findOrFail($mastersSpecialty->content);
-        $translatedData['title'] = $translatedTitle;
-        $translatedData['content'] = $translatedContent;
-        $translatedData['image'] = $image;
+        $translatedName = Translate::findOrFail($mastersSpecialty->name);
+        $translatedData['name'] = $translatedName;
         return view('mastersSpecialty.edit', compact('mastersSpecialty', 'translatedData'));
     }
 
@@ -119,19 +102,11 @@ class MastersSpecialtyController extends Controller
         $requestData = $request->all();
         $mastersSpecialty = MastersSpecialty::findOrFail($id);
 
-        $content = Translate::find($mastersSpecialty->content);
-        $content->ru = $requestData['content']['ru'];
-        $content->en = $requestData['content']['en'];
-        $content->kz = $requestData['content']['kz'];
-        $content->update();
-
-        $title = Translate::find($mastersSpecialty->title);
-        $title->ru = $requestData['title']['ru'];
-        $title->en = $requestData['title']['en'];
-        $title->kz = $requestData['title']['kz'];
-        $title->update();
-
-        $mastersSpecialty->update();
+        $name = Translate::find($mastersSpecialty->name);
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->update();
 
         return redirect('admin/mastersSpecialty')->with('flash_message', 'Блок изменен');
     }
@@ -146,8 +121,8 @@ class MastersSpecialtyController extends Controller
     public function destroy($id)
     {
         $mastersSpecialty = MastersSpecialty::find($id);
-        $content = Translate::find($mastersSpecialty->content);
-        $content->delete();
+        $name = Translate::find($mastersSpecialty->name);
+        $name->delete();
         $mastersSpecialty->delete();
 
         return redirect('admin/mastersSpecialty')->with('flash_message', 'Блок удален');
