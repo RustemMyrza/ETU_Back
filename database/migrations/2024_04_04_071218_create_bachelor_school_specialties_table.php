@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentClubsTable extends Migration
+class CreateBachelorSchoolSpecialtiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateStudentClubsTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_clubs', function (Blueprint $table) {
+        Schema::create('bachelor_school_specialties', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('logo');
+            $table->unsignedBigInteger('school_id');
+            $table->foreign('school_id')->references('id')->on('bachelor_schools')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateStudentClubsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_clubs');
+        Schema::dropIfExists('bachelor_school_specialties');
     }
 }

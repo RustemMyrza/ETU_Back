@@ -1,20 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Студенческие клубы')
+@section('title', 'Школы Бакалавриата')
 
 @section('content_header')
-    <h1>Студенческие клубы</h1>
+    <h1>Школы Бакалавриата</h1>
 @stop
 
 @section('content')
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/studentClubPage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/bachelorSchool/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
 
-        <form method="GET" action="{{ url('/admin/studentClubPage') }}" accept-charset="UTF-8"
+        <form method="GET" action="{{ url('/admin/bachelorSchool') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -34,30 +34,31 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Заголовок</th>
-                    <th>Описание</th>
+                    <th>Название</th>
                     <th>Изображение</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
                 @if (isset($translatesData))
-                    @foreach($studentClubPage as $item)
-                        @if($item->getContent != null)
+                    @foreach($bachelorSchool as $item)
+                        @if($item->getName != null)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->title ? Str::limit($translatesData->find($item->title)->ru, 50) : '' }}</td>
-                                <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
+                                <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
                                 <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}" width="200px;"></td>
                                 <td>
-                                <a href="{{ url('/admin/studentClubPage/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/studentClubPage/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ route('school.page.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Страница</button></a>
+                                <a href="{{ route('school.specialty.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-university" aria-hidden="true"></i> Специальности</button></a>
+                                <a href="{{ route('school.educator.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-user-circle" aria-hidden="true"></i> Педагоги</button></a>
+                                <a href="{{ url('/admin/bachelorSchool/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/bachelorSchool/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/studentClubPage' . '/' . $item->id) }}"
+                                    <form method="POST" action="{{ url('/admin/bachelorSchool' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
@@ -74,7 +75,7 @@
                 @endif
                 </tbody>
             </table>
-            <div class="pagination-wrapper"> {!! $studentClubPage->appends(['search' => Request::get('search')])->render() !!} </div>
+            <div class="pagination-wrapper"> {!! $bachelorSchool->appends(['search' => Request::get('search')])->render() !!} </div>
         </div>
 
     </div>

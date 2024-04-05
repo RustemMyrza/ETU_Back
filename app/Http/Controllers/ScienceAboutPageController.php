@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuthorityPage;
-use App\Models\Translate;
 use Illuminate\Http\Request;
+use App\Models\ScienceAboutPage;
+use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class AuthorityPageController extends Controller
+class ScienceAboutPageController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class AuthorityPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $authority = AuthorityPage::where('content', 'LIKE', "%$keyword%")
+            $scienceAboutPage = ScienceAboutPage::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $authority = AuthorityPage::latest()->paginate($perPage);
+            $scienceAboutPage = ScienceAboutPage::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('authorityPage.index', compact('authority', 'translatesData'));
+        return view('scienceAboutPage.index', compact('scienceAboutPage', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AuthorityPageController extends Controller
      */
     public function create()
     {
-        return view('authorityPage.create');
+        return view('scienceAboutPage.create');
     }
 
     /**
@@ -45,7 +45,6 @@ class AuthorityPageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ],
@@ -73,13 +72,13 @@ class AuthorityPageController extends Controller
         $titleId = $title->id;
 
 
-        $authority= new AuthorityPage();
-        $authority->title = $titleId;
-        $authority->content = $contentId;
-        $authority->image = $path ?? null;
-        $authority->save();
+        $scienceAboutPage= new ScienceAboutPage();
+        $scienceAboutPage->title = $titleId;
+        $scienceAboutPage->content = $contentId;
+        $scienceAboutPage->image = $path ?? null;
+        $scienceAboutPage->save();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/scienceAboutPage')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -91,14 +90,14 @@ class AuthorityPageController extends Controller
      */
     public function show($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $scienceAboutPage = ScienceAboutPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scienceAboutPage->title);
+        $translatedContent = Translate::findOrFail($scienceAboutPage->content);
+        $image = Translate::findOrFail($scienceAboutPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.show', compact('authority', 'translatedData'));
+        return view('scienceAboutPage.show', compact('scienceAboutPage', 'translatedData'));
     }
 
     /**
@@ -110,14 +109,14 @@ class AuthorityPageController extends Controller
      */
     public function edit($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $scienceAboutPage = ScienceAboutPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scienceAboutPage->title);
+        $translatedContent = Translate::findOrFail($scienceAboutPage->content);
+        $image = Translate::findOrFail($scienceAboutPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.edit', compact('authority', 'translatedData'));
+        return view('scienceAboutPage.edit', compact('scienceAboutPage', 'translatedData'));
     }
 
     /**
@@ -139,30 +138,30 @@ class AuthorityPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $authority = AuthorityPage::findOrFail($id);
+        $scienceAboutPage = ScienceAboutPage::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($authority->image != null) {
-                Storage::disk('static')->delete($authority->image);
+            if ($scienceAboutPage->image != null) {
+                Storage::disk('static')->delete($scienceAboutPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $authority->image = $path;
+            $scienceAboutPage->image = $path;
         }
 
-        $content = Translate::find($authority->content);
+        $content = Translate::find($scienceAboutPage->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($authority->title);
+        $title = Translate::find($scienceAboutPage->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $authority->update();
+        $scienceAboutPage->update();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок изменен');
+        return redirect('admin/scienceAboutPage')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -174,14 +173,14 @@ class AuthorityPageController extends Controller
      */
     public function destroy($id)
     {
-        $authority = AuthorityPage::find($id);
-        if ($authority->image != null) {
-            Storage::disk('static')->delete($authority->image);
+        $scienceAboutPage = ScienceAboutPage::find($id);
+        if ($scienceAboutPage->image != null) {
+            Storage::disk('static')->delete($scienceAboutPage->image);
         }
-        $content = Translate::find($authority->content);
+        $content = Translate::find($scienceAboutPage->content);
         $content->delete();
-        $authority->delete();
+        $scienceAboutPage->delete();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок удален');
+        return redirect('admin/scienceAboutPage')->with('flash_message', 'Блок удален');
     }
 }

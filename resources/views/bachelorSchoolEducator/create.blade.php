@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="card-body">
-        <a href="{{ url('/admin/rectorsBlogQuestion') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/educator') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -21,10 +21,10 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/rectorsBlogPage') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/bachelorSchool/' . $schoolId . '/educator/create') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
 
-            @include ('rectorsBlogPage.form', ['formMode' => 'create'])
+            @include ('bachelorSchoolEducator.form', ['formMode' => 'create'])
 
         </form>
 

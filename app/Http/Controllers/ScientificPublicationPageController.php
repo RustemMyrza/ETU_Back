@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuthorityPage;
-use App\Models\Translate;
 use Illuminate\Http\Request;
+use App\Models\ScientificPublicationPage;
+use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class AuthorityPageController extends Controller
+class ScientificPublicationPageController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +15,15 @@ class AuthorityPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $authority = AuthorityPage::where('content', 'LIKE', "%$keyword%")
+            $scientificPublicationPage = ScientificPublicationPage::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $authority = AuthorityPage::latest()->paginate($perPage);
+            $scientificPublicationPage = ScientificPublicationPage::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('authorityPage.index', compact('authority', 'translatesData'));
+        return view('scientificPublicationPage.index', compact('scientificPublicationPage', 'translatesData'));
     }
 
     /**
@@ -33,7 +33,7 @@ class AuthorityPageController extends Controller
      */
     public function create()
     {
-        return view('authorityPage.create');
+        return view('scientificPublicationPage.create');
     }
 
     /**
@@ -45,7 +45,6 @@ class AuthorityPageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ],
@@ -73,13 +72,13 @@ class AuthorityPageController extends Controller
         $titleId = $title->id;
 
 
-        $authority= new AuthorityPage();
-        $authority->title = $titleId;
-        $authority->content = $contentId;
-        $authority->image = $path ?? null;
-        $authority->save();
+        $scientificPublicationPage= new ScientificPublicationPage();
+        $scientificPublicationPage->title = $titleId;
+        $scientificPublicationPage->content = $contentId;
+        $scientificPublicationPage->image = $path ?? null;
+        $scientificPublicationPage->save();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/scientificPublicationPage')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -91,14 +90,14 @@ class AuthorityPageController extends Controller
      */
     public function show($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $scientificPublicationPage = ScientificPublicationPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scientificPublicationPage->title);
+        $translatedContent = Translate::findOrFail($scientificPublicationPage->content);
+        $image = Translate::findOrFail($scientificPublicationPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.show', compact('authority', 'translatedData'));
+        return view('scientificPublicationPage.show', compact('scientificPublicationPage', 'translatedData'));
     }
 
     /**
@@ -110,14 +109,14 @@ class AuthorityPageController extends Controller
      */
     public function edit($id)
     {
-        $authority = AuthorityPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($authority->title);
-        $translatedContent = Translate::findOrFail($authority->content);
-        $image = Translate::findOrFail($authority->content);
+        $scientificPublicationPage = ScientificPublicationPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($scientificPublicationPage->title);
+        $translatedContent = Translate::findOrFail($scientificPublicationPage->content);
+        $image = Translate::findOrFail($scientificPublicationPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('authorityPage.edit', compact('authority', 'translatedData'));
+        return view('scientificPublicationPage.edit', compact('scientificPublicationPage', 'translatedData'));
     }
 
     /**
@@ -139,30 +138,30 @@ class AuthorityPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $authority = AuthorityPage::findOrFail($id);
+        $scientificPublicationPage = ScientificPublicationPage::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($authority->image != null) {
-                Storage::disk('static')->delete($authority->image);
+            if ($scientificPublicationPage->image != null) {
+                Storage::disk('static')->delete($scientificPublicationPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $authority->image = $path;
+            $scientificPublicationPage->image = $path;
         }
 
-        $content = Translate::find($authority->content);
+        $content = Translate::find($scientificPublicationPage->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($authority->title);
+        $title = Translate::find($scientificPublicationPage->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $authority->update();
+        $scientificPublicationPage->update();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок изменен');
+        return redirect('admin/scientificPublicationPage')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -174,14 +173,14 @@ class AuthorityPageController extends Controller
      */
     public function destroy($id)
     {
-        $authority = AuthorityPage::find($id);
-        if ($authority->image != null) {
-            Storage::disk('static')->delete($authority->image);
+        $scientificPublicationPage = ScientificPublicationPage::find($id);
+        if ($scientificPublicationPage->image != null) {
+            Storage::disk('static')->delete($scientificPublicationPage->image);
         }
-        $content = Translate::find($authority->content);
+        $content = Translate::find($scientificPublicationPage->content);
         $content->delete();
-        $authority->delete();
+        $scientificPublicationPage->delete();
 
-        return redirect('admin/authority')->with('flash_message', 'Блок удален');
+        return redirect('admin/scientificPublicationPage')->with('flash_message', 'Блок удален');
     }
 }

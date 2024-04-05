@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Accreditation extends Model
+class BachelorSchoolSpecialtyPage extends Model
 {
     use HasFactory;
 
-    protected $table = 'accreditations';
+    protected $table = 'bachelor_school_specialty_pages';
 
     /**
     * The database primary key value.
@@ -23,7 +23,7 @@ class Accreditation extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'content', 'image'];
+    protected $fillable = ['title', 'content', 'image', 'specialty_id'];
 
     public function getTitle()
     {
@@ -33,5 +33,10 @@ class Accreditation extends Model
     public function getContent()
     {
         return $this->hasOne(Translate::class, 'id', 'content');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(BachelorSchoolSpecialty::class);
     }
 }

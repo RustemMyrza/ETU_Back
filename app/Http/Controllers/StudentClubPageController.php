@@ -109,7 +109,7 @@ class StudentClubPageController extends Controller
      */
     public function edit($id)
     {
-        $studentClubPage = studentClubPage::findOrFail($id);
+        $studentClubPage = StudentClubPage::findOrFail($id);
         $translatedTitle = Translate::findOrFail($studentClubPage->title);
         $translatedContent = Translate::findOrFail($studentClubPage->content);
         $image = Translate::findOrFail($studentClubPage->content);
@@ -138,7 +138,7 @@ class StudentClubPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $studentClubPage = studentClubPage::findOrFail($id);
+        $studentClubPage = StudentClubPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($studentClubPage->image != null) {
                 Storage::disk('static')->delete($studentClubPage->image);
@@ -173,7 +173,7 @@ class StudentClubPageController extends Controller
      */
     public function destroy($id)
     {
-        $studentClubPage = studentClubPage::find($id);
+        $studentClubPage = StudentClubPage::find($id);
         if ($studentClubPage->image != null) {
             Storage::disk('static')->delete($studentClubPage->image);
         }

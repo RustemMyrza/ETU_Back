@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Accreditation extends Model
+class ScienceAboutPage extends Model
 {
     use HasFactory;
 
-    protected $table = 'accreditations';
+    protected $table = 'science_about_pages';
 
     /**
     * The database primary key value.

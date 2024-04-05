@@ -88,6 +88,44 @@ Route::resource('admin/studentHousePage', 'App\Http\Controllers\StudentHousePage
 Route::resource('admin/dormitory', 'App\Http\Controllers\DormitoryController');
 Route::resource('admin/travelGuidePage', 'App\Http\Controllers\TravelGuidePageController');
 Route::resource('admin/studentClubPage', 'App\Http\Controllers\StudentClubPageController');
+Route::resource('admin/scienceAboutPage', 'App\Http\Controllers\ScienceAboutPageController');
+Route::resource('admin/admissionsCommitteePage', 'App\Http\Controllers\AdmissionsCommitteePageController');
+Route::resource('admin/studentClub', 'App\Http\Controllers\StudentClubController');
+Route::resource('admin/masterPage', 'App\Http\Controllers\MasterPageController');
+Route::resource('admin/scientificPublicationPage', 'App\Http\Controllers\ScientificPublicationPageController');
+Route::resource('admin/bachelorSchool', 'App\Http\Controllers\BachelorSchoolController');
+
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->name('specialty.page.index');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->name('specialty.page.create');
+Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@store')->name('specialty.page.store');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@show')->name('specialty.page.show');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@edit')->name('specialty.page.edit');
+Route::delete('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@destroy')->name('specialty.page.destroy');
+Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController')->except(['index', 'show']);
+
+Route::get('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController@index')->name('school.page.index');
+Route::get('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@create')->name('school.page.create');
+Route::post('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@store')->name('school.page.store');
+Route::get('admin/bachelorSchool/{schoolId}/page/{id}', 'App\Http\Controllers\BachelorSchoolPageController@show')->name('school.page.show');
+Route::get('admin/bachelorSchool/{schoolId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolPageController@edit')->name('school.page.edit');
+Route::delete('admin/bachelorSchool/{schoolId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolPageController@destroy')->name('school.page.destroy');
+Route::resource('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController')->except(['index', 'show']);
+
+Route::get('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController@index')->name('school.specialty.index');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@create')->name('school.specialty.create');
+Route::post('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@store')->name('school.specialty.store');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyController@show')->name('school.specialty.show');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyController@edit')->name('school.specialty.edit');
+Route::delete('admin/bachelorSchool/{schoolId}/specialty/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyController@destroy')->name('school.specialty.destroy');
+Route::resource('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController')->except(['index', 'show']);
+
+Route::get('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController@index')->name('school.educator.index');
+Route::get('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@create')->name('school.educator.create');
+Route::post('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@store')->name('school.educator.store');
+Route::get('admin/bachelorSchool/{schoolId}/educator/{id}', 'App\Http\Controllers\BachelorSchoolEducatorController@show')->name('school.educator.show');
+Route::get('admin/bachelorSchool/{schoolId}/educator/{id}/edit', 'App\Http\Controllers\BachelorSchoolEducatorController@edit')->name('school.educator.edit');
+Route::delete('admin/bachelorSchool/{schoolId}/educator/{id}/delete', 'App\Http\Controllers\BachelorSchoolEducatorController@destroy')->name('school.educator.destroy');
+Route::resource('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController')->except(['index', 'show']);
 
 Route::get('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController@index')->name('news.content.index');
 Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@create')->name('news.content.create');

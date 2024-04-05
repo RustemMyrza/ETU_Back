@@ -11,7 +11,7 @@
     <div class="card-body">
 
         <a href="{{ url('/admin/rectorsBlogQuestion') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
-        <a href="{{ url('/admin/rectorsBlogQuestion/' . $question->id . '/edit') }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Редактировать</button></a>
+        <a href="{{ url('/admin/rectorsBlogQuestion/' . $question->id . '/edit') }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Ответить</button></a>
 
         <form method="POST" action="{{ url('admin/rectorsBlogQuestion' . '/' . $question->id) }}" accept-charset="UTF-8" style="display:inline">
             {{ method_field('DELETE') }}
