@@ -37,6 +37,7 @@ Route::get('/careerPage', [ApiController::class, 'careerPage'])->name('careerPag
 Route::get('/vacancy', [ApiController::class, 'vacancy'])->name('vacancy');
 Route::get('/academicCouncilPage', [ApiController::class, 'academicCouncilPage'])->name('academicCouncilPage');
 Route::get('/academicCouncilMember', [ApiController::class, 'academicCouncilMember'])->name('academicCouncilMember');
+Route::get('/rectorsBlogPage', [ApiController::class, 'rectorsBlogPage'])->name('rectorsBlogPage');
 Route::get('/rectorsBlogQuestion', [ApiController::class, 'rectorsBlogQuestion'])->name('rectorsBlogQuestion');
 Route::get('/scienceInnovationPage', [ApiController::class, 'scienceInnovationPage'])->name('scienceInnovationPage');
 

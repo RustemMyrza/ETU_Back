@@ -359,31 +359,105 @@ class ApiController extends Controller
     public function careerPage ()
     {
         $careerPage = CareerPage::query()->with(['getTitle', 'getContent'])->get();
-        return CareerPageResource::collection($careerPage);
-    }
 
-    public function vacancy ()
-    {
         $vacancy = Vacancy::query()->get();
-        return VacancyResource::collection($vacancy);
+        $vacancies = VacancyResource::collection($vacancy);
+
+        foreach ($careerPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new CareerPageResource($value);
+                    break;
+                case 1:
+                    $infoBlocks[] = new CareerPageResource($value);
+                    break;
+                case 2:
+                    $infoBlocks[] = new CareerPageResource($value);
+                    break;
+                case 3:
+                    $infoBlocks[] = new CareerPageResource($value);
+                    break;
+                case 4:
+                    $vacancyTitle = new CareerPageResource($value);
+                    break;
+                case 5:
+                    $button = new CareerPageResource($value);
+                    break;
+            }
+        }
+
+        $careerPageApi = new stdClass;
+        $careerPageApi->title = $title;
+        $careerPageApi->infoBlocks = $infoBlocks;
+        $careerPageApi->vacancyTitle = $vacancyTitle;
+        $careerPageApi->vacancies = $vacancies;
+        $careerPageApi->button = $button;
+        return $careerPageApi;
     }
 
     public function rectorsBlogPage ()
     {
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
-        return RectorsBlogPageResource::collection($rectorsBlogPage);
-    }
 
-    public function rectorsBlogQuestion ()
-    {
         $questions = RectorsBlogQuestion::query()->get();
-        return RectorsBlogQuestionResource::collection($questions);
+        $questions = RectorsBlogQuestionResource::collection($questions);
+
+        foreach ($rectorsBlogPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new RectorsBlogPageResource($value);
+                    break;
+                case 1:
+                    $rector = new RectorsBlogPageResource($value);
+                    break;
+            }
+        }
+        $rectorsBlogPageApi = new stdClass;
+        $rectorsBlogPageApi->title = $title;
+        $rectorsBlogPageApi->rector = $rector;
+        $rectorsBlogPageApi->questions = $questions;
+        return $rectorsBlogPageApi;
     }
 
     public function academicCouncilPage ()
     {
         $academicCouncilPage = AcademicCouncilPage::query()->with(['getTitle', 'getContent'])->get();
-        return AcademicCouncilPageResource::collection($academicCouncilPage);
+
+        $academicCouncilMember = AcademicCouncilMember::query()->with(['getName', 'getDescription'])->get();
+        $academicCouncilMembers = AcademicCouncilMemberResource::collection($academicCouncilMember);
+
+        foreach ($academicCouncilPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new AcademicCouncilPageResource ($value);
+                    break;
+                case 1:
+                    $infoBlock = new AcademicCouncilPageResource ($value);
+                    break;
+                case 2:
+                    $images[] = new AcademicCouncilPageResource ($value);
+                    break;
+                case 3:
+                    $images[] = new AcademicCouncilPageResource ($value);
+                    break;
+                case 4:
+                    $images[] = new AcademicCouncilPageResource ($value);
+                    break;
+            }
+        }
+
+        $academicCouncilPageApi = new stdClass;
+        $academicCouncilPageApi->title = $title;
+        $academicCouncilPageApi->infoBlock = $infoBlock;
+        $academicCouncilPageApi->images = $images;
+        $academicCouncilPageApi->members = $academicCouncilMembers;
+        return $academicCouncilPageApi;
     }
 
     public function academicCouncilMember ()
