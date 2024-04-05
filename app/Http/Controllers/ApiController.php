@@ -235,38 +235,104 @@ class ApiController extends Controller
 
     public function authority ()
     {
-        $authority = new AuthorityPageResource(AuthorityPage::query()->with(['getTitle', 'getContent'])->first());
+        $authority = AuthorityPage::query()->with(['getTitle', 'getContent'])->get();
+        $supervisor = Supervisor::query()->with(['getName', 'getPosition', 'getAddress'])->get();
+        $supervisors = SupervisorResource::collection($supervisor);
+        foreach($authority as $key => $value)
+        {
+            switch($key){
+                case 0:
+                    $title = new AuthorityPageResource($value);
+                    break;
+            }            
+        }
         $authorityApi = new stdClass;
-        $authorityApi->title = $authority;
+        $authorityApi->title = $title;
+        $authorityApi->supervisors = $supervisors;
+
         return $authorityApi;
     }
 
-    public function supervisor ()
-    {
-        $supervisor = Supervisor::query()->with(['getName', 'getPosition', 'getAddress'])->get();
-        return SupervisorResource::collection($supervisor);
-    }
-
-    public function accreditation ()
+    public function accreditation (Request $request)
     {
         $accreditation = Accreditation::query()->with(['getTitle', 'getContent'])->get();
-        return AccreditationResource::collection($accreditation);
-    }
 
-    public function specialty (Request $request)
-    {
         $limit = $request->limit;
         $specialty = Specialty::query()->with(['getName'])->take($limit)->get();
-        return SpecialtyResource::collection($specialty);
+        $specialties = SpecialtyResource::collection($specialty);
+
+        foreach($accreditation as $key => $value)
+        {
+            switch($key)
+            {
+                case 0:
+                    $titleDescription = new AccreditationResource($value);
+                    break;
+                case 1:
+                    $button = new AccreditationResource($value);
+                    break;
+                case 2:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 3:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 4:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 5:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 6:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 7:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+                case 8:
+                    $documents[] = new AccreditationResource($value);
+                    break;
+            }
+        }
+        $accreditationApi = new stdClass;
+        $accreditationApi->titleDescription = $titleDescription;
+        $accreditationApi->specialties = $specialties;
+        $accreditationApi->button = $button;
+        $accreditationApi->documents = $documents;
+        return $accreditationApi;
     }
 
     public function partnersPage ()
     {
         $partnersPage = PartnersPage::query()->with(['getTitle', 'getContent'])->get();
-        return PartnersPageResource::collection($partnersPage);
+
+        $partners = $this->partner()['data'];
+
+        foreach ($partnersPage as $key => $value)
+        {
+            switch($key)
+            {
+                case 0:
+                    $title = new PartnersPageResource($value);
+                    break;
+                case 1:
+                    $ourPartnersButton = new PartnersPageResource($value);
+                    break;
+                case 2:
+                    $internationalPartnersButton = new PartnersPageResource($value);
+                    break;
+            }
+        }
+
+        $partnersPageApi = new stdClass;
+        $partnersPageApi->title = $title;
+        $partnersPageApi->ourPartnersButton = $ourPartnersButton;
+        $partnersPageApi->internationalPartnersButton = $internationalPartnersButton;
+        $partnersPageApi->partners = $partners;
+        return $partnersPageApi;
     }
 
-    public function partner ()
+    private function partner ()
     {
         $partner = Partner::query()->get();
 
@@ -287,7 +353,7 @@ class ApiController extends Controller
             $data['data'][$type] = array_chunk($partners, 8);
         }
 
-        return response()->json($data, 200);
+        return $data;
     }
 
     public function careerPage ()

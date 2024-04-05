@@ -18,8 +18,8 @@ class SpecialtyResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->code,
-            'link' => $this->getName ? $this->getName->{$lang} : ''
+            'code' => $this->code,
+            'name' => $this->getName ? $this->getName->{$lang} : ''
         ];
     }
 }
