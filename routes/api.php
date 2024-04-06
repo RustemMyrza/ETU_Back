@@ -40,6 +40,11 @@ Route::get('/academicCouncilMember', [ApiController::class, 'academicCouncilMemb
 Route::get('/rectorsBlogPage', [ApiController::class, 'rectorsBlogPage'])->name('rectorsBlogPage');
 Route::get('/rectorsBlogQuestion', [ApiController::class, 'rectorsBlogQuestion'])->name('rectorsBlogQuestion');
 Route::get('/scienceInnovationPage', [ApiController::class, 'scienceInnovationPage'])->name('scienceInnovationPage');
+Route::get('/studentScience', [ApiController::class, 'studentScience'])->name('studentScience');
+Route::get('/scientificPublicationPage', [ApiController::class, 'scientificPublicationPage'])->name('scientificPublicationPage');
+Route::get('/admissionsCommitteePage', [ApiController::class, 'admissionsCommitteePage'])->name('admissionsCommitteePage');
+Route::get('/masterPage', [ApiController::class, 'masterPage'])->name('masterPage');
+
 
 Route::prefix('v1')->group(function (): void {
     Route::prefix('/parsing')->group(function (): void {

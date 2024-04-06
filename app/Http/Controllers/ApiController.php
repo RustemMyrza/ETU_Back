@@ -22,6 +22,11 @@ use App\Models\RectorsBlogQuestion;
 use App\Models\AcademicCouncilPage;
 use App\Models\AcademicCouncilMember;
 use App\Models\ScienceInnovationPage;
+use App\Models\StudentScience;
+use App\Models\ScientificPublicationPage;
+use App\Models\AdmissionsCommitteePage;
+use App\Models\MasterPage;
+use App\Models\MastersSpecialty;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -41,6 +46,8 @@ use App\Http\Resources\RectorsBlogQuestionResource;
 use App\Http\Resources\AcademicCouncilPageResource;
 use App\Http\Resources\AcademicCouncilMemberResource;
 use App\Http\Resources\ScienceInnovationPageResource;
+use App\Http\Resources\PageResource;
+use App\Http\Resources\MastersSpecialtyResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use stdClass;
@@ -469,6 +476,179 @@ class ApiController extends Controller
     public function scienceInnovationPage ()
     {
         $scienceInnovationPage = ScienceInnovationPage::query()->with(['getTitle', 'getContent'])->get();
-        return ScienceInnovationPageResource::collection($scienceInnovationPage);
+
+        foreach ($scienceInnovationPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $scienceInnovationTitle = new ScienceInnovationPageResource ($value);
+                    break;
+                case 1:
+                    $scienceBlock = new ScienceInnovationPageResource ($value);
+                    break;
+                case 2:
+                    $innovationBlock = new ScienceInnovationPageResource ($value);
+                    break;
+                case 3:
+                    $nipsTitle = new ScienceInnovationPageResource ($value);
+                    break;
+                case 4:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 5:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 6:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 7:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 8:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 9:
+                    $nipsBlocks[] = new ScienceInnovationPageResource ($value);
+                    break;
+                case 10:
+                    $normativeTitle = new ScienceInnovationPageResource ($value);
+                    break;
+                case 11:
+                    $scienceConferentionTitle = new ScienceInnovationPageResource ($value);
+                    break;
+                case 12:
+                    $scienceConferentionBlock = new ScienceInnovationPageResource ($value);
+                    break;
+            }
+        }
+
+        $scienceInnovationPageApi = new stdClass;
+        $scienceInnovationPageApi->scienceInnovationTitle = $scienceInnovationTitle;
+        $scienceInnovationPageApi->scienceBlock = $scienceBlock;
+        $scienceInnovationPageApi->innovationBlock = $innovationBlock;
+        $scienceInnovationPageApi->nipsTitle = $nipsTitle;
+        $scienceInnovationPageApi->nipsBlocks = $nipsBlocks;
+        $scienceInnovationPageApi->normativeTitle = $normativeTitle;
+        $scienceInnovationPageApi->scienceConferentionTitle = $scienceConferentionTitle;
+        $scienceInnovationPageApi->scienceConferentionBlock = $scienceConferentionBlock;
+        return $scienceInnovationPageApi;
+    }
+
+    public function studentScience ()
+    {
+        $studentScience = StudentScience::query()->with(['getTitle', 'getContent'])->get();
+
+        foreach ($studentScience as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $studentScienceBlock = new PageResource($value);
+                    break;
+
+            }
+        }
+        $studentScienceApi = new stdClass;
+        $studentScienceApi->studentScienceBlock = $studentScienceBlock;
+        return $studentScienceApi;
+    }
+
+    public function scientificPublicationPage ()
+    {
+        $scientificPublicationPage = ScientificPublicationPage::query()->with(['getTitle', 'getContent'])->get();
+
+        foreach ($scientificPublicationPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource($value);
+                    break;
+
+            }
+        }
+        $scientificPublicationPageApi = new stdClass;
+        $scientificPublicationPageApi->title = $title;
+        return $scientificPublicationPageApi;
+    }
+
+    public function admissionsCommitteePage ()
+    {
+        $admissionsCommitteePage = AdmissionsCommitteePage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($admissionsCommitteePage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $admissionsCommitteeTitle = new PageResource($value);
+                    break;
+                case 1:
+                    $discountsTitle = new PageResource($value);
+                    break;
+                case 2:
+                    $tableTitle_1 = new PageResource($value);
+                    break;
+                case 3:
+                    $tableTitle_2 = new PageResource($value);
+                    break;
+                case 4:
+                    $tableTitle_3 = new PageResource($value);
+                    break;
+                case 5:
+                    $costTitle = new PageResource($value);
+                    break;
+                case 6:
+                    $tableTitle_4 = new PageResource($value);
+                    break;
+                case 7:
+                    $tableTitle_5 = new PageResource($value);
+                    break;
+                case 8:
+                    $listOfDocumentsTitle = new PageResource($value);
+                    break;
+                case 9:
+                    $bachelorBlock = new PageResource($value);
+                    break;
+                case 10:
+                    $masterBlock = new PageResource($value);
+                    break;
+            }
+        }
+        $scientificPublicationPageApi = new stdClass;
+        $scientificPublicationPageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
+        $scientificPublicationPageApi->discountsTitle = $discountsTitle;
+        $scientificPublicationPageApi->tableTitle_1 = $tableTitle_1;
+        $scientificPublicationPageApi->tableTitle_2 = $tableTitle_2;
+        $scientificPublicationPageApi->tableTitle_3 = $tableTitle_3;
+        $scientificPublicationPageApi->costTitle = $costTitle;
+        $scientificPublicationPageApi->tableTitle_4 = $tableTitle_4;
+        $scientificPublicationPageApi->tableTitle_5 = $tableTitle_5;
+        $scientificPublicationPageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
+        $scientificPublicationPageApi->bachelorBlock = $bachelorBlock;
+        $scientificPublicationPageApi->masterBlock = $masterBlock;
+        return $scientificPublicationPageApi;
+    }
+
+    public function masterPage ()
+    {
+        $masterPage = MasterPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $masterSpecialties = MastersSpecialty::query()->with(['getName', 'getPage'])->get();
+        $masterSpecialties = MastersSpecialtyResource::collection($masterSpecialties);
+
+        foreach ($masterPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+            }
+        }
+        $masterPageApi = new stdClass;
+        $masterPageApi->title = $title;
+        $masterPageApi->specalties = $masterSpecialties;
+        return $masterPageApi;
     }
 }
