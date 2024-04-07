@@ -44,6 +44,22 @@ Route::get('/studentScience', [ApiController::class, 'studentScience'])->name('s
 Route::get('/scientificPublicationPage', [ApiController::class, 'scientificPublicationPage'])->name('scientificPublicationPage');
 Route::get('/admissionsCommitteePage', [ApiController::class, 'admissionsCommitteePage'])->name('admissionsCommitteePage');
 Route::get('/masterPage', [ApiController::class, 'masterPage'])->name('masterPage');
+Route::get('/internationalStudentsPage', [ApiController::class, 'internationalStudentsPage'])->name('internationalStudentsPage');
+Route::get('/languageCoursesPage', [ApiController::class, 'languageCoursesPage'])->name('languageCoursesPage');
+Route::get('/majorMinorPage', [ApiController::class, 'majorMinorPage'])->name('majorMinorPage');
+Route::get('/levelUpPage', [ApiController::class, 'levelUpPage'])->name('levelUpPage');
+Route::get('/olympicsPage', [ApiController::class, 'olympicsPage'])->name('olympicsPage');
+Route::get('/lincolnUniversityPage', [ApiController::class, 'lincolnUniversityPage'])->name('lincolnUniversityPage');
+Route::get('/academicPolicyPage', [ApiController::class, 'academicPolicyPage'])->name('academicPolicyPage');
+Route::get('/academicCalendarPage', [ApiController::class, 'academicCalendarPage'])->name('academicCalendarPage');
+Route::get('/libraryPage', [ApiController::class, 'libraryPage'])->name('libraryPage');
+Route::get('/ethicsCodePage', [ApiController::class, 'ethicsCodePage'])->name('ethicsCodePage');
+Route::get('/careerCenterPage', [ApiController::class, 'careerCenterPage'])->name('careerCenterPage');
+Route::get('/militaryDepartmentPage', [ApiController::class, 'militaryDepartmentPage'])->name('militaryDepartmentPage');
+Route::get('/medicalCarePage', [ApiController::class, 'medicalCarePage'])->name('medicalCarePage');
+Route::get('/studentHousePage', [ApiController::class, 'studentHousePage'])->name('studentHousePage');
+Route::get('/travelGuidePage', [ApiController::class, 'travelGuidePage'])->name('travelGuidePage');
+Route::get('/studentClubPage', [ApiController::class, 'studentClubPage'])->name('studentClubPage');
 
 
 Route::prefix('v1')->group(function (): void {

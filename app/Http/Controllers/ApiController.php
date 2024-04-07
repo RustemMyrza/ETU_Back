@@ -27,6 +27,24 @@ use App\Models\ScientificPublicationPage;
 use App\Models\AdmissionsCommitteePage;
 use App\Models\MasterPage;
 use App\Models\MastersSpecialty;
+use App\Models\InternationalStudentsPage;
+use App\Models\LanguageCoursesPage;
+use App\Models\MajorMinorPage;
+use App\Models\LevelUpPage;
+use App\Models\OlympicsPage;
+use App\Models\LincolnUniversityPage;
+use App\Models\AcademicPolicyPage;
+use App\Models\AcademicCalendarPage;
+use App\Models\LibraryPage;
+use App\Models\EthicsCodePage;
+use App\Models\CareerCenterPage;
+use App\Models\MilitaryDepartmentPage;
+use App\Models\MedicalCarePage;
+use App\Models\StudentHousePage;
+use App\Models\Dormitory;
+use App\Models\TravelGuidePage;
+use App\Models\StudentClubPage;
+use App\Models\StudentClub;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -48,6 +66,8 @@ use App\Http\Resources\AcademicCouncilMemberResource;
 use App\Http\Resources\ScienceInnovationPageResource;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\MastersSpecialtyResource;
+use App\Http\Resources\DormitoryResource;
+use App\Http\Resources\StudentClubResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use stdClass;
@@ -650,5 +670,558 @@ class ApiController extends Controller
         $masterPageApi->title = $title;
         $masterPageApi->specalties = $masterSpecialties;
         return $masterPageApi;
+    }
+
+    public function internationalStudentsPage ()
+    {
+        $internationalStudentsPage = InternationalStudentsPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($internationalStudentsPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $welcomeBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $welcomeText = new PageResource ($value);
+                    break;
+                case 3:
+                    $usefulInfoTitle = new PageResource ($value);
+                    break;
+                case 4:
+                    $usefulInfoBlocks[] = new PageResource ($value);
+                    break;
+                case 5:
+                    $usefulInfoBlocks[] = new PageResource ($value);
+                    break;
+                case 6:
+                    $usefulInfoBlocks[] = new PageResource ($value);
+                    break;
+                case 7:
+                    $usefulInfoBlocks[] = new PageResource ($value);
+                    break;
+            }
+        }
+        $internationalStudentsPageApi = new stdClass;
+        $internationalStudentsPageApi->title = $title;
+        $internationalStudentsPageApi->welcomeBlock = $welcomeBlock;
+        $internationalStudentsPageApi->welcomeText = $welcomeText;
+        $internationalStudentsPageApi->usefulInfoTitle = $usefulInfoTitle;
+        $internationalStudentsPageApi->usefulInfoBlocks = $usefulInfoBlocks;
+        return $internationalStudentsPageApi;
+    }
+
+    public function languageCoursesPage ()
+    {
+        $languageCoursesPage = LanguageCoursesPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($languageCoursesPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $languageCourseBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $languageCoursesPageApi = new stdClass;
+        $languageCoursesPageApi->languageCourseBlock = $languageCourseBlock;
+        return $languageCoursesPageApi;
+    }
+
+    public function majorMinorPage ()
+    {
+        $majorMinorPage = MajorMinorPage::query()->with(['getTitle', 'getContent'])->get();
+
+        foreach ($majorMinorPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $majorMinorBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $majorMinorPageApi = new stdClass;
+        $majorMinorPageApi->majorMinorBlock = $majorMinorBlock;
+        return $majorMinorPageApi;
+    }
+
+    public function levelUpPage ()
+    {
+        $levelUpPage = LevelUpPage::query()->with(['getTitle', 'getContent'])->get();
+
+        foreach ($levelUpPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $levelUpBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $levelUpPageApi = new stdClass;
+        $levelUpPageApi->levelUpBlock = $levelUpBlock;
+        return $levelUpPageApi;
+    }
+
+    public function olympicsPage ()
+    {
+        $olympicsPage = OlympicsPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($olympicsPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $olympicsEtuBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $olympicsGoal = new PageResource ($value);
+                    break;
+                case 3:
+                    $participateInvitation = new PageResource ($value);
+                    break;
+                case 4:
+                    $olympiadStage = new PageResource ($value);
+                    break;
+                case 5:
+                    $olympiadResults[] = new PageResource ($value);
+                    break;
+                case 6:
+                    $olympiadResults[] = new PageResource ($value);
+                    break;
+                case 7:
+                    $olympiadResults[] = new PageResource ($value);
+                    break;
+                case 8:
+                    $olympiadResults[] = new PageResource ($value);
+                    break;
+                case 9:
+                    $olympiadResultsTitle = new PageResource ($value);
+                    break;
+                case 10:
+                    $olympiadInfoTitle = new PageResource ($value);
+                    break;
+                case 11:
+                    $olympiadInfoText = new PageResource ($value);
+                    break;
+            }
+        }
+        $olympicsPageApi = new stdClass;
+        $olympicsPageApi->title = $title;
+        $olympicsPageApi->olympicsEtuBlock = $olympicsEtuBlock;
+        $olympicsPageApi->olympicsGoal = $olympicsGoal;
+        $olympicsPageApi->participateInvitation = $participateInvitation;
+        $olympicsPageApi->olympiadStage = $olympiadStage;
+        $olympicsPageApi->olympiadResultsTitle = $olympiadResultsTitle;
+        $olympicsPageApi->olympiadResults = $olympiadResults;
+        $olympicsPageApi->olympiadInfoTitle = $olympiadInfoTitle;
+        $olympicsPageApi->olympiadInfoText = $olympiadInfoText;
+        return $olympicsPageApi;
+    }
+
+    public function lincolnUniversityPage ()
+    {
+        $lincolnUniversityPage = LincolnUniversityPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($lincolnUniversityPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutProgramBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $fullSupport = new PageResource ($value);
+                    break;
+                case 3:
+                    $financialBenefit = new PageResource ($value);
+                    break;
+                case 4:
+                    $safetyAndComfort = new PageResource ($value);
+                    break;
+                case 5:
+                    $bestOf2 = new PageResource ($value);
+                    break;
+                case 6:
+                    $majorDisciplineTitle = new PageResource ($value);
+                    break;
+                case 7:
+                    $majorDisciplines[] = new PageResource ($value);
+                    break;
+                case 8:
+                    $majorDisciplines[] = new PageResource ($value);
+                    break;
+                case 9:
+                    $majorDisciplines[] = new PageResource ($value);
+                    break;
+                case 10:
+                    $majorDisciplines[] = new PageResource ($value);
+                    break;
+                case 11:
+                    $majorDisciplines[] = new PageResource ($value);
+                    break;
+                case 12:
+                    $programDetailTitle = new PageResource ($value);
+                    break;
+                case 13:
+                    $programDetail[] = new PageResource ($value);
+                    break;
+                case 14:
+                    $programDetail[] = new PageResource ($value);
+                    break;
+                case 15:
+                    $programDetail[] = new PageResource ($value);
+                    break;
+                case 16:
+                    $consultButton = new PageResource ($value);
+                    break;
+                case 17:
+                    $downloadButton = new PageResource ($value);
+                    break;
+            }
+        }
+        $lincolnUniversityPageApi = new stdClass;
+        $lincolnUniversityPageApi->title = $title;
+        $lincolnUniversityPageApi->aboutProgramBlock = $aboutProgramBlock;
+        $lincolnUniversityPageApi->fullSupport = $fullSupport;
+        $lincolnUniversityPageApi->financialBenefit = $financialBenefit;
+        $lincolnUniversityPageApi->safetyAndComfort = $safetyAndComfort;
+        $lincolnUniversityPageApi->bestOf2 = $bestOf2;
+        $lincolnUniversityPageApi->majorDisciplineTitle = $majorDisciplineTitle;
+        $lincolnUniversityPageApi->majorDisciplines = $majorDisciplines;
+        $lincolnUniversityPageApi->programDetailTitle = $programDetailTitle;
+        $lincolnUniversityPageApi->programDetail = $programDetail;
+        $lincolnUniversityPageApi->consultButton = $consultButton;
+        $lincolnUniversityPageApi->downloadButton = $downloadButton;
+        return $lincolnUniversityPageApi;
+    }
+
+    public function academicPolicyPage ()
+    {
+        $academicPolicyPage = AcademicPolicyPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($academicPolicyPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $text = new PageResource ($value);
+                    break;
+            }
+        }
+        $academicPolicyPageApi = new stdClass;
+        $academicPolicyPageApi->title = $title;
+        $academicPolicyPageApi->text = $text;
+        return $academicPolicyPageApi;
+    }
+
+    public function academicCalendarPage ()
+    {
+        $academicCalendarPage = AcademicCalendarPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($academicCalendarPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $block = new PageResource ($value);
+                    break;
+            }
+        }
+        $academicCalendarPageApi = new stdClass;
+        $academicCalendarPageApi->title = $title;
+        $academicCalendarPageApi->block = $block;
+        return $academicCalendarPageApi;
+    }
+
+    public function libraryPage ()
+    {
+        $libraryPage = LibraryPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($libraryPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutLibraryBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $aboutLibraryText = new PageResource ($value);
+                    break;
+                case 3:
+                    $button = new PageResource ($value);
+                    break;
+            }
+        }
+        $libraryPageApi = new stdClass;
+        $libraryPageApi->title = $title;
+        $libraryPageApi->aboutLibraryBlock = $aboutLibraryBlock;
+        $libraryPageApi->aboutLibraryText = $aboutLibraryText;
+        $libraryPageApi->button = $button;
+        return $libraryPageApi;
+    }
+
+    public function ethicsCodePage ()
+    {
+        $ethicsCodePage = EthicsCodePage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($ethicsCodePage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $block = new PageResource ($value);
+                    break;
+            }
+        }
+        $ethicsCodePageApi = new stdClass;
+        $ethicsCodePageApi->title = $title;
+        $ethicsCodePageApi->block = $block;
+        return $ethicsCodePageApi;
+    }
+
+    public function careerCenterPage ()
+    {
+        $careerCenterPage = CareerCenterPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($careerCenterPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutCareerCenterBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $tasksBlock = new PageResource ($value);
+                    break;
+                case 3:
+                    $functionsBlock = new PageResource ($value);
+                    break;
+                case 4:
+                    $consultBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $careerCenterPageApi = new stdClass;
+        $careerCenterPageApi->title = $title;
+        $careerCenterPageApi->aboutCareerCenterBlock = $aboutCareerCenterBlock;
+        $careerCenterPageApi->tasksBlock = $tasksBlock;
+        $careerCenterPageApi->functionsBlock = $functionsBlock;
+        $careerCenterPageApi->consultBlock = $consultBlock;
+        return $careerCenterPageApi;
+    }
+
+    public function militaryDepartmentPage ()
+    {
+        $militaryDepartmentPage = MilitaryDepartmentPage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($militaryDepartmentPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $text = new PageResource ($value);
+                    break;
+                case 2:
+                    $addressBlock = new PageResource ($value);
+                    break;
+                case 3:
+                    $contactBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $militaryDepartmentPageApi = new stdClass;
+        $militaryDepartmentPageApi->title = $title;
+        $militaryDepartmentPageApi->text = $text;
+        $militaryDepartmentPageApi->addressBlock = $addressBlock;
+        $militaryDepartmentPageApi->contactBlock = $contactBlock;
+        return $militaryDepartmentPageApi;
+    }
+
+    public function medicalCarePage ()
+    {
+        $medicalCarePage = MedicalCarePage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($medicalCarePage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $addressBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $instructionBlock = new PageResource ($value);
+                    break;
+                case 3:
+                    $contactBlock = new PageResource ($value);
+                    break;
+            }
+        }
+        $medicalCarePageApi = new stdClass;
+        $medicalCarePageApi->title = $title;
+        $medicalCarePageApi->addressBlock = $addressBlock;
+        $medicalCarePageApi->instructionBlock = $instructionBlock;
+        $medicalCarePageApi->contactBlock = $contactBlock;
+        return $medicalCarePageApi;
+    }
+
+    public function studentHousePage ()
+    {
+        $studentHousePage = StudentHousePage::query()->with(['getTitle', 'getContent'])->get();
+
+        $dormitory = Dormitory::query()->with(['getContent'])->get();
+        $dormitories = new stdClass;
+        $dormitories->first_dormitory = new stdClass;
+        $dormitories->second_dormitory = new stdClass;
+        $dormitories->third_dormitory = new stdClass;
+        foreach ($dormitory as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $dormitories->first_dormitory->costBlock = new DormitoryResource($value);
+                    break;
+                case 1:
+                    $dormitories->first_dormitory->addressBlock = new DormitoryResource($value);
+                    break;
+                case 2:
+                    $dormitories->first_dormitory->contactBlock = new DormitoryResource($value);
+                    break;
+                case 3:
+                    $dormitories->second_dormitory->costBlock = new DormitoryResource($value);
+                    break;
+                case 4:
+                    $dormitories->second_dormitory->addressBlock = new DormitoryResource($value);
+                    break;
+                case 5:
+                    $dormitories->second_dormitory->contactBlock = new DormitoryResource($value);
+                    break;
+                case 6:
+                    $dormitories->third_dormitory->costBlock = new DormitoryResource($value);
+                    break;
+                case 7:
+                    $dormitories->third_dormitory->addressBlock = new DormitoryResource($value);
+                    break;
+                case 8:
+                    $dormitories->third_dormitory->contactBlock = new DormitoryResource($value);
+                    break;
+            }
+        }
+        foreach ($studentHousePage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $images[] = new PageResource ($value);
+                    break;
+                case 3:
+                    $images[] = new PageResource ($value);
+                    break;
+                case 4:
+                    $images[] = new PageResource ($value);
+                    break;
+                case 5:
+                    $dormitoryButton_1 = new PageResource ($value);
+                    break;
+                case 6:
+                    $dormitoryButton_2 = new PageResource ($value);
+                    break;
+                case 7:
+                    $dormitoryButton_3 = new PageResource ($value);
+                    break;
+            }
+        }
+        $studentHousePageApi = new stdClass;
+        $studentHousePageApi->title = $title;
+        $studentHousePageApi->aboutBlock = $aboutBlock;
+        $studentHousePageApi->images = $images;
+        $studentHousePageApi->dormitoryButton_1 = $dormitoryButton_1;
+        $studentHousePageApi->dormitory_1 = $dormitories->first_dormitory;
+        $studentHousePageApi->dormitoryButton_2 = $dormitoryButton_2;
+        $studentHousePageApi->dormitory_2 = $dormitories->second_dormitory;
+        $studentHousePageApi->dormitoryButton_3 = $dormitoryButton_3;
+        $studentHousePageApi->dormitory_3 = $dormitories->third_dormitory;
+        return $studentHousePageApi;
+    }
+
+    public function travelGuidePage ()
+    {
+        $travelGuidePage = TravelGuidePage::query()->with(['getTitle', 'getContent'])->get();
+        foreach ($travelGuidePage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $block = new PageResource ($value);
+                    break;
+            }
+        }
+        $travelGuidePageApi = new stdClass;
+        $travelGuidePageApi->title = $title;
+        $travelGuidePageApi->block = $block;
+        
+        return $travelGuidePageApi;
+    }
+
+    public function studentClubPage ()
+    {
+        $studentClubPage = StudentClubPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $studentClub = StudentClub::query()->with(['getDescription'])->get();
+        $studentClubs = StudentClubResource::collection($studentClub);
+
+        foreach ($studentClubPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $ourClubsTitle = new PageResource ($value);
+                    break;
+            }
+        }
+        $studentClubPageApi = new stdClass;
+        $studentClubPageApi->title = $title;
+        $studentClubPageApi->aboutBlock = $aboutBlock;
+        $studentClubPageApi->ourClubsTitle = $ourClubsTitle;
+        $studentClubPageApi->studentClubs = $studentClubs;
+        
+        return $studentClubPageApi;
     }
 }
