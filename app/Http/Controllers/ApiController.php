@@ -45,6 +45,11 @@ use App\Models\Dormitory;
 use App\Models\TravelGuidePage;
 use App\Models\StudentClubPage;
 use App\Models\StudentClub;
+use App\Models\BachelorSchool;
+use App\Models\BachelorSchoolEducator;
+use App\Models\BachelorSchoolPage;
+use App\Models\BachelorSchoolSpecialty;
+use App\Models\BachelorSchoolSpecialtyPage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -68,6 +73,7 @@ use App\Http\Resources\PageResource;
 use App\Http\Resources\MastersSpecialtyResource;
 use App\Http\Resources\DormitoryResource;
 use App\Http\Resources\StudentClubResource;
+use App\Http\Resources\BachelorSchoolResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use stdClass;
@@ -184,6 +190,24 @@ class ApiController extends Controller
                 case 22:
                     $application = new MainPageResource($value);
                     break;
+                case 23:
+                    $faqTitle = new MainPageResource($value);
+                    break;
+                case 24:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 25:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 26:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 27:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 28:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
                 }
             }
         $mainPageApi = new stdClass;
@@ -195,6 +219,8 @@ class ApiController extends Controller
         $mainPageApi->inNumbers = $inNumbers;
         $mainPageApi->news = $news;
         $mainPageApi->application = $application;
+        $mainPageApi->faqTitle = $faqTitle;
+        $mainPageApi->faqQuestions = $faqQuestions;
         return $mainPageApi;
     }
 
@@ -1221,6 +1247,39 @@ class ApiController extends Controller
         $studentClubPageApi->aboutBlock = $aboutBlock;
         $studentClubPageApi->ourClubsTitle = $ourClubsTitle;
         $studentClubPageApi->studentClubs = $studentClubs;
+        
+        return $studentClubPageApi;
+    }
+
+    public function bachelorSchool ()
+    {
+        $bachelorSchool = BachelorSchool::query()->with(['getName', 'getSpecialties', 'getEducators', 'getPage'])->get();
+        return BachelorSchoolResource::collection($bachelorSchool);
+
+
+        // $bachelorSchool = StudentClub::query()->with(['getDescription'])->get();
+        // $bachelorSchool = StudentClubResource::collection($bachelorSchool);
+
+        foreach ($bachelorSchool as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource ($value);
+                    break;
+                case 1:
+                    $aboutBlock = new PageResource ($value);
+                    break;
+                case 2:
+                    $ourClubsTitle = new PageResource ($value);
+                    break;
+            }
+        }
+        $studentClubPageApi = new stdClass;
+        $studentClubPageApi->title = $title;
+        $studentClubPageApi->aboutBlock = $aboutBlock;
+        $studentClubPageApi->ourClubsTitle = $ourClubsTitle;
+        // $studentClubPageApi->studentClubs = $studentClubs;
         
         return $studentClubPageApi;
     }
