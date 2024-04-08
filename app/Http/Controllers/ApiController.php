@@ -97,7 +97,7 @@ class ApiController extends Controller
     public function contacts ()
     {
         $contactsData = Contact::query()->with('getTabName')->get();
-        return ContactResource::collection($contactsData);
+        return ContactResource::collection($contactsData)[0];
     }
 
     public function newsPage ()
@@ -128,10 +128,10 @@ class ApiController extends Controller
                     $educationProgram['title'] = new MainPageResource($value);
                     break;
                 case 2:
-                    $educationProgram['items'] = new MainPageResource($value);
+                    $educationProgram['items'][] = new MainPageResource($value);
                     break;
                 case 3:
-                    $educationProgram['items'] = new MainPageResource($value);
+                    $educationProgram['items'][] = new MainPageResource($value);
                     break;
                 case 4:
                     $professionalSchools['title'] = new MainPageResource($value);
@@ -188,7 +188,7 @@ class ApiController extends Controller
                     $news = new MainPageResource($value);
                     break;
                 case 22:
-                    $application = new MainPageResource($value);
+                    $applicationTitle = new MainPageResource($value);
                     break;
                 case 23:
                     $faqTitle = new MainPageResource($value);
@@ -208,6 +208,12 @@ class ApiController extends Controller
                 case 28:
                     $faqQuestions[] = new MainPageResource($value);
                     break;
+                case 29:
+                    $applicationDescription = new MainPageResource($value);
+                    break;
+                case 30:
+                    $applicationButton = new MainPageResource($value);
+                    break;
                 }
             }
         $mainPageApi = new stdClass;
@@ -218,7 +224,10 @@ class ApiController extends Controller
         $mainPageApi->inNumbers = $inNumbers;
         $mainPageApi->inNumbers = $inNumbers;
         $mainPageApi->news = $news;
-        $mainPageApi->application = $application;
+        $mainPageApi->application = new stdClass;
+        $mainPageApi->application->title = $applicationTitle;
+        $mainPageApi->application->description = $applicationDescription;
+        $mainPageApi->application->button = $applicationButton;
         $mainPageApi->faqTitle = $faqTitle;
         $mainPageApi->faqQuestions = $faqQuestions;
         return $mainPageApi;
@@ -270,10 +279,10 @@ class ApiController extends Controller
                     $historyYears[] = new AboutUsPageResource($value);
                     break;
                 case 12:
-                    $mission = new AboutUsPageResource($value);
+                    $blocks[] = new AboutUsPageResource($value);
                     break;
                 case 13:
-                    $vision = new AboutUsPageResource($value);
+                    $blocks[] = new AboutUsPageResource($value);
                     break;
         }
     }
@@ -281,8 +290,7 @@ class ApiController extends Controller
         $aboutUsApi->banner = $banner;
         $aboutUsApi->history = $history;
         $aboutUsApi->historyYears = $historyYears;
-        $aboutUsApi->mission = $mission;
-        $aboutUsApi->vision = $vision;
+        $aboutUsApi->blocks = $blocks;
         return $aboutUsApi;
     }
 
@@ -345,6 +353,9 @@ class ApiController extends Controller
                 case 8:
                     $documents[] = new AccreditationResource($value);
                     break;
+                case 9:
+                    $documentsDownloadButton = new AccreditationResource($value);
+                    break;
             }
         }
         $accreditationApi = new stdClass;
@@ -352,6 +363,7 @@ class ApiController extends Controller
         $accreditationApi->specialties = $specialties;
         $accreditationApi->button = $button;
         $accreditationApi->documents = $documents;
+        $accreditationApi->documentsDownloadButton = $documentsDownloadButton;
         return $accreditationApi;
     }
 
