@@ -94,6 +94,18 @@ Route::resource('admin/studentClub', 'App\Http\Controllers\StudentClubController
 Route::resource('admin/masterPage', 'App\Http\Controllers\MasterPageController');
 Route::resource('admin/scientificPublicationPage', 'App\Http\Controllers\ScientificPublicationPageController');
 Route::resource('admin/bachelorSchool', 'App\Http\Controllers\BachelorSchoolController');
+Route::resource('admin/scienceInnovationPageDocument', 'App\Http\Controllers\ScienceInnovationPageDocumentController');
+Route::resource('admin/accreditationPageDocument', 'App\Http\Controllers\AccreditationPageDocumentController');
+Route::resource('admin/academicCalendarPageDocument', 'App\Http\Controllers\AcademicCalendarPageDocumentController');
+Route::resource('admin/academicPolicyPageDocument', 'App\Http\Controllers\AcademicPolicyPageDocumentController');
+Route::resource('admin/ethicalCodePageDocument', 'App\Http\Controllers\EthicalCodePageDocumentController');
+Route::resource('admin/internationalStudentsDocument', 'App\Http\Controllers\InternationalStudentsPageDocumentController');
+Route::resource('admin/lincolnUniversityPageDocument', 'App\Http\Controllers\LincolnUniversityPageDocumentController');
+Route::resource('admin/olympicsPageDocument', 'App\Http\Controllers\OlympicsPageDocumentController');
+Route::resource('admin/scientificPublicationDocument', 'App\Http\Controllers\ScientificPublicationPageDocumentController');
+Route::resource('admin/studentSciencePageDocument', 'App\Http\Controllers\StudentSciencePageDocumentController');
+Route::resource('admin/travelGuidePageDocument', 'App\Http\Controllers\TravelGuidePageDocumentController');
+Route::resource('admin/scienceInnovationPageDocument', 'App\Http\Controllers\ScienceInnovationPageDocumentController');
 
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->name('specialty.page.index');
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->name('specialty.page.create');
@@ -142,6 +154,14 @@ Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}', 'App\Http\Co
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/edit', 'App\Http\Controllers\MastersSpecialtyPageController@edit')->name('mastersSpecialty.page.edit');
 Route::delete('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/delete', 'App\Http\Controllers\MastersSpecialtyPageController@destroy')->name('mastersSpecialty.page.destroy');
 Route::resource('admin/mastersSpecialty/{mastersSpecialtyId}/page', 'App\Http\Controllers\MastersSpecialtyPageController')->except(['index', 'show']);
+
+Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@index')->name('mastersSpecialty.document.index');
+Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents/create', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@create')->name('mastersSpecialty.document.create');
+Route::post('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@store')->name('mastersSpecialty.document.store');
+Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents/{id}', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@show')->name('mastersSpecialty.document.show');
+Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents/{id}/edit', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@edit')->name('mastersSpecialty.document.edit');
+Route::delete('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents/{id}/delete', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@destroy')->name('mastersSpecialty.document.destroy');
+Route::resource('admin/mastersSpecialty/{mastersSpecialtyId}/page/documents', 'App\Http\Controllers\MasterSpecialtyPageDocumentController')->except(['index', 'show']);
 
 Route::get('admin/vacancy/{vacancyId}/applications', 'App\Http\Controllers\VacancyApplicationController@index')->name('vacancy.application.index');
 // Route::get('admin/vacancy/{vacancyId}/applications/create', 'App\Http\Controllers\VacancyApplicationController@create')->name('vacancy.application.create');

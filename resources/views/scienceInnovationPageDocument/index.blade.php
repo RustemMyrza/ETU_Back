@@ -1,26 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Страница')
+@section('title', 'Наука и Инноваций (Документы)')
 
 @section('content_header')
-    <h1>{{$mastersSpecialtyName}}</h1>
+    <h1>Наука и Инноваций (Документы)</h1>
 @stop
 
 @section('content')
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/scienceInnovationPageDocument/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-        <a href="{{ url('/admin/mastersSpecialty') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
-        </a>
-        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents') }}" class="btn btn-primary btn-sm" title="Добавить новый блок">
-            <i class="fa fa-file" aria-hidden="true"></i> Документы
-        </a>
 
-        <form method="GET" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page') }}" accept-charset="UTF-8"
+        <form method="GET" action="{{ url('/admin/scienceInnovationPageDocument') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -40,31 +34,30 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Заголовок</th>
-                    <th>Описание</th>
-                    <th>Изображение</th>
+                    <th>Название</th>
+                    <th>Документ</th>
+                    <th>Блок</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
                 @if (isset($translatesData))
-                    @foreach($mastersSpecialtyPage as $item)
-                        @if($item->getContent != null)
+                    @foreach($document as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->title ? Str::limit($translatesData->find($item->title)->ru, 50) : '' }}</td>
-                                <td>{{ $item->content ? Str::limit($translatesData->find($item->content)->ru, 50) : '' }}</td>
-                                <td><img src="{{ url("$item->image")}}" alt="{{ url("$item->image")}}" width="200px;"></td>
-                                <!-- {{ url("$item->image")}} -->
+                                <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
+                                <td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td>
+                                <td>{{ $item->block_id ? Str::limit($item->block_id == 1 ? 'Нормативно правовые акты' : 'Научные конференции', 50) : '' }}</td>
                                 <td>
-                                <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/scienceInnovationPageDocument/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/scienceInnovationPageDocument/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{ url('/admin/scienceInnovationPageDocument' . '/' . $item->id) }}"
+                                        accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
@@ -75,12 +68,11 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endif
                     @endforeach
                 @endif
                 </tbody>
             </table>
-            <div class="pagination-wrapper"> {!! $mastersSpecialtyPage->appends(['search' => Request::get('search')])->render() !!} </div>
+            <div class="pagination-wrapper"> {!! $document->appends(['search' => Request::get('search')])->render() !!} </div>
         </div>
 
     </div>

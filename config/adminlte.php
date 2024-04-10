@@ -300,6 +300,11 @@ return [
             'url'  => '/admin/bachelorSchool',
         ],
         [
+            'text' => 'Специальности Магистратуры',
+            'icon' => 'fas fa-fw fa-info',
+            'url'  => '/admin/mastersSpecialty',
+        ],
+        [
             'text'    => 'Навигационное меню',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
