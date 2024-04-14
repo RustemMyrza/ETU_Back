@@ -10,11 +10,13 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/scientificPublicationPageDocument/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/scientificPublicationDocument/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-
-        <form method="GET" action="{{ url('/admin/scientificPublicationPageDocument') }}" accept-charset="UTF-8"
+        <a href="{{ url('/admin/scientificPublicationPage') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
+        </a>
+        <form method="GET" action="{{ url('/admin/scientificPublicationDocument') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -35,6 +37,7 @@
                 <tr>
                     <th>#</th>
                     <th>Название</th>
+                    <th>Автор</th>
                     <th>Документ</th>
                     <th>Действия</th>
                 </tr>
@@ -46,16 +49,17 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
+                                <td>{{ $item->author ? Str::limit($translatesData->find($item->author)->ru, 50) : '' }}</td>
                                 <td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td>
                                 <td>
-                                <a href="{{ url('/admin/scientificPublicationPageDocument/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/scientificPublicationPageDocument/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/scientificPublicationDocument/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/scientificPublicationDocument/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/scientificPublicationPageDocument' . '/' . $item->id) }}"
+                                    <form method="POST" action="{{ url('/admin/scientificPublicationDocument' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}

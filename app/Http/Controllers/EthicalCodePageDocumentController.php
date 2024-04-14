@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EthicalCodePageDocument;
 
-class EthicalCodePageDocumentController extends Controller
+class EthicalCodePageDocumentController extends DocumentController
 {
     protected $modelClass = EthicalCodePageDocument::class;
     protected $viewName = 'ethicalCodePageDocument';

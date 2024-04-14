@@ -3,30 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MasterSpecialtyPageDocument;
-use App\Models\MastersSpecialty;
+use App\Models\BachelorSpecialtyDocument;
+use App\Models\BachelorSchoolSpecialty;
 use App\Models\Translate;
 use Illuminate\Support\Facades\Storage;
 
-class MasterSpecialtyPageDocumentController extends Controller
+class BachelorSpecialtyDocumentController extends Controller
 {
-    public function index(Request $request, $mastersSpecialtyId)
+    public function index(Request $request, $schoolId, $specialtyId)
     {
-        $mastersSpecialtyName = MastersSpecialty::findOrFail($mastersSpecialtyId)->getName->ru;
+        $specialtyName = BachelorSchoolSpecialty::findOrFail($specialtyId)->getName->ru;
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $mastersSpecialtyDocument = MasterSpecialtyPageDocument::where('name', 'LIKE', "%$keyword%")
+            $document = BachelorSpecialtyDocument::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $mastersSpecialtyDocument = MasterSpecialtyPageDocument::where('specialty_id', $mastersSpecialtyId)
+            $document = BachelorSpecialtyDocument::where('specialty_id', $specialtyId)
                 ->latest()
                 ->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('mastersSpecialtyPageDocument.index', compact('mastersSpecialtyDocument', 'translatesData', 'mastersSpecialtyId', 'mastersSpecialtyName'));
+        return view('bachelorSpecialtyDocument.index', compact('document', 'translatesData', 'schoolId', 'specialtyId', 'specialtyName'));
     }
 
     /**
@@ -34,10 +34,10 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create($mastersSpecialtyId)
+    public function create($schoolId, $specialtyId)
     {
         // dd($newsId);
-        return view('mastersSpecialtyPageDocument.create', compact('mastersSpecialtyId'));
+        return view('bachelorSpecialtyDocument.create', compact('schoolId', 'specialtyId'));
     }
 
     /**
@@ -47,7 +47,7 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, $mastersSpecialtyId)
+    public function store(Request $request, $schoolId, $specialtyId)
     {
         // dd($request->all());
         $request->validate([
@@ -70,13 +70,13 @@ class MasterSpecialtyPageDocumentController extends Controller
         $name->save();
         $nameId = $name->id;
 
-        $mastersSpecialtyDocument= new MasterSpecialtyPageDocument();
-        $mastersSpecialtyDocument->name = $nameId;
-        $mastersSpecialtyDocument->link = $path ?? null;
-        $mastersSpecialtyDocument->specialty_id = $mastersSpecialtyId;
-        $mastersSpecialtyDocument->save();
+        $document= new BachelorSpecialtyDocument();
+        $document->name = $nameId;
+        $document->link = $path ?? null;
+        $document->specialty_id = $specialtyId;
+        $document->save();
 
-        return redirect('admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents')->with('flash_message', 'Блок добавлен');
+        return redirect(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId]))->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -86,11 +86,11 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($mastersSpecialtyId, $id)
+    public function show($schoolId, $specialtyId, $id)
     {
-        $mastersSpecialtyDocument = MasterSpecialtyPageDocument::findOrFail($id);
-        $translatedName = Translate::findOrFail($mastersSpecialtyDocument->name);
-        return view('mastersSpecialtyPageDocument.show', compact('mastersSpecialtyDocument', 'translatedName', 'mastersSpecialtyId'));
+        $document = BachelorSpecialtyDocument::findOrFail($id);
+        $translatedName = Translate::findOrFail($document->name);
+        return view('bachelorSpecialtyDocument.show', compact('document', 'translatedName', 'schoolId', 'specialtyId', 'id'));
     }
 
     /**
@@ -100,11 +100,11 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($mastersSpecialtyId, $id)
+    public function edit($schoolId, $specialtyId, $id)
     {
-        $mastersSpecialtyDocument = MasterSpecialtyPageDocument::findOrFail($id);
-        $translatedName = Translate::findOrFail($mastersSpecialtyDocument->title);
-        return view('mastersSpecialtyPageDocument.edit', compact('mastersSpecialtyDocument', 'translatedName', 'mastersSpecialtyId'));
+        $document = BachelorSpecialtyDocument::findOrFail($id);
+        $translatedName = Translate::findOrFail($document->name);
+        return view('bachelorSpecialtyDocument.edit', compact('document', 'translatedName', 'schoolId', 'specialtyId', 'id'));
     }
 
     /**
@@ -115,7 +115,7 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id, $mastersSpecialtyId)
+    public function update(Request $request, $schoolId, $specialtyId, $id)
     {
         $request->validate([
             'document' => 'required|file|mimes:pdf,docx,pptx|max:2048',
@@ -126,24 +126,24 @@ class MasterSpecialtyPageDocumentController extends Controller
             ]);
 
         $requestData = $request->all();
-        $mastersSpecialtyDocument = MasterSpecialtyPageDocument::findOrFail($id);
+        $document = BachelorSpecialtyDocument::findOrFail($id);
         if ($request->hasFile('document')) {
-            if ($mastersSpecialtyDocument->link != null) {
-                Storage::disk('static')->delete($mastersSpecialtyDocument->link);
+            if ($document->link != null) {
+                Storage::disk('static')->delete($document->link);
             }
             $path = $this->uploadDocument($request->file('document'));
-            $mastersSpecialtyDocument->link = $path;
+            $document->link = $path;
         }
 
-        $name = Translate::find($mastersSpecialtyDocument->name);
+        $name = Translate::find($document->name);
         $name->ru = $requestData['name']['ru'];
         $name->en = $requestData['name']['en'];
         $name->kz = $requestData['name']['kz'];
         $name->update();
 
-        $mastersSpecialtyDocument->update();
+        $document->update();
 
-        return redirect('admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents')->with('flash_message', 'Блок изменен');
+        return redirect(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId]))->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -153,17 +153,17 @@ class MasterSpecialtyPageDocumentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($mastersSpecialtyId, $id)
+    public function destroy($schoolId, $specialtyId, $id)
     {
-        $mastersSpecialtyDocument = MasterSpecialtyPageDocument::find($id);
-        if ($mastersSpecialtyDocument->link != null) {
-            Storage::disk('static')->delete($mastersSpecialtyDocument->link);
+        $document = BachelorSpecialtyDocument::find($id);
+        if ($document->link != null) {
+            Storage::disk('static')->delete($document->link);
         }
 
-        $name = Translate::find($mastersSpecialtyDocument->name);
+        $name = Translate::find($document->name);
         $name->delete();
-        $mastersSpecialtyDocument->delete();
+        $document->delete();
 
-        return redirect('admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents')->with('flash_message', 'Блок удален');
+        return redirect(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId]))->with('flash_message', 'Блок удален');
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\DocumentResource;
+use App\Models\BachelorSpecialtyDocument;
+use League\CommonMark\Block\Element\Document;
 use stdClass;
 class BachelorSchoolSpecialtyResource extends JsonResource
 {
@@ -15,6 +18,17 @@ class BachelorSchoolSpecialtyResource extends JsonResource
     public function toArray($request)
     {
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
+        $specialtyDocuments = [];
+        $documents = BachelorSpecialtyDocument::query()->with(['getName'])->get();
+        // return $documents;
+        foreach ($documents as $item)
+        {
+            if ($item->specialty_id == $this->id)
+            {
+                $specialtyDocuments[] = new DocumentResource($item);
+            }
+        }
+
         $blocks = new stdClass;
         foreach ($this->getPage as $key => $value)
         {
@@ -46,6 +60,8 @@ class BachelorSchoolSpecialtyResource extends JsonResource
                     break;
             }
         }
+
+        $specialtyDocuments ? $blocks->documents = $specialtyDocuments : null;
 
         return [
             'id' => $this->id,

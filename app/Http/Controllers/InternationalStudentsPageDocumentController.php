@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\InternationalStudentsPageDocument;
 
-class InternationalStudentsPageDocumentController extends Controller
+class InternationalStudentsPageDocumentController extends DocumentController
 {
     protected $modelClass = InternationalStudentsPageDocument::class;
     protected $viewName = 'internationalStudentsPageDocument';
-    protected $redirectUrl = 'admin/internationalStudentsPageDocument';
+    protected $redirectUrl = 'admin/internationalStudentsDocument';
 
     public function index (Request $request)
     {

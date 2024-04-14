@@ -3,8 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\MastersSpecialtyPage;
+use App\Models\MasterSpecialtyPageDocument;
 use App\Http\Resources\PageResource;
+use App\Http\Resources\DocumentResource;
+use League\CommonMark\Block\Element\Document;
 use stdClass;
 
 class MastersSpecialtyResource extends JsonResource
@@ -18,9 +20,20 @@ class MastersSpecialtyResource extends JsonResource
     public function toArray($request)
     {
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
+        $specialtyDocuments = [];
         if ($this->getPage)
         {
             $pageApi = new stdClass;
+            $documents = MasterSpecialtyPageDocument::query()->with(['getName'])->get();
+            
+            foreach ($documents as $item)
+            {
+                if ($item->specialty_id == $this->id)
+                {
+                    $specialtyDocuments[] = new DocumentResource($item);
+                }
+            }
+            
             foreach ($this->getPage as $key => $value)
             {
                 switch ($key)
@@ -52,6 +65,8 @@ class MastersSpecialtyResource extends JsonResource
                 }
             }
 
+            $specialtyDocuments ? $pageApi->documents = $specialtyDocuments : null;
+            
             return [
                 'id' => $this->id,
                 'name' => $this->getName ? $this->getName->{$lang} : '',

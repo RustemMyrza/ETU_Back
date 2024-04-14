@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\OlympicsPageDocument;
 
-class OlympicsPageDocumentController extends Controller
+class OlympicsPageDocumentController extends DocumentController
 {
     protected $modelClass = OlympicsPageDocument::class;
     protected $viewName = 'olympicsPageDocument';

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScientificPublicationPageDocumentsTable extends Migration
+class CreateBachelorSpecialtyDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateScientificPublicationPageDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scientific_publication_page_documents', function (Blueprint $table) {
+        Schema::create('bachelor_specialty_documents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name');
             $table->string('link');
-            $table->string('author')->nullable();
+            $table->unsignedBigInteger('specialty_id');
+            $table->foreign('specialty_id')->references('id')->on('bachelor_school_specialties')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateScientificPublicationPageDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scientific_publication_page_documents');
+        Schema::dropIfExists('bachelor_specialty_documents');
     }
 }

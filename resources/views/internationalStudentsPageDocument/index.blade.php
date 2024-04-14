@@ -10,11 +10,13 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/internationalStudentsPageDocument/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/internationalStudentsDocument/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-
-        <form method="GET" action="{{ url('/admin/internationalStudentsPageDocument') }}" accept-charset="UTF-8"
+        <a href="{{ url('/admin/internationalStudentsPage') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
+        </a>
+        <form method="GET" action="{{ url('/admin/internationalStudentsDocument') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -48,14 +50,14 @@
                                 <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
                                 <td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td>
                                 <td>
-                                <a href="{{ url('/admin/internationalStudentsPageDocument/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/internationalStudentsPageDocument/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/internationalStudentsDocument/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/internationalStudentsDocument/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/internationalStudentsPageDocument' . '/' . $item->id) }}"
+                                    <form method="POST" action="{{ url('/admin/internationalStudentsDocument' . '/' . $item->id) }}"
                                         accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}

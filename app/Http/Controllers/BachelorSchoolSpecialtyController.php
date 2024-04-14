@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BachelorSchoolSpecialty;
 use App\Models\BachelorSchoolSpecialtyPage;
+use App\Models\BachelorSpecialtyDocument;
 use App\Models\BachelorSchool;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Translate;
@@ -134,6 +135,7 @@ class BachelorSchoolSpecialtyController extends Controller
         $bachelorSchoolSpecialty = BachelorSchoolSpecialty::find($id);
 
         $page = BachelorSchoolSpecialtyPage::where('specialty_id', $id)->get();
+        $documents = BachelorSpecialtyDocument::where('specialty_id', $id)->get();
 
 
         if (count($page) > 0)
@@ -152,6 +154,22 @@ class BachelorSchoolSpecialtyController extends Controller
                 }
                 if ($item->image != null) {
                     Storage::disk('static')->delete($item->image);
+                }
+                $item->delete();
+            }
+        }
+
+        if (count($documents) > 0)
+        {
+            foreach ($documents as $item)
+            {
+                if ($item->name)
+                {
+                    $name = Translate::findOrFail($item->title);
+                    $name->delete();
+                }
+                if ($item->link != null) {
+                    Storage::disk('static')->delete($item->link);
                 }
                 $item->delete();
             }

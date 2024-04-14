@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\StudentSciencePageDocument;
 
-class StudentSciencePageDocumentController extends Controller
+class StudentSciencePageDocumentController extends DocumentController
 {
     protected $modelClass = StudentSciencePageDocument::class;
     protected $viewName = 'studentSciencePageDocument';

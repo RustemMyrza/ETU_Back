@@ -50,6 +50,20 @@ use App\Models\BachelorSchoolEducator;
 use App\Models\BachelorSchoolPage;
 use App\Models\BachelorSchoolSpecialty;
 use App\Models\BachelorSchoolSpecialtyPage;
+use App\Models\AcademicPolicyPageDocument;
+use App\Models\AcademicCalendarPageDocument;
+use App\Models\AccreditationPageDocument;
+use App\Models\AdmissionsCommitteePageDocument;
+use App\Models\BachelorSpecialtyDocument;
+use App\Models\EthicalCodePageDocument;
+use App\Models\InternationalStudentsPageDocument;
+use App\Models\LincolnUniversityPageDocument;
+use App\Models\MasterSpecialtyPageDocument;
+use App\Models\ScienceInnovationPageDocument;
+use App\Models\OlympicsPageDocument;
+use App\Models\ScientificPublicationPageDocument;
+use App\Models\StudentSciencePageDocument;
+use App\Models\TravelGuidePageDocument;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -74,8 +88,11 @@ use App\Http\Resources\MastersSpecialtyResource;
 use App\Http\Resources\DormitoryResource;
 use App\Http\Resources\StudentClubResource;
 use App\Http\Resources\BachelorSchoolResource;
+use App\Http\Resources\DocumentResource;
+use App\Http\Resources\ScientificPublicationResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use League\CommonMark\Block\Element\Document;
 use stdClass;
 
 use function Ramsey\Uuid\v1;
@@ -106,10 +123,77 @@ class ApiController extends Controller
         return NewsPageResource::collection($newsPageData);
     }
 
-    public function news ()
+
+
+    private function sortByDateOldToNew($a, $b) 
     {
+        return strtotime($a->date) - strtotime($b->date);
+    }
+
+
+
+    private function sortByDateNewToOld($a, $b) 
+    {
+        return strtotime($b->date) - strtotime($a->date);
+    }
+
+
+
+    private function sorted($data, $type) 
+    {
+        if ($type == 'old')
+        {
+            usort($data, [$this, 'sortByDateOldToNew']);
+        }
+        else
+        {
+            usort($data, [$this, 'sortByDateNewToOld']);
+        }
+        return $data;
+    }
+
+
+
+
+    public function news (Request $request)
+    {
+        $correctNews = [];
         $news = News::query()->with(['getName', 'getChild'])->get();
-        return NewsResource::collection($news);
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $day = $request->input('day');
+        $sort = $request->input('sort');
+
+        $requestDate = [$year, $month, $day];
+
+        foreach ($news as $item)
+        {
+            $correctCount = 0;
+            $dateArr = explode('-', $item->date);
+            
+            foreach ($requestDate as $key => $value)
+            {
+                if ($value)
+                {
+                    if ($dateArr[$key] == $value)
+                    {
+                        $correctCount += 1; 
+                    }
+                }
+                else
+                {
+                    $correctCount += 1;
+                }
+            }
+
+            if($correctCount == 3)
+            {
+                $correctNews[] = $item;
+            }
+        }
+        
+        $sortedCorrectNews = $this->sorted($correctNews, $sort);
+        return NewsResource::collection($sortedCorrectNews);
     }
 
 
@@ -321,7 +405,8 @@ class ApiController extends Controller
         $limit = $request->limit;
         $specialty = Specialty::query()->with(['getName'])->take($limit)->get();
         $specialties = SpecialtyResource::collection($specialty);
-
+        $documents = AccreditationPageDocument::query()->with(['getName'])->get();
+        $resourceDocuments = DocumentResource::collection($documents);
         foreach($accreditation as $key => $value)
         {
             switch($key)
@@ -333,27 +418,6 @@ class ApiController extends Controller
                     $button = new AccreditationResource($value);
                     break;
                 case 2:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 3:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 4:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 5:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 6:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 7:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 8:
-                    $documents[] = new AccreditationResource($value);
-                    break;
-                case 9:
                     $documentsDownloadButton = new AccreditationResource($value);
                     break;
             }
@@ -362,7 +426,7 @@ class ApiController extends Controller
         $accreditationApi->titleDescription = $titleDescription;
         $accreditationApi->specialties = $specialties;
         $accreditationApi->button = $button;
-        $accreditationApi->documents = $documents;
+        $accreditationApi->documents = $resourceDocuments;
         $accreditationApi->documentsDownloadButton = $documentsDownloadButton;
         return $accreditationApi;
     }
@@ -534,6 +598,20 @@ class ApiController extends Controller
     public function scienceInnovationPage ()
     {
         $scienceInnovationPage = ScienceInnovationPage::query()->with(['getTitle', 'getContent'])->get();
+        $documents = ScienceInnovationPageDocument::query()->with(['getName'])->get();
+
+        foreach ($documents as $item)
+        {
+            if ($item->block_id == 1)
+            {
+                $normativeDocuments[] = new DocumentResource ($item);
+            }
+            else
+            {
+                $scienceConferentionDocuments[] = new DocumentResource ($item);
+            }
+        }
+
 
         foreach ($scienceInnovationPage as $key => $value)
         {
@@ -588,14 +666,18 @@ class ApiController extends Controller
         $scienceInnovationPageApi->nipsTitle = $nipsTitle;
         $scienceInnovationPageApi->nipsBlocks = $nipsBlocks;
         $scienceInnovationPageApi->normativeTitle = $normativeTitle;
+        $scienceInnovationPageApi->normativeDocuments = $normativeDocuments;
         $scienceInnovationPageApi->scienceConferentionTitle = $scienceConferentionTitle;
         $scienceInnovationPageApi->scienceConferentionBlock = $scienceConferentionBlock;
+        $scienceInnovationPageApi->scienceConferentionDocuments = $scienceConferentionDocuments;
         return $scienceInnovationPageApi;
     }
 
     public function studentScience ()
     {
         $studentScience = StudentScience::query()->with(['getTitle', 'getContent'])->get();
+        $documents = StudentSciencePageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
 
         foreach ($studentScience as $key => $value)
         {
@@ -609,12 +691,15 @@ class ApiController extends Controller
         }
         $studentScienceApi = new stdClass;
         $studentScienceApi->studentScienceBlock = $studentScienceBlock;
+        $studentScienceApi->documents = $documentsResource;
         return $studentScienceApi;
     }
 
     public function scientificPublicationPage ()
     {
         $scientificPublicationPage = ScientificPublicationPage::query()->with(['getTitle', 'getContent'])->get();
+        $documents = ScientificPublicationPageDocument::query()->with(['getName', 'getAuthor'])->get();
+        $documentsResource = ScientificPublicationResource::collection($documents);
 
         foreach ($scientificPublicationPage as $key => $value)
         {
@@ -628,6 +713,7 @@ class ApiController extends Controller
         }
         $scientificPublicationPageApi = new stdClass;
         $scientificPublicationPageApi->title = $title;
+        $scientificPublicationPageApi->documents = $documentsResource;
         return $scientificPublicationPageApi;
     }
 
@@ -713,6 +799,10 @@ class ApiController extends Controller
     public function internationalStudentsPage ()
     {
         $internationalStudentsPage = InternationalStudentsPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = InternationalStudentsPageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($internationalStudentsPage as $key => $value)
         {
             switch ($key)
@@ -749,6 +839,7 @@ class ApiController extends Controller
         $internationalStudentsPageApi->welcomeText = $welcomeText;
         $internationalStudentsPageApi->usefulInfoTitle = $usefulInfoTitle;
         $internationalStudentsPageApi->usefulInfoBlocks = $usefulInfoBlocks;
+        $internationalStudentsPageApi->documents = $documentsResource;
         return $internationalStudentsPageApi;
     }
 
@@ -808,6 +899,10 @@ class ApiController extends Controller
     public function olympicsPage ()
     {
         $olympicsPage = OlympicsPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = OlympicsPageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+        
         foreach ($olympicsPage as $key => $value)
         {
             switch ($key)
@@ -860,12 +955,17 @@ class ApiController extends Controller
         $olympicsPageApi->olympiadResults = $olympiadResults;
         $olympicsPageApi->olympiadInfoTitle = $olympiadInfoTitle;
         $olympicsPageApi->olympiadInfoText = $olympiadInfoText;
+        $olympicsPageApi->documents = $documentsResource;
         return $olympicsPageApi;
     }
 
     public function lincolnUniversityPage ()
     {
         $lincolnUniversityPage = LincolnUniversityPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = LincolnUniversityPageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($lincolnUniversityPage as $key => $value)
         {
             switch ($key)
@@ -939,12 +1039,17 @@ class ApiController extends Controller
         $lincolnUniversityPageApi->programDetail = $programDetail;
         $lincolnUniversityPageApi->consultButton = $consultButton;
         $lincolnUniversityPageApi->downloadButton = $downloadButton;
+        $lincolnUniversityPageApi->documents = $documentsResource;
         return $lincolnUniversityPageApi;
     }
 
     public function academicPolicyPage ()
     {
         $academicPolicyPage = AcademicPolicyPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = AcademicPolicyPageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($academicPolicyPage as $key => $value)
         {
             switch ($key)
@@ -960,12 +1065,17 @@ class ApiController extends Controller
         $academicPolicyPageApi = new stdClass;
         $academicPolicyPageApi->title = $title;
         $academicPolicyPageApi->text = $text;
+        $academicPolicyPageApi->documents = $documentsResource;
         return $academicPolicyPageApi;
     }
 
     public function academicCalendarPage ()
     {
         $academicCalendarPage = AcademicCalendarPage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = AcademicCalendarPageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($academicCalendarPage as $key => $value)
         {
             switch ($key)
@@ -981,6 +1091,7 @@ class ApiController extends Controller
         $academicCalendarPageApi = new stdClass;
         $academicCalendarPageApi->title = $title;
         $academicCalendarPageApi->block = $block;
+        $academicCalendarPageApi->documents = $documentsResource;
         return $academicCalendarPageApi;
     }
 
@@ -1016,6 +1127,10 @@ class ApiController extends Controller
     public function ethicsCodePage ()
     {
         $ethicsCodePage = EthicsCodePage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = EthicalCodePageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($ethicsCodePage as $key => $value)
         {
             switch ($key)
@@ -1031,6 +1146,7 @@ class ApiController extends Controller
         $ethicsCodePageApi = new stdClass;
         $ethicsCodePageApi->title = $title;
         $ethicsCodePageApi->block = $block;
+        $ethicsCodePageApi->documents = $documentsResource;
         return $ethicsCodePageApi;
     }
 
@@ -1213,6 +1329,10 @@ class ApiController extends Controller
     public function travelGuidePage ()
     {
         $travelGuidePage = TravelGuidePage::query()->with(['getTitle', 'getContent'])->get();
+
+        $documents = TravelGuidePageDocument::query()->with(['getName'])->get();
+        $documentsResource = DocumentResource::collection($documents);
+
         foreach ($travelGuidePage as $key => $value)
         {
             switch ($key)
@@ -1228,6 +1348,7 @@ class ApiController extends Controller
         $travelGuidePageApi = new stdClass;
         $travelGuidePageApi->title = $title;
         $travelGuidePageApi->block = $block;
+        $travelGuidePageApi->documents = $documentsResource;
         
         return $travelGuidePageApi;
     }
@@ -1266,33 +1387,9 @@ class ApiController extends Controller
     public function bachelorSchool ()
     {
         $bachelorSchool = BachelorSchool::query()->with(['getName', 'getSpecialties', 'getEducators', 'getPage'])->get();
-        return BachelorSchoolResource::collection($bachelorSchool);
-
-
-        // $bachelorSchool = StudentClub::query()->with(['getDescription'])->get();
-        // $bachelorSchool = StudentClubResource::collection($bachelorSchool);
-
-        foreach ($bachelorSchool as $key => $value)
-        {
-            switch ($key)
-            {
-                case 0:
-                    $title = new PageResource ($value);
-                    break;
-                case 1:
-                    $aboutBlock = new PageResource ($value);
-                    break;
-                case 2:
-                    $ourClubsTitle = new PageResource ($value);
-                    break;
-            }
-        }
-        $studentClubPageApi = new stdClass;
-        $studentClubPageApi->title = $title;
-        $studentClubPageApi->aboutBlock = $aboutBlock;
-        $studentClubPageApi->ourClubsTitle = $ourClubsTitle;
+        $bachelorSchoolResource = BachelorSchoolResource::collection($bachelorSchool);
         // $studentClubPageApi->studentClubs = $studentClubs;
         
-        return $studentClubPageApi;
+        return $bachelorSchoolResource;
     }
 }

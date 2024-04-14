@@ -13,7 +13,9 @@
         <a href="{{ url('/admin/admissionsCommitteePage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-
+        <a href="{{ url('/admin/admissionsCommitteePageDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
+            <i class="fa fa-file" aria-hidden="true"></i> Документы
+        </a>
         <form method="GET" action="{{ url('/admin/admissionsCommitteePage') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">

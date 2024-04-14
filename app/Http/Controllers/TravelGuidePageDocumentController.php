@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TravelGuidePageDocument;
 
-class TravelGuidePageDocumentController extends Controller
+class TravelGuidePageDocumentController extends DocumentController
 {
     protected $modelClass = TravelGuidePageDocument::class;
     protected $viewName = 'travelGuidePageDocument';

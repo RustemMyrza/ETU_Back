@@ -461,12 +461,12 @@ return [
                     [
                         'text' => 'Университет Линкольн',
                         'icon' => 'fas fa-fw fa-info',
-                        'url'  => '/admin/internationalStudentsPage',
+                        'url'  => '/admin/lincolnUniversityPage',
                     ],
                     [
                         'text' => 'Иностранные студенты',
                         'icon' => 'fas fa-fw fa-info',
-                        'url'  => '/admin/lincolnUniversityPage',
+                        'url'  => '/admin/internationalStudentsPage',
                     ],
                 ]
                 ],

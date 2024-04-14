@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AdmissionsCommitteePageDocument;
 
-class AdmissionsCommitteePageDocumentController extends Controller
+class AdmissionsCommitteePageDocumentController extends DocumentController
 {
     protected $modelClass = AdmissionsCommitteePageDocument::class;
     protected $viewName = 'admissionsCommitteePageDocument';

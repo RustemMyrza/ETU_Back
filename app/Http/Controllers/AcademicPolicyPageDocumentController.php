@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AcademicPolicyPageDocument;
 
-class AcademicPolicyPageDocumentController extends Controller
+class AcademicPolicyPageDocumentController extends DocumentController
 {
     protected $modelClass = AcademicPolicyPageDocument::class;
     protected $viewName = 'academicPolicyPageDocument';

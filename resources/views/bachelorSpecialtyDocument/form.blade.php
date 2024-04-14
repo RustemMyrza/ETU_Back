@@ -20,7 +20,7 @@
     </div>
 
     <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+        <div class="form-group {{ $errors->has('content') ? 'has-error' : ''}}">
             <label for="name[en]" class="control-label">{{ 'Название EN' }}</label>
             <input class="form-control" name="name[en]" type="text" id="name_en" value="{{ isset($translatedName->en) ? $translatedName->en : ''}}" >
             {!! $errors->first('name[en]"', '<p class="help-block">:message</p>') !!}
@@ -36,7 +36,6 @@
     </div>
 </div>
 
-
 <div class="form-group {{ $errors->has('document') ? 'has-error' : ''}}">
     <label for="document" class="control-label">{{ 'Документ' }}</label>
     <input class="form-control" name="document" type="file" id="document" value="{{ isset($document->link) ? $document->link : ''}}" >
@@ -44,7 +43,7 @@
 </div>
 @if (isset($document->link))
     <div class="form-group">
-        <img src="{{ \Config::get('constants.alias.cdn_url').$document->link }}" alt="" width="300px;">
+        <a href="{{ $document->link ? url($document->link) : '' }}">{{$document->name ? Str::limit($translatedName->ru, 50) : ''}}</a>
     </div>
 @endif
 

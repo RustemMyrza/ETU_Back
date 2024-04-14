@@ -7,6 +7,7 @@ use App\Models\Translate;
 use App\Models\BachelorSchool;
 use App\Models\BachelorSchoolSpecialty;
 use App\Models\BachelorSchoolEducator;
+use App\Models\BachelorSpecialtyDocument;
 use App\Models\BachelorSchoolPage;
 use App\Models\BachelorSchoolSpecialtyPage;
 use Illuminate\Support\Facades\Storage;
@@ -172,6 +173,7 @@ class BachelorSchoolController extends Controller
 
 
                 $specialtyPage = BachelorSchoolSpecialtyPage::where('specialty_id', $item->id)->get();
+                $specialtyDocuments = BachelorSpecialtyDocument::where('specialty_id', $item->id)->get();
 
 
                 if (count($specialtyPage) > 0)
@@ -192,6 +194,22 @@ class BachelorSchoolController extends Controller
                             Storage::disk('static')->delete($pageItem->image);
                         }
                         $pageItem->delete();
+                    }
+                }
+
+                if (count($specialtyDocuments) > 0)
+                {
+                    foreach ($specialtyDocuments as $document)
+                    {
+                        if ($document->name)
+                        {
+                            $specialtyDocumentName = Translate::findOrFail($pageItem->title);
+                            $specialtyDocumentName->delete();
+                        }
+                        if ($document->link != null) {
+                            Storage::disk('static')->delete($document->link);
+                        }
+                        $document->delete();
                     }
                 }
 

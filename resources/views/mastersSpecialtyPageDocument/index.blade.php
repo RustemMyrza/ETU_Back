@@ -3,21 +3,21 @@
 @section('title', 'Страница')
 
 @section('content_header')
-    <h1>{{ $mastersSpecialtyName }} ' (Документы)'</h1>
+    <h1>{{ $mastersSpecialtyName }} (Документы)</h1>
 @stop
 
 @section('content')
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
         <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
 
-        <form method="GET" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents') }}" accept-charset="UTF-8"
+        <form method="GET" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents') }}" accept-charset="UTF-8"
               class="form-inline my-2 my-lg-0 float-right" role="search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Поиск..."
@@ -52,14 +52,14 @@
                                 <td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td>
                                 <!-- {{ url("$item->image")}} -->
                                 <td>
-                                <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
-                                    <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents/' . $item->id . '/edit') }}" title="Редактировать блок">
+                                <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                    <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"

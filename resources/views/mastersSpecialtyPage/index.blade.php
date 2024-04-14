@@ -16,7 +16,7 @@
         <a href="{{ url('/admin/mastersSpecialty') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
-        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents') }}" class="btn btn-primary btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents') }}" class="btn btn-primary btn-sm" title="Добавить новый блок">
             <i class="fa fa-file" aria-hidden="true"></i> Документы
         </a>
 

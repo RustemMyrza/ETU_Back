@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="card-body">
-        <a href="{{ url('/admin/ethicalCodePageDocument') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/admissionsCommitteePageDocument') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -21,10 +21,10 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/ethicalCodePageDocument') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/admissionsCommitteePageDocument') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
 
-            @include ('ethicalCodePageDocument.form', ['formMode' => 'create'])
+            @include ('admissionsCommitteePageDocument.form', ['formMode' => 'create'])
 
         </form>
 

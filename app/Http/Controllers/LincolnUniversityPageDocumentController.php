@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LincolnUniversityPageDocument;
 
-class LincolnUniversityPageDocumentController extends Controller
+class LincolnUniversityPageDocumentController extends DocumentController
 {
     protected $modelClass = LincolnUniversityPageDocument::class;
     protected $viewName = 'lincolnUniversityPageDocument';

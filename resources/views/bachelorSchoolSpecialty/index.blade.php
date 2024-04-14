@@ -50,6 +50,7 @@
                                 <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
                                 <!-- {{ url("$item->image")}} -->
                                 <td>
+                                <a href="{{ route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $item->id]) }}" title="Документы"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Документы</button></a>
                                 <a href="{{ route('specialty.page.index', ['schoolId' => $schoolId, 'specialtyId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Страница</button></a>
                                 <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id . '/edit') }}" title="Редактировать блок">

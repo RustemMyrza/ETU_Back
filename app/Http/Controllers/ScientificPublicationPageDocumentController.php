@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ScientificPublicationPageDocument;
 
-class ScientificPublicationPageDocumentController extends Controller
+class ScientificPublicationPageDocumentController extends DocumentController
 {
     protected $modelClass = ScientificPublicationPageDocument::class;
     protected $viewName = 'scientificPublicationPageDocument';

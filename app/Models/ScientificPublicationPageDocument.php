@@ -5,13 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ScientificPublicationPageDocument extends Document
+class ScientificPublicationPageDocument extends Model
 {
     use HasFactory;
 
-    protected function getTableName()
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['name', 'link', 'author'];
+
+    public function getName()
     {
-        // Переопределяем метод для установки названия таблицы
-        return 'scientific_publication_page_documents';
+        return $this->hasOne(Translate::class, 'id', 'name');
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(Translate::class, 'id', 'author');
     }
 }

@@ -38,43 +38,7 @@ class NewsResource extends JsonResource
                 ];
             }),
         ];
-        $yearParam = in_array($request->year, ['2024', '2023', '2022', '2021']) ? $request->year : null;
-        $monthParam = in_array($request->month, range(1, 12)) ? $request->month : null;
-        $dayParam = in_array($request->day, range(1, 31)) ? $request->day : null;
-        $dateArr = explode('-', $this->date);
 
-
-        $params = [$yearParam, $monthParam, $dayParam];
-
-        $emptyParamsCount = 0;
-
-        foreach ($params as $item)
-        {
-            if ($item === null)
-            {
-                $emptyParamsCount += 1;
-            }
-        }
-
-        if ($emptyParamsCount == 3)
-        {
-            return $news;
-        }
-        else if ($emptyParamsCount < 3)
-        {
-            $filledParamsCount = 3 - $emptyParamsCount;
-            $correctParamsCount = 0;
-            foreach ($params as $key => $value)
-            {
-                if ($value == $dateArr[$key])
-                {
-                    $correctParamsCount += 1;
-                    if ($correctParamsCount == $filledParamsCount)
-                    {
-                        return $news;
-                    }
-                }
-            }
-        }
+        return $news;
     }
 }

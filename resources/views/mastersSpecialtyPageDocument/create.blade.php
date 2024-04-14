@@ -9,7 +9,7 @@
 @section('content')
 
     <div class="card-body">
-        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -21,7 +21,7 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/documents/create') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/documents/create') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             @include ('mastersSpecialtyPageDocument.form', ['formMode' => 'create'])
