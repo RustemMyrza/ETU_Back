@@ -90,6 +90,7 @@ use App\Http\Resources\StudentClubResource;
 use App\Http\Resources\BachelorSchoolResource;
 use App\Http\Resources\DocumentResource;
 use App\Http\Resources\ScientificPublicationResource;
+use App\Http\Resources\MainPageSchoolResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Block\Element\Document;
@@ -202,6 +203,7 @@ class ApiController extends Controller
     public function mainPage ()
     {
         $mainPageData = MainPage::query()->with(['getTitle', 'getContent'])->get();
+        $schools = BachelorSchool::query()->with(['getName'])->get();
         foreach ($mainPageData as $key => $value)
         {
             switch($key){
@@ -221,85 +223,75 @@ class ApiController extends Controller
                     $professionalSchools['title'] = new MainPageResource($value);
                     break;
                 case 5:
-                    $professionalSchools['items'][] = new MainPageResource($value);
+                    $advantages['title'] = new MainPageResource($value);
                     break;
                 case 6:
-                    $professionalSchools['items'][] = new MainPageResource($value);
+                    $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 7:
-                    $professionalSchools['items'][] = new MainPageResource($value);
+                    $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 8:
-                    $professionalSchools['items'][] = new MainPageResource($value);
+                    $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 9:
-                    $professionalSchools['items'][] = new MainPageResource($value);
+                    $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 10:
-                    $advantages['title'] = new MainPageResource($value);
+                    $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 11:
                     $advantages['items'][] = new MainPageResource($value);
                     break;
                 case 12:
-                    $advantages['items'][] = new MainPageResource($value);
-                    break;
-                case 13:
-                    $advantages['items'][] = new MainPageResource($value);
-                    break;
-                case 14:
-                    $advantages['items'][] = new MainPageResource($value);
-                    break;
-                case 15:
-                    $advantages['items'][] = new MainPageResource($value);
-                    break;
-                case 16:
-                    $advantages['items'][] = new MainPageResource($value);
-                    break;
-                case 17:
                     $inNumbers['title'] = new MainPageResource($value);
                     break;
-                case 18:
+                case 13:
                     $inNumbers['items'][] = new MainPageResource($value);
                     break;
-                case 19:
+                case 14:
                     $inNumbers['items'][] = new MainPageResource($value);
                     break;
-                case 20:
+                case 15:
                     $inNumbers['items'][] = new MainPageResource($value);
                     break;
-                case 21:
+                case 16:
                     $news = new MainPageResource($value);
                     break;
-                case 22:
+                case 17:
                     $applicationTitle = new MainPageResource($value);
                     break;
-                case 23:
+                case 18:
                     $faqTitle = new MainPageResource($value);
                     break;
+                case 19:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 20:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 21:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 22:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 23:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
                 case 24:
-                    $faqQuestions[] = new MainPageResource($value);
-                    break;
-                case 25:
-                    $faqQuestions[] = new MainPageResource($value);
-                    break;
-                case 26:
-                    $faqQuestions[] = new MainPageResource($value);
-                    break;
-                case 27:
-                    $faqQuestions[] = new MainPageResource($value);
-                    break;
-                case 28:
-                    $faqQuestions[] = new MainPageResource($value);
-                    break;
-                case 29:
                     $applicationDescription = new MainPageResource($value);
                     break;
-                case 30:
+                case 25:
                     $applicationButton = new MainPageResource($value);
                     break;
                 }
             }
+
+        $schoolsResource = MainPageSchoolResource::collection($schools);
+        $professionalSchools['item'] = $schoolsResource;
+        $request = new Request(); // Создаем новый экземпляр объекта Request
+        $request->merge(['sort' => 'new']);
         $mainPageApi = new stdClass;
         $mainPageApi->banner = $banner;
         $mainPageApi->educationProgram = $educationProgram;
@@ -308,6 +300,8 @@ class ApiController extends Controller
         $mainPageApi->inNumbers = $inNumbers;
         $mainPageApi->inNumbers = $inNumbers;
         $mainPageApi->news = $news;
+        $newsItems = $this->news($request);
+        $mainPageApi->newsItems = $newsItems;
         $mainPageApi->application = new stdClass;
         $mainPageApi->application->title = $applicationTitle;
         $mainPageApi->application->description = $applicationDescription;
@@ -531,7 +525,14 @@ class ApiController extends Controller
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
 
         $questions = RectorsBlogQuestion::query()->get();
-        $questions = RectorsBlogQuestionResource::collection($questions);
+        
+        foreach ($questions as $item)
+        {
+            if ($item->answer)
+            {
+                $answeredQuestions[] = new RectorsBlogQuestionResource($item);
+            }
+        }
 
         foreach ($rectorsBlogPage as $key => $value)
         {
@@ -548,7 +549,7 @@ class ApiController extends Controller
         $rectorsBlogPageApi = new stdClass;
         $rectorsBlogPageApi->title = $title;
         $rectorsBlogPageApi->rector = $rector;
-        $rectorsBlogPageApi->questions = $questions;
+        $rectorsBlogPageApi->questions = $answeredQuestions;
         return $rectorsBlogPageApi;
     }
 
@@ -1391,5 +1392,26 @@ class ApiController extends Controller
         // $studentClubPageApi->studentClubs = $studentClubs;
         
         return $bachelorSchoolResource;
+    }
+
+    public function footerNavBar ()
+    {
+        $contactsData = $this->contacts();
+        $address = explode(', ', $contactsData->address)[2];
+        $contacts = [
+            'id' => 6,
+            'name' => 'Контакты',
+            'child' => [
+                'address' => $address,
+                'email' => $contactsData->admissions_committee_mail,
+                'phone' => $contactsData->admissions_committee_num_2,
+                'facebook' => $contactsData->facebook_link,
+                'instagram' => $contactsData->instagram_link,
+                'youtube' => $contactsData->youtube_link
+            ]
+        ];
+        $navBar = $this->headerNavBar();
+        $navBar = $navBar->push($contacts);
+        return $navBar;
     }
 }

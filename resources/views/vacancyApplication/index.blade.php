@@ -54,10 +54,10 @@
                             <td>{{ $item->name ? Str::limit($item->name, 50) : '' }}</td>
                             <td>{{ $item->phone ? Str::limit($item->phone, 50) : '' }}</td>
                             <td>{{ $item->email ? Str::limit($item->email, 50) : '' }}</td>
-                            <td><img src="{{ url("$item->summary")}}" alt="{{ url("$item->summary")}}" width="200px;"></td>
-                            <td><img src="{{ url("$item->letter")}}" alt="{{ url("$item->letter")}}" width="200px;"></td>
-                            <td><img src="{{ url("$item->education")}}" alt="{{ url("$item->education")}}" width="200px;"></td>
-                            <td><img src="{{ url("$item->recommender")}}" alt="{{ url("$item->recommender")}}" width="200px;"></td>
+                            <td><a href="{{ $item->summary ? url($item->summary) : '' }}">{{ url($item->summary) }}</a></td>
+                            <td><a href="{{ $item->letter ? url($item->letter) : '' }}">{{ url($item->letter) }}</a></td>
+                            <td><a href="{{ $item->education ? url($item->education) : '' }}">{{ url($item->education) }}</a></td>
+                            <td><a href="{{ $item->recommender ? url($item->recommender) : '' }}">{{ url($item->recommender) }}</a></td>
                             <!-- {{ url("$item->image")}} -->
                             <td>
                             <a href="{{ url('/admin/vacancy/' . $vacancyId . '/applications/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>

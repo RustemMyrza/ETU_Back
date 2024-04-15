@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/headerNavBar', [ApiController::class, 'headerNavBar'])->name('headerNavBar');
+Route::get('/footerNavBar', [ApiController::class, 'footerNavBar'])->name('footerNavBar');
 Route::get('/contacts', [ApiController::class, 'contacts'])->name('contacts');
 Route::get('/newsPage', [ApiController::class, 'newsPage'])->name('newsPage');
 Route::get('/news', [ApiController::class, 'news'])->name('news');

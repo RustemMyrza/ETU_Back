@@ -44,25 +44,24 @@ class VacancyApplicationController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'document' => 'document|mimes:pdf,docx|max:2048',
         ],
             [
-                'image.required' => 'Изображение для блока обязательно',
-                'image.mimes' => 'Проверьте формат изображения',
-                'image.max' => 'Размер файла не может превышать 2МБ'
+                'document.mimes' => 'Проверьте формат документа',
+                'document.max' => 'Размер файла не может превышать 2МБ'
             ]);
         $requestData = $request->all();
         if ($request->hasFile('summary')) {
-            $summaryPath = $this->uploadImage($request->file('summary'));
+            $summaryPath = $this->uploadDocument($request->file('summary'));
         }
         if ($request->hasFile('letter')) {
-            $letterPath = $this->uploadImage($request->file('letter'));
+            $letterPath = $this->uploadDocument($request->file('letter'));
         }
         if ($request->hasFile('education')) {
-            $educationPath = $this->uploadImage($request->file('education'));
+            $educationPath = $this->uploadDocument($request->file('education'));
         }
         if ($request->hasFile('recommender')) {
-            $recommenderPath = $this->uploadImage($request->file('recommender'));
+            $recommenderPath = $this->uploadDocument($request->file('recommender'));
         }
 
         $vacancyApplication= new VacancyApplication();
@@ -76,7 +75,7 @@ class VacancyApplicationController extends Controller
         $vacancyApplication->parent_id = $vacancyId;
         $vacancyApplication->save();
 
-        return redirect('admin/vacancy/' . $vacancyId . '/applications')->with('flash_message', 'Блок добавлен');
+        return 'Заявка была отправлена';
     }
 
     /**

@@ -29,10 +29,10 @@
                     <tr><th> ФИО </th><td> {{ $vacancyApplication->name }} </td></tr>
                     <tr><th> Номер телефона </th><td> {{ $vacancyApplication->phone }} </td></tr>
                     <tr><th> Электронная почта </th><td> {{ $vacancyApplication->email }} </td></tr>
-                    <tr><th> Резюме </th><td><img src="{{url("$vacancyApplication->summary")}}" alt="{{ $vacancyApplication->summary }}" width="200px;"></td></tr>
-                    <tr><th> Мотивационное письмо </th><td><img src="{{url("$vacancyApplication->letter")}}" alt="{{ $vacancyApplication->letter }}" width="200px;"></td></tr>
-                    <tr><th> Документы об образовании </th><td><img src="{{url("$vacancyApplication->education")}}" alt="{{ $vacancyApplication->education }}" width="200px;"></td></tr>
-                    <tr><th> Список рекомендодателей </th><td><img src="{{url("$vacancyApplication->recommender")}}" alt="{{ $vacancyApplication->recommender }}" width="200px;"></td></tr>
+                    <tr><th> Резюме </th><td><a href="{{ $vacancyApplication->summary ? url($vacancyApplication->summary) : '' }}">{{ url($vacancyApplication->summary) }}</a></td></tr>
+                    <tr><th> Мотивационное письмо </th><td><a href="{{ $vacancyApplication->letter ? url($vacancyApplication->letter) : '' }}">{{ url($vacancyApplication->letter) }}</a></td></tr>
+                    <tr><th> Документы об образовании </th><td><a href="{{ $vacancyApplication->education ? url($vacancyApplication->education) : '' }}">{{ url($vacancyApplication->education) }}</a></td></tr>
+                    <tr><th> Список рекомендодателей </th><td><a href="{{ $vacancyApplication->recommender ? url($vacancyApplication->recommender) : '' }}">{{ url($vacancyApplication->recommender) }}</a></td></tr>
                 </tbody>
             </table>
         </div>
