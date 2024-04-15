@@ -28,7 +28,7 @@
                         <th>ID</th><td>{{ $mastersSpecialtyDocument->id }}</td>
                     </tr>
                     <tr><th> Название </th><td> {{ $translatedData['title']->ru }} </td></tr>
-                    <tr><th> Документ </th><td> <a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a> </td></tr>
+                    <tr><th> Документ </th><td> <a href="{{ $mastersSpecialtyDocument->link ? url($mastersSpecialtyDocument->link) : '' }}">{{$mastersSpecialtyDocument->name ? Str::limit($translatesData->find($mastersSpecialtyDocument->name)->ru, 50) : ''}}</a> </td></tr>
                 </tbody>
             </table>
         </div>

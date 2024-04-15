@@ -30,7 +30,7 @@
                     <tr><th> Название </th><td> {{ $newsData['name'] }} </td></tr>
                     <tr><th> Дата </th><td> {{ $newsData['date'] }} </td></tr>
                     <tr><th> Изображение </th><td>
-                        <img src="url({{ $newsData['image'] }})" alt="{{ $newsData['image'] }}">  
+                        <img src="{{ $newsData['image'] ? url($newsData['image']) : '' }}" alt="{{ $newsData['image'] ? url($newsData['image']) : '' }}">  
                     </td></tr>
                 </tbody>
             </table>

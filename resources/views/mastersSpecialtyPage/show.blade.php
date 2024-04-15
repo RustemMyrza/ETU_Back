@@ -29,7 +29,7 @@
                     </tr>
                     <tr><th> Заголовок </th><td> {{ $translatedData['title']->ru }} </td></tr>
                     <tr><th> Описание </th><td> {{ $translatedData['content']->ru }} </td></tr>
-                    <tr><th> Изображение </th><td><img src="{{ $mastersSpecialtyPage->image }}" alt="{{ $mastersSpecialtyPage->image }}" width="200px;"></td></tr>
+                    <tr><th> Изображение </th><td><img src="{{ $mastersSpecialtyPage->image ? url($mastersSpecialtyPage->image) : '' }}" alt="{{ $mastersSpecialtyPage->image ? url($mastersSpecialtyPage->image) : '' }}" width="200px;"></td></tr>
                 </tbody>
             </table>
         </div>

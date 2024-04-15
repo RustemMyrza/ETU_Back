@@ -29,7 +29,7 @@
                     </tr>
                     <tr><th> Назваание </th><td> {{ $studentClub->name }} </td></tr>
                     <tr><th> Описание </th><td> {{ $translatedData['content']->ru }} </td></tr>
-                    <tr><th> Логотип </th><td><img src="{{\Config::get('constants.alias.cdn_url').$studentClub->logo}}" alt="url($studentClub->logo)" width="200px;"></td></tr>
+                    <tr><th> Логотип </th><td><img src="{{ $studentClub->logo ? url($studentClub->logo) : '' }}" alt="{{ $studentClub->logo ? url($studentClub->logo) : '' }}" width="200px;"></td></tr>
                 </tbody>
             </table>
         </div>

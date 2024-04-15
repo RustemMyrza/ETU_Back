@@ -28,7 +28,7 @@
                         <th>ID</th><td>{{ $document->id }}</td>
                     </tr>
                     <tr><th> Заголовок </th><td> {{ $translatedName->ru }} </td></tr>
-                    <tr><th> Документ </th><td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td></tr>
+                    <tr><th> Документ </th><td><a href="{{ $document->link ? url($document->link) : '' }}">{{$document->name ? Str::limit($translatesData->find($document->name)->ru, 50) : ''}}</a></td></tr>
                 </tbody>
             </table>
         </div>

@@ -29,7 +29,7 @@
                     </tr>
                     <tr><th> Название </th><td> {{ $partner->name }} </td></tr>
                     <tr><th> Тип партнера </th><td> {{ $partner->type == 1 ? 'Партнер' : 'Международный партнер' }} </td></tr>
-                    <tr><th> Изображение </th><td><img src="{{\Config::get('constants.alias.cdn_url').$partner->image}}" alt="url($partner->image)" width="200px;"></td></tr>
+                    <tr><th> Изображение </th><td><img src="{{ $partner->image ? url($partner->image) : '' }}" alt="{{ $partner->image ? url($partner->image) : '' }}" width="200px;"></td></tr>
                 </tbody>
             </table>
         </div>

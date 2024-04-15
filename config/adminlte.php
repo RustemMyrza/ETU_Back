@@ -231,7 +231,7 @@ return [
         ],
         [
             'text' => 'Контакты',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-phone',
             'url'  => '/admin/contacts',
         ],
         [
@@ -241,67 +241,67 @@ return [
         ],
         [
             'text' => 'Руководители',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-user',
             'url'  => '/admin/supervisor',
         ],
         [
             'text' => 'Партнеры',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-users',
             'url'  => '/admin/partner',
         ],
         [
             'text' => 'Специальности',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-book',
             'url'  => '/admin/specialty',
         ],
         [
             'text' => 'Вакансий',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-address-book',
             'url'  => '/admin/vacancy',
         ],
         [
             'text' => 'Вопросы Блог ректора',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-question',
             'url'  => '/admin/rectorsBlogQuestion',
         ],
         [
             'text' => 'Член ученого совета',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-flask',
             'url'  => '/admin/academicCouncilMember',
         ],
         [
             'text' => 'Скидки',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-table',
             'url'  => '/admin/discount',
         ],
         [
             'text' => 'Скидки для студентов-отличников',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-table',
             'url'  => '/admin/honorsStudentDiscount',
         ],
         [
             'text' => 'Стоимости',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-credit-card',
             'url'  => '/admin/cost',
         ],
         [
             'text' => 'Общежитие',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-bed',
             'url'  => '/admin/dormitory',
         ],
         [
             'text' => 'Студенческие клубы',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-users',
             'url'  => '/admin/studentClub',
         ],
         [
             'text' => 'Школы Бакалавриат',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-graduation-cap',
             'url'  => '/admin/bachelorSchool',
         ],
         [
             'text' => 'Специальности Магистратуры',
-            'icon' => 'fas fa-fw fa-info',
+            'icon' => 'fas fa-fw fa-graduation-cap',
             'url'  => '/admin/mastersSpecialty',
         ],
         [
@@ -310,7 +310,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Категорий навигационного меню',
-                    'icon' => 'fas fa-fw fa-info',
+                    'icon' => 'fas fa-fw fa-bars',
                     'url'  => '/admin/navbar',
                 ],
                 [
@@ -319,27 +319,27 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Об университете',
-                            'icon' => 'fas fa-fw fa-info',
+                            'icon' => 'fas fa-fw fa-university',
                             'url'  => '/admin/university',
                         ],
                         [
                             'text' => 'Поступление',
-                            'icon' => 'fas fa-fw fa-info',
+                            'icon' => 'fas fa-fw fa-graduation-cap',
                             'url'  => '/admin/enrollment',
                         ],
                         [
                             'text' => 'Студентам',
-                            'icon' => 'fas fa-fw fa-info',
+                            'icon' => 'fas fa-fw fa-users',
                             'url'  => '/admin/students',
                         ],
                         [
                             'text' => 'Школы',
-                            'icon' => 'fas fa-fw fa-info',
+                            'icon' => 'fas fa-fw fa-book',
                             'url'  => '/admin/schools',
                         ],
                         [
                             'text' => 'Наука',
-                            'icon' => 'fas fa-fw fa-info',
+                            'icon' => 'fas fa-fw fa-flask',
                             'url'  => '/admin/science',
                         ],
                     ]
@@ -352,7 +352,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Главная страница',
-                    'icon' => 'fas fa-fw fa-info',
+                    'icon' => 'fas fa-fw fa-file',
                     'url'  => '/admin/mainPage',
                 ],
                 ['text'    => 'Об Университете',
@@ -360,42 +360,42 @@ return [
                 'submenu' => [
                     [
                         'text' => 'О нас',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/aboutUs',
                     ],
                     [
                         'text' => 'Аккредитация',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/accreditation',
                     ],
                     [
                         'text' => 'Партнеры',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/partnersPage',
                     ],
                     [
                         'text' => 'Руководство',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/authority',
                     ],
                     [
                         'text' => 'Карьера',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/careerPage',
                     ],
                     [
                         'text' => 'Блог ректора',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/rectorsBlogPage',
                     ],
                     [
                         'text' => 'Наука',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/scienceAboutPage',
                     ],
                     [
                         'text' => 'Ученый совет',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/academicCouncilPage',
                     ]
                 ]
@@ -405,17 +405,17 @@ return [
                 'submenu' => [
                     [
                         'text' => 'Наука и инноваций',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/scienceInnovationPage',
                     ],
                     [
                         'text' => 'Студенческая наука',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/studentScience',
                     ],
                     [
                         'text' => 'Научные издания',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/scientificPublicationPage',
                     ],
                 ]
@@ -425,47 +425,47 @@ return [
                 'submenu' => [
                     [
                         'text' => 'Приемная комиссия',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/admissionsCommitteePage',
                     ],
                     [
                         'text' => 'Бакалавриат',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/bachelorSchool',
                     ],
                     [
                         'text' => 'Магистратура',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/masterPage',
                     ],
                     [
                         'text' => 'Языковые курсы',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/languageCoursesPage',
                     ],
                     [
                         'text' => 'Major + Minor',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/majorMinorPage',
                     ],
                     [
                         'text' => 'Level Up',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/levelUpPage',
                     ],
                     [
                         'text' => 'Олимпиада',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/olympicsPage',
                     ],
                     [
                         'text' => 'Университет Линкольн',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/lincolnUniversityPage',
                     ],
                     [
                         'text' => 'Иностранные студенты',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/internationalStudentsPage',
                     ],
                 ]
@@ -475,52 +475,52 @@ return [
                 'submenu' => [
                     [
                         'text' => 'Академическая политика',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/academicPolicyPage',
                     ],
                     [
                         'text' => 'Академический календарь',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/academicCalendarPage',
                     ],
                     [
                         'text' => 'Библиотека',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/libraryPage',
                     ],
                     [
                         'text' => 'Этический кодекс',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/ethicsCodePage',
                     ],
                     [
                         'text' => 'Центр карьеры',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/careerCenterPage',
                     ],
                     [
                         'text' => 'Военная кафедра',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/militaryDepartmentPage',
                     ],
                     [
                         'text' => 'Медицинское обслуживание',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/medicalCarePage',
                     ],
                     [
                         'text' => 'Дом студента',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/studentHousePage',
                     ],
                     [
                         'text' => 'Путеводитель первокурсника',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/travelGuidePage',
                     ],
                     [
                         'text' => 'Студенческие клубы',
-                        'icon' => 'fas fa-fw fa-info',
+                        'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/studentClubPage',
                     ]
                 ]

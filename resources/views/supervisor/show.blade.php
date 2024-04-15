@@ -32,7 +32,7 @@
                     <tr><th> Электронная почта </th><td> {{ $supervisor->email }} </td></tr>
                     <tr><th> Номер телефона </th><td> {{ $supervisor->phone }} </td></tr>
                     <tr><th> Адрес </th><td> {{ $translatedData['address']->ru }} </td></tr>
-                    <tr><th> Фото </th><td><img src="{{\Config::get('constants.alias.cdn_url').$supervisor->image}}" alt="{{$supervisor->image}}" width="200px;"></td></tr>
+                    <tr><th> Фото </th><td><img src="{{ $supervisor->image ? url($supervisor->image) : '' }}" alt="{{ $supervisor->image ? url($supervisor->image) : '' }}" width="200px;"></td></tr>
                 </tbody>
             </table>
         </div>

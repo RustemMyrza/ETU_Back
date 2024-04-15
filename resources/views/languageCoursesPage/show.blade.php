@@ -29,7 +29,7 @@
                     </tr>
                     <tr><th> Заголовок </th><td> {{ $translatedData['title']->ru }} </td></tr>
                     <tr><th> Описание </th><td> {{ $translatedData['content']->ru }} </td></tr>
-                    <tr><th> Изображение </th><td><img src="{{\Config::get('constants.alias.cdn_url').$languageCoursesPage->image}}" alt="url($languageCoursesPage->image)" width="200px;"></td></tr>
+                    <tr><th> Изображение </th><td><img src="{{ $languageCoursesPage->image ? url($languageCoursesPage->image) : '' }}" alt="{{ $languageCoursesPage->image ? url($languageCoursesPage->image) : '' }}" width="200px;"></td></tr>
                 </tbody>
             </table>
         </div>
