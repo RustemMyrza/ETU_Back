@@ -181,7 +181,7 @@ class MastersSpecialtyPageController extends Controller
     {
         $mastersSpecialtyPage = MastersSpecialtyPage::find($id);
         if ($mastersSpecialtyPage->image != null) {
-            Storage::disk('static')->delete($mastersSpecialtyPage->image);
+            unlink($mastersSpecialtyPage->image);
         }
 
         $content = Translate::find($mastersSpecialtyPage->content);

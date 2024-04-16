@@ -176,7 +176,7 @@ class AccreditationController extends Controller
     {
         $accreditation = Accreditation::find($id);
         if ($accreditation->image != null) {
-            Storage::disk('static')->delete($accreditation->image);
+            unlink($accreditation->image);
         }
         $content = Translate::find($accreditation->content);
         $content->delete();

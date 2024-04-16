@@ -118,16 +118,16 @@ class VacancyApplicationController extends Controller
     {
         $vacancyApplication = VacancyApplication::find($id);
         if ($vacancyApplication->summary != null) {
-            Storage::disk('static')->delete($vacancyApplication->summary);
+            unlink($vacancyApplication->summary);
         }
         if ($vacancyApplication->letter != null) {
-            Storage::disk('static')->delete($vacancyApplication->letter);
+            unlink($vacancyApplication->letter);
         }
         if ($vacancyApplication->education != null) {
-            Storage::disk('static')->delete($vacancyApplication->education);
+            unlink($vacancyApplication->education);
         }
         if ($vacancyApplication->recommender != null) {
-            Storage::disk('static')->delete($vacancyApplication->recommender);
+            unlink($vacancyApplication->recommender);
         }
         $vacancyApplication->delete();
 

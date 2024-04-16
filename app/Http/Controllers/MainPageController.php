@@ -175,7 +175,7 @@ class MainPageController extends Controller
     {
         $mainPage = MainPage::find($id);
         if ($mainPage->image != null) {
-            Storage::disk('static')->delete($mainPage->image);
+            unlink($mainPage->image);
         }
         $content = Translate::find($mainPage->content);
         $content->delete();

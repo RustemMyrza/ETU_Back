@@ -162,7 +162,7 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
         if ($news->background_image != null) {
-            Storage::disk('static')->delete($news->background_image);
+            unlink($news->background_image);
         }
         $name = Translate::findOrFail($news->name);
         $newsContent = NewsContent::where('parent_id', $id)->get();

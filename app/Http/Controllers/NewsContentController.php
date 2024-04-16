@@ -182,7 +182,7 @@ class NewsContentController extends Controller
     {
         $newsContent = NewsContent::find($id);
         if ($newsContent->image != null) {
-            Storage::disk('static')->delete($newsContent->image);
+            unlink($newsContent->image);
         }
 
         $content = Translate::find($newsContent->content);

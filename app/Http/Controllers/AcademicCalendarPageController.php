@@ -175,7 +175,7 @@ class AcademicCalendarPageController extends Controller
     {
         $academicCalendarPage = AcademicCalendarPage::find($id);
         if ($academicCalendarPage->image != null) {
-            Storage::disk('static')->delete($academicCalendarPage->image);
+            unlink($academicCalendarPage->image);
         }
         $content = Translate::find($academicCalendarPage->content);
         $content->delete();

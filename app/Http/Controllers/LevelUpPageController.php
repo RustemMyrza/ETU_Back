@@ -175,7 +175,7 @@ class LevelUpPageController extends Controller
     {
         $levelUpPage = LevelUpPage::find($id);
         if ($levelUpPage->image != null) {
-            Storage::disk('static')->delete($levelUpPage->image);
+            unlink($levelUpPage->image);
         }
         $content = Translate::find($levelUpPage->content);
         $content->delete();

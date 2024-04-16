@@ -157,7 +157,7 @@ class MasterSpecialtyPageDocumentController extends Controller
     {
         $mastersSpecialtyDocument = MasterSpecialtyPageDocument::find($id);
         if ($mastersSpecialtyDocument->link != null) {
-            Storage::disk('static')->delete($mastersSpecialtyDocument->link);
+            unlink($mastersSpecialtyDocument->image);
         }
 
         $name = Translate::find($mastersSpecialtyDocument->name);

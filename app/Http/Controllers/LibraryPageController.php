@@ -175,7 +175,7 @@ class LibraryPageController extends Controller
     {
         $libraryPage = LibraryPage::find($id);
         if ($libraryPage->image != null) {
-            Storage::disk('static')->delete($libraryPage->image);
+            unlink($libraryPage->image);
         }
         $content = Translate::find($libraryPage->content);
         $content->delete();

@@ -153,7 +153,7 @@ class BachelorSchoolSpecialtyController extends Controller
                     $content->delete();
                 }
                 if ($item->image != null) {
-                    Storage::disk('static')->delete($item->image);
+                    unlink($item->image);
                 }
                 $item->delete();
             }
@@ -169,7 +169,7 @@ class BachelorSchoolSpecialtyController extends Controller
                     $name->delete();
                 }
                 if ($item->link != null) {
-                    Storage::disk('static')->delete($item->link);
+                    unlink($item->link);
                 }
                 $item->delete();
             }

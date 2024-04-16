@@ -175,7 +175,7 @@ class ScientificPublicationPageController extends Controller
     {
         $scientificPublicationPage = ScientificPublicationPage::find($id);
         if ($scientificPublicationPage->image != null) {
-            Storage::disk('static')->delete($scientificPublicationPage->image);
+            unlink($scientificPublicationPage->image);
         }
         $content = Translate::find($scientificPublicationPage->content);
         $content->delete();

@@ -181,7 +181,7 @@ class BachelorSchoolEducatorController extends Controller
     {
         $bachelorSchoolEducator = BachelorSchoolEducator::find($id);
         if ($bachelorSchoolEducator->image != null) {
-            Storage::disk('static')->delete($bachelorSchoolEducator->image);
+            unlink($bachelorSchoolEducator->image);
         }
         $name = Translate::find($bachelorSchoolEducator->name);
         $position = Translate::find($bachelorSchoolEducator->position);

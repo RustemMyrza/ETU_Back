@@ -115,7 +115,7 @@ class ScienceInnovationPageDocumentController extends Controller
     {
         $document = ScienceInnovationPageDocument::find($id);
         if ($document->link != null) {
-            Storage::disk('static')->delete($document->link);
+            unlink($document->link);
         }
         $name = Translate::find($document->name);
         $name->delete();

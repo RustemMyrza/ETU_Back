@@ -195,7 +195,7 @@ class SupervisorController extends Controller
     {
         $supervisor = Supervisor::findOrFail($id);
         if ($supervisor->image != null) {
-            Storage::disk('static')->delete($supervisor->image);
+            unlink($supervisor->image);
         }
         $name = Translate::findOrFail($supervisor->name);
         $position = Translate::findOrFail($supervisor->position);

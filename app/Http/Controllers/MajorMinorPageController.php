@@ -175,7 +175,7 @@ class MajorMinorPageController extends Controller
     {
         $majorMinorPage = MajorMinorPage::find($id);
         if ($majorMinorPage->image != null) {
-            Storage::disk('static')->delete($majorMinorPage->image);
+            unlink($majorMinorPage->image);
         }
         $content = Translate::find($majorMinorPage->content);
         $content->delete();

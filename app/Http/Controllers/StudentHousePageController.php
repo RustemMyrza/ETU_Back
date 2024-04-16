@@ -175,7 +175,7 @@ class StudentHousePageController extends Controller
     {
         $studentHousePage = StudentHousePage::find($id);
         if ($studentHousePage->image != null) {
-            Storage::disk('static')->delete($studentHousePage->image);
+            unlink($studentHousePage->image);
         }
         $content = Translate::find($studentHousePage->content);
         $content->delete();

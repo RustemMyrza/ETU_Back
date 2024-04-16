@@ -175,7 +175,7 @@ class LincolnUniversityPageController extends Controller
     {
         $lincolnUniversityPage = LincolnUniversityPage::find($id);
         if ($lincolnUniversityPage->image != null) {
-            Storage::disk('static')->delete($lincolnUniversityPage->image);
+            unlink($lincolnUniversityPage->image);
         }
         $content = Translate::find($lincolnUniversityPage->content);
         $content->delete();

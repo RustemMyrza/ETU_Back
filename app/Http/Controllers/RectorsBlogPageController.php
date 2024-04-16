@@ -176,7 +176,7 @@ class RectorsBlogPageController extends Controller
     {
         $rectorsBlogPage = RectorsBlogPage::find($id);
         if ($rectorsBlogPage->image != null) {
-            Storage::disk('static')->delete($rectorsBlogPage->image);
+            unlink($rectorsBlogPage->image);
         }
         $content = Translate::find($rectorsBlogPage->content);
         $content->delete();

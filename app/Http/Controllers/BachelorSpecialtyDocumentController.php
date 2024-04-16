@@ -157,7 +157,7 @@ class BachelorSpecialtyDocumentController extends Controller
     {
         $document = BachelorSpecialtyDocument::find($id);
         if ($document->link != null) {
-            Storage::disk('static')->delete($document->link);
+            unlink($document->link);
         }
 
         $name = Translate::find($document->name);

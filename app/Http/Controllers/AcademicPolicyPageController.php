@@ -175,7 +175,7 @@ class AcademicPolicyPageController extends Controller
     {
         $academicPolicyPage = AcademicPolicyPage::find($id);
         if ($academicPolicyPage->image != null) {
-            Storage::disk('static')->delete($academicPolicyPage->image);
+            unlink($academicPolicyPage->image);
         }
         $content = Translate::find($academicPolicyPage->content);
         $content->delete();

@@ -200,7 +200,7 @@ class ScientificPublicationController extends Controller
     {
         $document = ScientificPublicationPageDocument::find($id);
         if ($document->link != null) {
-            Storage::disk('static')->delete($document->link);
+            unlink($document->link);
         }
 
         $name = Translate::find($document->name);

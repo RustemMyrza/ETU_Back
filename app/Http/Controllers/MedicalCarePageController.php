@@ -175,7 +175,7 @@ class MedicalCarePageController extends Controller
     {
         $medicalCarePage = MedicalCarePage::find($id);
         if ($medicalCarePage->image != null) {
-            Storage::disk('static')->delete($medicalCarePage->image);
+            unlink($medicalCarePage->image);
         }
         $content = Translate::find($medicalCarePage->content);
         $content->delete();

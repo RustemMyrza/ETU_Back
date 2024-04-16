@@ -175,7 +175,7 @@ class MasterPageController extends Controller
     {
         $masterPage = MasterPage::find($id);
         if ($masterPage->image != null) {
-            Storage::disk('static')->delete($masterPage->image);
+            unlink($masterPage->image);
         }
         $content = Translate::find($masterPage->content);
         $content->delete();

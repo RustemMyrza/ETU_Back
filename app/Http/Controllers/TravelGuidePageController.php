@@ -175,7 +175,7 @@ class TravelGuidePageController extends Controller
     {
         $travelGuidePage = TravelGuidePage::find($id);
         if ($travelGuidePage->image != null) {
-            Storage::disk('static')->delete($travelGuidePage->image);
+            unlink($travelGuidePage->image);
         }
         $content = Translate::find($travelGuidePage->content);
         $content->delete();

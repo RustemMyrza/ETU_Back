@@ -175,7 +175,7 @@ class AdmissionsCommitteePageController extends Controller
     {
         $admissionsCommitteePage = AdmissionsCommitteePage::find($id);
         if ($admissionsCommitteePage->image != null) {
-            Storage::disk('static')->delete($admissionsCommitteePage->image);
+            unlink($admissionsCommitteePage->image);
         }
         $content = Translate::find($admissionsCommitteePage->content);
         $content->delete();

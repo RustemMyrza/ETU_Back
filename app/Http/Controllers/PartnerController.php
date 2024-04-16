@@ -138,7 +138,7 @@ class PartnerController extends Controller
     {
         $partner = Partner::find($id);
         if ($partner->image != null) {
-            Storage::disk('static')->delete($partner->image);
+            unlink($partner->image);
         }
         $partner->delete();
 

@@ -176,7 +176,7 @@ class AcademicCouncilPageController extends Controller
     {
         $academicCouncilPage = AcademicCouncilPage::find($id);
         if ($academicCouncilPage->image != null) {
-            Storage::disk('static')->delete($academicCouncilPage->image);
+            unlink($academicCouncilPage->image);
         }
         $content = Translate::find($academicCouncilPage->content);
         $content->delete();

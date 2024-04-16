@@ -159,7 +159,7 @@ class BachelorSchoolController extends Controller
         $bachelorSchool = BachelorSchool::find($id);
         $name = Translate::find($bachelorSchool->name);
         if ($bachelorSchool->image != null) {
-            Storage::disk('static')->delete($bachelorSchool->image);
+            unlink($bachelorSchool->image);
         }
         $specialties = BachelorSchoolSpecialty::where('school_id', $id)->get();
         $educators = BachelorSchoolEducator::where('school_id', $id)->get();
@@ -191,7 +191,7 @@ class BachelorSchoolController extends Controller
                             $specialtyPageContent->delete();
                         }
                         if ($pageItem->image != null) {
-                            Storage::disk('static')->delete($pageItem->image);
+                            unlink($pageItem->image);
                         }
                         $pageItem->delete();
                     }
@@ -207,7 +207,7 @@ class BachelorSchoolController extends Controller
                             $specialtyDocumentName->delete();
                         }
                         if ($document->link != null) {
-                            Storage::disk('static')->delete($document->link);
+                            unlink($document->link);
                         }
                         $document->delete();
                     }
@@ -243,7 +243,7 @@ class BachelorSchoolController extends Controller
                     $position->delete();
                 }
                 if ($item->image != null) {
-                    Storage::disk('static')->delete($item->image);
+                    unlink($item->image);
                 }
                 $item->delete();
             }
@@ -268,7 +268,7 @@ class BachelorSchoolController extends Controller
                     $pageContent->delete();
                 }
                 if ($item->image != null) {
-                    Storage::disk('static')->delete($item->image);
+                    unlink($item->image);
                 }
                 $item->delete();
             }

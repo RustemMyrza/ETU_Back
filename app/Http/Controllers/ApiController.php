@@ -64,6 +64,7 @@ use App\Models\OlympicsPageDocument;
 use App\Models\ScientificPublicationPageDocument;
 use App\Models\StudentSciencePageDocument;
 use App\Models\TravelGuidePageDocument;
+use App\Models\ScienceAboutPage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -1413,5 +1414,11 @@ class ApiController extends Controller
         $navBar = $this->headerNavBar();
         $navBar = $navBar->push($contacts);
         return $navBar;
+    }
+
+    public function scienceAboutPage ()
+    {
+        $scienceAboutPage = ScienceAboutPage::query()->with(['getTitle', 'getContent'])->get()[0];
+        return new PageResource($scienceAboutPage);
     }
 }

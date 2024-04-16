@@ -176,7 +176,7 @@ class AboutUsPageController extends Controller
     {
         $aboutUs = AboutUsPage::find($id);
         if ($aboutUs->image != null) {
-            Storage::disk('static')->delete($aboutUs->image);
+            unlink($aboutUs->image);
         }
         $content = Translate::find($aboutUs->content);
         $content->delete();

@@ -176,7 +176,7 @@ class PartnersPageController extends Controller
     {
         $partnersPage = PartnersPage::find($id);
         if ($partnersPage->image != null) {
-            Storage::disk('static')->delete($partnersPage->image);
+            unlink($partnersPage->image);
         }
         $content = Translate::find($partnersPage->content);
         $content->delete();

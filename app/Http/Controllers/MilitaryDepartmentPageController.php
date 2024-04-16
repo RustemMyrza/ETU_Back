@@ -175,7 +175,7 @@ class MilitaryDepartmentPageController extends Controller
     {
         $militaryDepartmentPage = MilitaryDepartmentPage::find($id);
         if ($militaryDepartmentPage->image != null) {
-            Storage::disk('static')->delete($militaryDepartmentPage->image);
+            unlink($militaryDepartmentPage->image);
         }
         $content = Translate::find($militaryDepartmentPage->content);
         $content->delete();

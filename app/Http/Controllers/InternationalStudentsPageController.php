@@ -175,7 +175,7 @@ class InternationalStudentsPageController extends Controller
     {
         $internationalStudentsPage = InternationalStudentsPage::find($id);
         if ($internationalStudentsPage->image != null) {
-            Storage::disk('static')->delete($internationalStudentsPage->image);
+            unlink($internationalStudentsPage->image);
         }
         $content = Translate::find($internationalStudentsPage->content);
         $content->delete();

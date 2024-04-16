@@ -175,7 +175,7 @@ class StudentClubPageController extends Controller
     {
         $studentClubPage = StudentClubPage::find($id);
         if ($studentClubPage->image != null) {
-            Storage::disk('static')->delete($studentClubPage->image);
+            unlink($studentClubPage->image);
         }
         $content = Translate::find($studentClubPage->content);
         $content->delete();

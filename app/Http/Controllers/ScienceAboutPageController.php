@@ -175,7 +175,7 @@ class ScienceAboutPageController extends Controller
     {
         $scienceAboutPage = ScienceAboutPage::find($id);
         if ($scienceAboutPage->image != null) {
-            Storage::disk('static')->delete($scienceAboutPage->image);
+            unlink($scienceAboutPage->image);
         }
         $content = Translate::find($scienceAboutPage->content);
         $content->delete();

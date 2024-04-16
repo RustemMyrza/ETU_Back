@@ -116,8 +116,9 @@ abstract class DocumentController extends Controller
     {
         $modelClass = $this->modelClass;
         $document = $modelClass::find($id);
-        if ($document->link != null) {
-            Storage::disk('static')->delete($document->link);
+        if ($document->link != null) 
+        {
+            unlink($document->link);
         }
         $name = Translate::find($document->name);
         $name->delete();

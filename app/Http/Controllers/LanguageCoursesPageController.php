@@ -175,7 +175,7 @@ class LanguageCoursesPageController extends Controller
     {
         $languageCoursesPage = LanguageCoursesPage::find($id);
         if ($languageCoursesPage->image != null) {
-            Storage::disk('static')->delete($languageCoursesPage->image);
+            unlink($languageCoursesPage->image);
         }
         $content = Translate::find($languageCoursesPage->content);
         $content->delete();

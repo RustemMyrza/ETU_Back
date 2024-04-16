@@ -175,7 +175,7 @@ class CareerCenterPageController extends Controller
     {
         $careerCenterPage = CareerCenterPage::find($id);
         if ($careerCenterPage->image != null) {
-            Storage::disk('static')->delete($careerCenterPage->image);
+            unlink($careerCenterPage->image);
         }
         $content = Translate::find($careerCenterPage->content);
         $content->delete();

@@ -175,7 +175,7 @@ class BachelorSchoolPageController extends Controller
     {
         $bachelorSchoolPage = BachelorSchoolPage::find($id);
         if ($bachelorSchoolPage->image != null) {
-            Storage::disk('static')->delete($bachelorSchoolPage->image);
+            unlink($bachelorSchoolPage->image);
         }
         $title = Translate::find($bachelorSchoolPage->title);
         $content = Translate::find($bachelorSchoolPage->content);

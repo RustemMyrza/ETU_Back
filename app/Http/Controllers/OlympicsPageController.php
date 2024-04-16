@@ -175,7 +175,7 @@ class OlympicsPageController extends Controller
     {
         $olympicsPage = OlympicsPage::find($id);
         if ($olympicsPage->image != null) {
-            Storage::disk('static')->delete($olympicsPage->image);
+            unlink($olympicsPage->image);
         }
         $content = Translate::find($olympicsPage->content);
         $content->delete();

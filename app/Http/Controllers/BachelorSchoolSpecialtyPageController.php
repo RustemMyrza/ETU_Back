@@ -177,7 +177,7 @@ class BachelorSchoolSpecialtyPageController extends Controller
     {
         $bachelorSpecialtyPage = BachelorSchoolSpecialtyPage::find($id);
         if ($bachelorSpecialtyPage->image != null) {
-            Storage::disk('static')->delete($bachelorSpecialtyPage->image);
+            unlink($bachelorSpecialtyPage->image);
         }
         $title = Translate::find($bachelorSpecialtyPage->title);
         $content = Translate::find($bachelorSpecialtyPage->content);

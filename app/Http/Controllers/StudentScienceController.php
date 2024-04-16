@@ -175,7 +175,7 @@ class StudentScienceController extends Controller
     {
         $studentScience = StudentScience::find($id);
         if ($studentScience->image != null) {
-            Storage::disk('static')->delete($studentScience->image);
+            unlink($studentScience->image);
         }
         $content = Translate::find($studentScience->content);
         $content->delete();

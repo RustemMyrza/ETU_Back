@@ -175,7 +175,7 @@ class EthicsCodePageController extends Controller
     {
         $ethicsCodePage = EthicsCodePage::find($id);
         if ($ethicsCodePage->image != null) {
-            Storage::disk('static')->delete($ethicsCodePage->image);
+            unlink($ethicsCodePage->image);
         }
         $content = Translate::find($ethicsCodePage->content);
         $content->delete();

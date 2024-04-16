@@ -63,6 +63,7 @@ Route::get('/travelGuidePage', [ApiController::class, 'travelGuidePage'])->name(
 Route::get('/studentClubPage', [ApiController::class, 'studentClubPage'])->name('studentClubPage');
 Route::get('/bachelorSchool', [ApiController::class, 'bachelorSchool'])->name('bachelorSchool');
 Route::get('/newsContent', [ApiController::class, 'newsContent'])->name('newsContent');
+Route::get('/scienceAboutPage', [ApiController::class, 'scienceAboutPage'])->name('scienceAboutPage');
 
 
 Route::prefix('v1')->group(function (): void {

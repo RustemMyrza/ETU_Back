@@ -176,7 +176,7 @@ class AuthorityPageController extends Controller
     {
         $authority = AuthorityPage::find($id);
         if ($authority->image != null) {
-            Storage::disk('static')->delete($authority->image);
+            unlink($authority->image);
         }
         $content = Translate::find($authority->content);
         $content->delete();
