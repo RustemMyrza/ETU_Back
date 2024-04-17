@@ -418,6 +418,11 @@ return [
                         'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/scientificPublicationPage',
                     ],
+                    [
+                        'text' => 'Летний лагерь',
+                        'icon' => 'fas fa-fw fa-home',
+                        'url'  => '/admin/summerSchoolPage',
+                    ]
                 ]
                 ],
                 ['text'    => 'Поступление',
