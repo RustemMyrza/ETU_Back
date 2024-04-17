@@ -141,7 +141,7 @@ class MasterPageController extends Controller
         $masterPage = MasterPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($masterPage->image != null) {
-                Storage::disk('static')->delete($masterPage->image);
+                unlink($masterPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $masterPage->image = $path;

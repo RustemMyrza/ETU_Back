@@ -141,7 +141,7 @@ class LincolnUniversityPageController extends Controller
         $lincolnUniversityPage = LincolnUniversityPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($lincolnUniversityPage->image != null) {
-                Storage::disk('static')->delete($lincolnUniversityPage->image);
+                unlink($lincolnUniversityPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $lincolnUniversityPage->image = $path;

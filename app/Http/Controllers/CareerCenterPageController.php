@@ -141,7 +141,7 @@ class CareerCenterPageController extends Controller
         $careerCenterPage = CareerCenterPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($careerCenterPage->image != null) {
-                Storage::disk('static')->delete($careerCenterPage->image);
+                unlink($careerCenterPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $careerCenterPage->image = $path;

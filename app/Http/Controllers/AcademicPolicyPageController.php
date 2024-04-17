@@ -141,7 +141,7 @@ class AcademicPolicyPageController extends Controller
         $academicPolicyPage = AcademicPolicyPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($academicPolicyPage->image != null) {
-                Storage::disk('static')->delete($academicPolicyPage->image);
+                unlink($academicPolicyPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $academicPolicyPage->image = $path;

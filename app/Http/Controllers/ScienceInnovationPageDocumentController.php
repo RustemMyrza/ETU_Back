@@ -90,7 +90,7 @@ class ScienceInnovationPageDocumentController extends Controller
         $document = ScienceInnovationPageDocument::findOrFail($id);
         if ($request->hasFile('document')) {
             if ($document->link != null) {
-                Storage::disk('static')->delete($document->link);
+                unlink($document->link);
             }
             $path = $this->uploadDocument($request->file('document'));
             $document->link = $path;

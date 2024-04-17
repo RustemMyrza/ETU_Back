@@ -142,7 +142,7 @@ class AccreditationController extends Controller
         $accreditation = Accreditation::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($accreditation->image != null) {
-                Storage::disk('static')->delete($accreditation->image);
+                unlink($accreditation->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $accreditation->image = $path;

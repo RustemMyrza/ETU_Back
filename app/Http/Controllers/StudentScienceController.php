@@ -141,7 +141,7 @@ class StudentScienceController extends Controller
         $studentScience = StudentScience::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($studentScience->image != null) {
-                Storage::disk('static')->delete($studentScience->image);
+                unlink($studentScience->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $studentScience->image = $path;

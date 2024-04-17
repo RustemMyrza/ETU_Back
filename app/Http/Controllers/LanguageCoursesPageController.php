@@ -141,7 +141,7 @@ class LanguageCoursesPageController extends Controller
         $languageCoursesPage = LanguageCoursesPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($languageCoursesPage->image != null) {
-                Storage::disk('static')->delete($languageCoursesPage->image);
+                unlink($languageCoursesPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $languageCoursesPage->image = $path;

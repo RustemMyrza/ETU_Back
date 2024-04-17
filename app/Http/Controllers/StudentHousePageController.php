@@ -141,7 +141,7 @@ class StudentHousePageController extends Controller
         $studentHousePage = StudentHousePage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($studentHousePage->image != null) {
-                Storage::disk('static')->delete($studentHousePage->image);
+                unlink($studentHousePage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $studentHousePage->image = $path;

@@ -142,7 +142,7 @@ class AuthorityPageController extends Controller
         $authority = AuthorityPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($authority->image != null) {
-                Storage::disk('static')->delete($authority->image);
+                unlink($authority->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $authority->image = $path;

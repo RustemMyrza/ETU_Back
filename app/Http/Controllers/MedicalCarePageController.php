@@ -141,7 +141,7 @@ class MedicalCarePageController extends Controller
         $medicalCarePage = MedicalCarePage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($medicalCarePage->image != null) {
-                Storage::disk('static')->delete($medicalCarePage->image);
+                unlink($medicalCarePage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $medicalCarePage->image = $path;

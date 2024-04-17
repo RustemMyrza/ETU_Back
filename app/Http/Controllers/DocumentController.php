@@ -96,7 +96,7 @@ abstract class DocumentController extends Controller
         $document = $modelClass::findOrFail($id);
         if ($request->hasFile('document')) {
             if ($document->document != null) {
-                Storage::disk('static')->delete($document->document);
+                unlink($document->document);
             }
             $path = $this->uploadImage($request->file('document'));
             $document->document = $path;

@@ -141,7 +141,7 @@ class AdmissionsCommitteePageController extends Controller
         $admissionsCommitteePage = AdmissionsCommitteePage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($admissionsCommitteePage->image != null) {
-                Storage::disk('static')->delete($admissionsCommitteePage->image);
+                unlink($admissionsCommitteePage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $admissionsCommitteePage->image = $path;

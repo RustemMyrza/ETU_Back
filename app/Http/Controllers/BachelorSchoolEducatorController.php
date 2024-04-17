@@ -148,7 +148,7 @@ class BachelorSchoolEducatorController extends Controller
         $bachelorSchoolEducator = BachelorSchoolEducator::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($bachelorSchoolEducator->image != null) {
-                Storage::disk('static')->delete($bachelorSchoolEducator->image);
+                unlink($bachelorSchoolEducator->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $bachelorSchoolEducator->image = $path;

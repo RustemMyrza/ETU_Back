@@ -141,7 +141,7 @@ class MainPageController extends Controller
         $mainPage = MainPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($mainPage->image != null) {
-                Storage::disk('static')->delete($mainPage->image);
+                unlink($mainPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $mainPage->image = $path;

@@ -135,7 +135,7 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($news->background_image != null) {
-                Storage::disk('static')->delete($news->background_image);
+                unlink($news->background_image);
             }
             $path = $this->uploadImage($request->file('image'));
             $news->background_image = $path;

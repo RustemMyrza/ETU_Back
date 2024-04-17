@@ -145,7 +145,7 @@ class BachelorSchoolSpecialtyPageController extends Controller
         $bachelorSpecialtyPage = BachelorSchoolSpecialtyPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($bachelorSpecialtyPage->image != null) {
-                Storage::disk('static')->delete($bachelorSpecialtyPage->image);
+                unlink($bachelorSpecialtyPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $bachelorSpecialtyPage->image = $path;

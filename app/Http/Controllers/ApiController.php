@@ -474,7 +474,7 @@ class ApiController extends Controller
         $data['data'] = [];
 
         foreach ($partnersByType as $type => $partners) {
-            $data['data'][$type] = array_chunk($partners, 8);
+            $data['data'][$type] = $partners;
         }
 
         return $data;
@@ -1395,13 +1395,14 @@ class ApiController extends Controller
         return $bachelorSchoolResource;
     }
 
-    public function footerNavBar ()
+    public function footerNavBar (Request $request)
     {
+        $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
         $contactsData = $this->contacts();
         $address = explode(', ', $contactsData->address)[2];
         $contacts = [
             'id' => 6,
-            'name' => 'Контакты',
+            'name' => $contactsData->getTabName->{$lang},
             'child' => [
                 'address' => $address,
                 'email' => $contactsData->admissions_committee_mail,

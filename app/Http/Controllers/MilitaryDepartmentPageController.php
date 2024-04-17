@@ -141,7 +141,7 @@ class MilitaryDepartmentPageController extends Controller
         $militaryDepartmentPage = MilitaryDepartmentPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($militaryDepartmentPage->image != null) {
-                Storage::disk('static')->delete($militaryDepartmentPage->image);
+                unlink($militaryDepartmentPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $militaryDepartmentPage->image = $path;

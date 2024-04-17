@@ -141,7 +141,7 @@ class AcademicCalendarPageController extends Controller
         $academicCalendarPage = AcademicCalendarPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($academicCalendarPage->image != null) {
-                Storage::disk('static')->delete($academicCalendarPage->image);
+                unlink($academicCalendarPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $academicCalendarPage->image = $path;

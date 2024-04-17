@@ -141,7 +141,7 @@ class LevelUpPageController extends Controller
         $levelUpPage = LevelUpPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($levelUpPage->image != null) {
-                Storage::disk('static')->delete($levelUpPage->image);
+                unlink($levelUpPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $levelUpPage->image = $path;

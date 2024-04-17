@@ -123,7 +123,7 @@ class StudentClubController extends Controller
         $studentClub = StudentClub::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($studentClub->logo != null) {
-                Storage::disk('static')->delete($studentClub->logo);
+                unlink($studentClub->logo);
             }
             $path = $this->uploadImage($request->file('image'));
             $studentClub->logo = $path;

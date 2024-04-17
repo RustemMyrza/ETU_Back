@@ -148,7 +148,7 @@ class NewsContentController extends Controller
         $newsContent = NewsContent::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($newsContent->image != null) {
-                Storage::disk('static')->delete($newsContent->image);
+                unlink($newsContent->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $newsContent->image = $path;

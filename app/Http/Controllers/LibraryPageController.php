@@ -141,7 +141,7 @@ class LibraryPageController extends Controller
         $libraryPage = LibraryPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($libraryPage->image != null) {
-                Storage::disk('static')->delete($libraryPage->image);
+                unlink($libraryPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $libraryPage->image = $path;

@@ -141,7 +141,7 @@ class InternationalStudentsPageController extends Controller
         $internationalStudentsPage = InternationalStudentsPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($internationalStudentsPage->image != null) {
-                Storage::disk('static')->delete($internationalStudentsPage->image);
+                unlink($internationalStudentsPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $internationalStudentsPage->image = $path;

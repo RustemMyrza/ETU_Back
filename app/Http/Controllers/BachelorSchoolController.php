@@ -131,7 +131,7 @@ class BachelorSchoolController extends Controller
         $bachelorSchool = BachelorSchool::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($bachelorSchool->image != null) {
-                Storage::disk('static')->delete($bachelorSchool->image);
+                unlink($bachelorSchool->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $bachelorSchool->image = $path;

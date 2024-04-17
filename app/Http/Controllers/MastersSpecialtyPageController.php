@@ -147,7 +147,7 @@ class MastersSpecialtyPageController extends Controller
         $mastersSpecialtyPage = MastersSpecialtyPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($mastersSpecialtyPage->image != null) {
-                Storage::disk('static')->delete($mastersSpecialtyPage->image);
+                unlink($mastersSpecialtyPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $mastersSpecialtyPage->image = $path;

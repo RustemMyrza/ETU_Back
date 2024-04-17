@@ -142,7 +142,7 @@ class AboutUsPageController extends Controller
         $aboutUs = AboutUsPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($aboutUs->image != null) {
-                Storage::disk('static')->delete($aboutUs->image);
+                unlink($aboutUs->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $aboutUs->image = $path;

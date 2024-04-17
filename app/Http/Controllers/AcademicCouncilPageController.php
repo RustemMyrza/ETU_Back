@@ -142,7 +142,7 @@ class AcademicCouncilPageController extends Controller
         $academicCouncilPage = AcademicCouncilPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($academicCouncilPage->image != null) {
-                Storage::disk('static')->delete($academicCouncilPage->image);
+                unlink($academicCouncilPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $academicCouncilPage->image = $path;

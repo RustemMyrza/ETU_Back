@@ -141,7 +141,7 @@ class OlympicsPageController extends Controller
         $olympicsPage = OlympicsPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($olympicsPage->image != null) {
-                Storage::disk('static')->delete($olympicsPage->image);
+                unlink($olympicsPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $olympicsPage->image = $path;

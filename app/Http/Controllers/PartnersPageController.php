@@ -142,7 +142,7 @@ class PartnersPageController extends Controller
         $partnersPage = PartnersPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($partnersPage->image != null) {
-                Storage::disk('static')->delete($partnersPage->image);
+                unlink($partnersPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $partnersPage->image = $path;

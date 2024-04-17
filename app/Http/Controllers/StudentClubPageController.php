@@ -141,7 +141,7 @@ class StudentClubPageController extends Controller
         $studentClubPage = StudentClubPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($studentClubPage->image != null) {
-                Storage::disk('static')->delete($studentClubPage->image);
+                unlink($studentClubPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $studentClubPage->image = $path;

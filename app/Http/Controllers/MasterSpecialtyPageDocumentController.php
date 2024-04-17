@@ -129,7 +129,7 @@ class MasterSpecialtyPageDocumentController extends Controller
         $mastersSpecialtyDocument = MasterSpecialtyPageDocument::findOrFail($id);
         if ($request->hasFile('document')) {
             if ($mastersSpecialtyDocument->link != null) {
-                Storage::disk('static')->delete($mastersSpecialtyDocument->link);
+                unlink($mastersSpecialtyDocument->link);
             }
             $path = $this->uploadDocument($request->file('document'));
             $mastersSpecialtyDocument->link = $path;

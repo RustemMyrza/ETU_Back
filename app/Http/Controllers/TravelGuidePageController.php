@@ -141,7 +141,7 @@ class TravelGuidePageController extends Controller
         $travelGuidePage = TravelGuidePage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($travelGuidePage->image != null) {
-                Storage::disk('static')->delete($travelGuidePage->image);
+                unlink($travelGuidePage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $travelGuidePage->image = $path;

@@ -142,7 +142,7 @@ class RectorsBlogPageController extends Controller
         $rectorsBlogPage = RectorsBlogPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($rectorsBlogPage->image != null) {
-                Storage::disk('static')->delete($rectorsBlogPage->image);
+                unlink($rectorsBlogPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $rectorsBlogPage->image = $path;

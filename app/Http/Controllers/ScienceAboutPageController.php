@@ -141,7 +141,7 @@ class ScienceAboutPageController extends Controller
         $scienceAboutPage = ScienceAboutPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($scienceAboutPage->image != null) {
-                Storage::disk('static')->delete($scienceAboutPage->image);
+                unlink($scienceAboutPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $scienceAboutPage->image = $path;

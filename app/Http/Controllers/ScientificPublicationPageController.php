@@ -141,7 +141,7 @@ class ScientificPublicationPageController extends Controller
         $scientificPublicationPage = ScientificPublicationPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($scientificPublicationPage->image != null) {
-                Storage::disk('static')->delete($scientificPublicationPage->image);
+                unlink($scientificPublicationPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $scientificPublicationPage->image = $path;

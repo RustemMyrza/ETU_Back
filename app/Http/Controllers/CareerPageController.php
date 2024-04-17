@@ -142,7 +142,7 @@ class CareerPageController extends Controller
         $careerPage = CareerPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($careerPage->image != null) {
-                Storage::disk('static')->delete($careerPage->image);
+                unlink($careerPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $careerPage->image = $path;

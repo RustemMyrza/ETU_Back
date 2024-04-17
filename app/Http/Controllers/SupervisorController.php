@@ -151,7 +151,7 @@ class SupervisorController extends Controller
         $supervisor = Supervisor::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($supervisor->image != null) {
-                Storage::disk('static')->delete($supervisor->image);
+                unlink($supervisor->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $supervisor->image = $path;

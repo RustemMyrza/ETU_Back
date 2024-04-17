@@ -141,7 +141,7 @@ class ScienceInnovationPageController extends Controller
         $scienceInnovationPage = ScienceInnovationPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($scienceInnovationPage->image != null) {
-                Storage::disk('static')->delete($scienceInnovationPage->image);
+                unlink($scienceInnovationPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $scienceInnovationPage->image = $path;

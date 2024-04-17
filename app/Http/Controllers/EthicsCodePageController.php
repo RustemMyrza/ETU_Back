@@ -141,7 +141,7 @@ class EthicsCodePageController extends Controller
         $ethicsCodePage = EthicsCodePage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($ethicsCodePage->image != null) {
-                Storage::disk('static')->delete($ethicsCodePage->image);
+                unlink($ethicsCodePage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $ethicsCodePage->image = $path;

@@ -141,7 +141,7 @@ class MajorMinorPageController extends Controller
         $majorMinorPage = MajorMinorPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($majorMinorPage->image != null) {
-                Storage::disk('static')->delete($majorMinorPage->image);
+                unlink($majorMinorPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $majorMinorPage->image = $path;
