@@ -178,6 +178,8 @@ class LanguageCoursesPageController extends Controller
             unlink($languageCoursesPage->image);
         }
         $content = Translate::find($languageCoursesPage->content);
+        $title = Translate::find($languageCoursesPage->title);
+        $title->delete();
         $content->delete();
         $languageCoursesPage->delete();
 

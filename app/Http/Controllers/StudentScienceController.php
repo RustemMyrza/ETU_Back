@@ -178,6 +178,8 @@ class StudentScienceController extends Controller
             unlink($studentScience->image);
         }
         $content = Translate::find($studentScience->content);
+        $title = Translate::find($studentScience->title);
+        $title->delete();
         $content->delete();
         $studentScience->delete();
 

@@ -178,6 +178,8 @@ class MilitaryDepartmentPageController extends Controller
             unlink($militaryDepartmentPage->image);
         }
         $content = Translate::find($militaryDepartmentPage->content);
+        $title = Translate::find($militaryDepartmentPage->title);
+        $title->delete();
         $content->delete();
         $militaryDepartmentPage->delete();
 

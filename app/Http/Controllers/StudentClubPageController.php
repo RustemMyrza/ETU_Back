@@ -178,6 +178,8 @@ class StudentClubPageController extends Controller
             unlink($studentClubPage->image);
         }
         $content = Translate::find($studentClubPage->content);
+        $title = Translate::find($studentClubPage->title);
+        $title->delete();
         $content->delete();
         $studentClubPage->delete();
 

@@ -179,6 +179,8 @@ class RectorsBlogPageController extends Controller
             unlink($rectorsBlogPage->image);
         }
         $content = Translate::find($rectorsBlogPage->content);
+        $title = Translate::find($rectorsBlogPage->title);
+        $title->delete();
         $content->delete();
         $rectorsBlogPage->delete();
 

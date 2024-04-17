@@ -178,6 +178,8 @@ class TravelGuidePageController extends Controller
             unlink($travelGuidePage->image);
         }
         $content = Translate::find($travelGuidePage->content);
+        $title = Translate::find($travelGuidePage->title);
+        $title->delete();
         $content->delete();
         $travelGuidePage->delete();
 

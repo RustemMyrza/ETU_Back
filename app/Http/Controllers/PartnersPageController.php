@@ -179,6 +179,8 @@ class PartnersPageController extends Controller
             unlink($partnersPage->image);
         }
         $content = Translate::find($partnersPage->content);
+        $title = Translate::find($partnersPage->title);
+        $title->delete();
         $content->delete();
         $partnersPage->delete();
 

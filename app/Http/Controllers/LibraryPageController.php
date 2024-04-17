@@ -178,6 +178,8 @@ class LibraryPageController extends Controller
             unlink($libraryPage->image);
         }
         $content = Translate::find($libraryPage->content);
+        $title = Translate::find($libraryPage->title);
+        $title->delete();
         $content->delete();
         $libraryPage->delete();
 

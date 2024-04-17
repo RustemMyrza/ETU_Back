@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Validator;
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
-});
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
 
 
@@ -34,10 +31,6 @@ Route::post('/register', function (Request $request) {
 // admin@demo.com
 // Dtnthievbn2021
 
-Auth::routes([
-    'register' => false,
-    'reset'    =>  false,
-]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin/edit', [App\Http\Controllers\HomeController::class, 'edit'])->name('edit');
@@ -107,6 +100,9 @@ Route::resource('admin/studentSciencePageDocument', 'App\Http\Controllers\Studen
 Route::resource('admin/travelGuidePageDocument', 'App\Http\Controllers\TravelGuidePageDocumentController');
 Route::resource('admin/scienceInnovationPageDocument', 'App\Http\Controllers\ScienceInnovationPageDocumentController');
 Route::resource('admin/admissionsCommitteePageDocument', 'App\Http\Controllers\AdmissionsCommitteePageDocumentController');
+Route::resource('admin/summerSchoolPage', 'App\Http\Controllers\SummerSchoolPageController');
+Route::resource('admin/summerSchoolProgram', 'App\Http\Controllers\SummerSchoolProgramController');
+Route::resource('admin/summerSchoolDocument', 'App\Http\Controllers\SummerSchoolDocumentController');
 
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->name('specialty.page.index');
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->name('specialty.page.create');

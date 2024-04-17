@@ -178,6 +178,8 @@ class EthicsCodePageController extends Controller
             unlink($ethicsCodePage->image);
         }
         $content = Translate::find($ethicsCodePage->content);
+        $title = Translate::find($ethicsCodePage->title);
+        $title->delete();
         $content->delete();
         $ethicsCodePage->delete();
 

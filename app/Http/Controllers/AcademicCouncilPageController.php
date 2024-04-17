@@ -179,6 +179,8 @@ class AcademicCouncilPageController extends Controller
             unlink($academicCouncilPage->image);
         }
         $content = Translate::find($academicCouncilPage->content);
+        $title = Translate::find($academicCouncilPage->title);
+        $title->delete();
         $content->delete();
         $academicCouncilPage->delete();
 

@@ -178,6 +178,8 @@ class AcademicCalendarPageController extends Controller
             unlink($academicCalendarPage->image);
         }
         $content = Translate::find($academicCalendarPage->content);
+        $title = Translate::find($academicCalendarPage->title);
+        $title->delete();
         $content->delete();
         $academicCalendarPage->delete();
 

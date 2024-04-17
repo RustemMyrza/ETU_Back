@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CareerCenterPage;
+use App\Models\SummerSchoolPage;
 use App\Models\Translate;
-use Illuminate\Support\Facades\Storage;
 
-class CareerCenterPageController extends Controller
+class SummerSchoolPageController extends Controller
 {
     public function index(Request $request)
     {
@@ -15,15 +14,15 @@ class CareerCenterPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $careerCenterPage = CareerCenterPage::where('content', 'LIKE', "%$keyword%")
+            $summerSchoolPage = SummerSchoolPage::where('content', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $careerCenterPage = CareerCenterPage::latest()->paginate($perPage);
+            $summerSchoolPage = SummerSchoolPage::latest()->paginate($perPage);
             $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
-        return view('careerCenterPage.index', compact('careerCenterPage', 'translatesData'));
+        return view('summerSchoolPage.index', compact('summerSchoolPage', 'translatesData'));
     }
 
     /**
@@ -33,7 +32,7 @@ class CareerCenterPageController extends Controller
      */
     public function create()
     {
-        return view('careerCenterPage.create');
+        return view('summerSchoolPage.create');
     }
 
     /**
@@ -72,13 +71,13 @@ class CareerCenterPageController extends Controller
         $titleId = $title->id;
 
 
-        $careerCenterPage= new CareerCenterPage();
-        $careerCenterPage->title = $titleId;
-        $careerCenterPage->content = $contentId;
-        $careerCenterPage->image = $path ?? null;
-        $careerCenterPage->save();
+        $summerSchoolPage= new SummerSchoolPage();
+        $summerSchoolPage->title = $titleId;
+        $summerSchoolPage->content = $contentId;
+        $summerSchoolPage->image = $path ?? null;
+        $summerSchoolPage->save();
 
-        return redirect('admin/careerCenterPage')->with('flash_message', 'Блок добавлен');
+        return redirect('admin/summerSchoolPage')->with('flash_message', 'Блок добавлен');
     }
 
     /**
@@ -90,14 +89,14 @@ class CareerCenterPageController extends Controller
      */
     public function show($id)
     {
-        $careerCenterPage = CareerCenterPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($careerCenterPage->title);
-        $translatedContent = Translate::findOrFail($careerCenterPage->content);
-        $image = Translate::findOrFail($careerCenterPage->content);
+        $summerSchoolPage = SummerSchoolPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($summerSchoolPage->title);
+        $translatedContent = Translate::findOrFail($summerSchoolPage->content);
+        $image = Translate::findOrFail($summerSchoolPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('careerCenterPage.show', compact('careerCenterPage', 'translatedData'));
+        return view('summerSchoolPage.show', compact('summerSchoolPage', 'translatedData'));
     }
 
     /**
@@ -109,14 +108,14 @@ class CareerCenterPageController extends Controller
      */
     public function edit($id)
     {
-        $careerCenterPage = CareerCenterPage::findOrFail($id);
-        $translatedTitle = Translate::findOrFail($careerCenterPage->title);
-        $translatedContent = Translate::findOrFail($careerCenterPage->content);
-        $image = Translate::findOrFail($careerCenterPage->content);
+        $summerSchoolPage = SummerSchoolPage::findOrFail($id);
+        $translatedTitle = Translate::findOrFail($summerSchoolPage->title);
+        $translatedContent = Translate::findOrFail($summerSchoolPage->content);
+        $image = Translate::findOrFail($summerSchoolPage->content);
         $translatedData['title'] = $translatedTitle;
         $translatedData['content'] = $translatedContent;
         $translatedData['image'] = $image;
-        return view('careerCenterPage.edit', compact('careerCenterPage', 'translatedData'));
+        return view('summerSchoolPage.edit', compact('summerSchoolPage', 'translatedData'));
     }
 
     /**
@@ -138,30 +137,30 @@ class CareerCenterPageController extends Controller
             ]);
 
         $requestData = $request->all();
-        $careerCenterPage = CareerCenterPage::findOrFail($id);
+        $summerSchoolPage = SummerSchoolPage::findOrFail($id);
         if ($request->hasFile('image')) {
-            if ($careerCenterPage->image != null) {
-                unlink($careerCenterPage->image);
+            if ($summerSchoolPage->image != null) {
+                unlink($summerSchoolPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
-            $careerCenterPage->image = $path;
+            $summerSchoolPage->image = $path;
         }
 
-        $content = Translate::find($careerCenterPage->content);
+        $content = Translate::find($summerSchoolPage->content);
         $content->ru = $requestData['content']['ru'];
         $content->en = $requestData['content']['en'];
         $content->kz = $requestData['content']['kz'];
         $content->update();
 
-        $title = Translate::find($careerCenterPage->title);
+        $title = Translate::find($summerSchoolPage->title);
         $title->ru = $requestData['title']['ru'];
         $title->en = $requestData['title']['en'];
         $title->kz = $requestData['title']['kz'];
         $title->update();
 
-        $careerCenterPage->update();
+        $summerSchoolPage->update();
 
-        return redirect('admin/careerCenterPage')->with('flash_message', 'Блок изменен');
+        return redirect('admin/summerSchoolPage')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -173,16 +172,16 @@ class CareerCenterPageController extends Controller
      */
     public function destroy($id)
     {
-        $careerCenterPage = CareerCenterPage::find($id);
-        if ($careerCenterPage->image != null) {
-            unlink($careerCenterPage->image);
+        $summerSchoolPage = SummerSchoolPage::find($id);
+        if ($summerSchoolPage->image != null) {
+            unlink($summerSchoolPage->image);
         }
-        $content = Translate::find($careerCenterPage->content);
-        $title = Translate::find($careerCenterPage->title);
-        $title->delete();
+        $title = Translate::find($summerSchoolPage->title);
+        $content = Translate::find($summerSchoolPage->content);
         $content->delete();
-        $careerCenterPage->delete();
+        $title->delete();
+        $summerSchoolPage->delete();
 
-        return redirect('admin/careerCenterPage')->with('flash_message', 'Блок удален');
+        return redirect('admin/summerSchoolPage')->with('flash_message', 'Блок удален');
     }
 }

@@ -178,6 +178,8 @@ class OlympicsPageController extends Controller
             unlink($olympicsPage->image);
         }
         $content = Translate::find($olympicsPage->content);
+        $title = Translate::find($olympicsPage->title);
+        $title->delete();
         $content->delete();
         $olympicsPage->delete();
 

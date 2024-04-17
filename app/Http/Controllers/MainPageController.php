@@ -179,6 +179,8 @@ class MainPageController extends Controller
         }
         $content = Translate::find($mainPage->content);
         $content->delete();
+        $title = Translate::find($mainPage->title);
+        $title->delete();
         $mainPage->delete();
 
         return redirect('admin/mainPage')->with('flash_message', 'Блок удален');

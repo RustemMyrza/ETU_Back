@@ -178,6 +178,8 @@ class ScientificPublicationPageController extends Controller
             unlink($scientificPublicationPage->image);
         }
         $content = Translate::find($scientificPublicationPage->content);
+        $title = Translate::find($scientificPublicationPage->title);
+        $title->delete();
         $content->delete();
         $scientificPublicationPage->delete();
 

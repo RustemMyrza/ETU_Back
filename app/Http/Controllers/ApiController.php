@@ -65,6 +65,9 @@ use App\Models\ScientificPublicationPageDocument;
 use App\Models\StudentSciencePageDocument;
 use App\Models\TravelGuidePageDocument;
 use App\Models\ScienceAboutPage;
+use App\Models\SummerSchoolPage;
+use App\Models\SummerSchoolDocument;
+use App\Models\SummerSchoolProgram;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -92,6 +95,7 @@ use App\Http\Resources\BachelorSchoolResource;
 use App\Http\Resources\DocumentResource;
 use App\Http\Resources\ScientificPublicationResource;
 use App\Http\Resources\MainPageSchoolResource;
+use App\Http\Resources\SummerSchoolProgramResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Block\Element\Document;
@@ -1421,5 +1425,61 @@ class ApiController extends Controller
     {
         $scienceAboutPage = ScienceAboutPage::query()->with(['getTitle', 'getContent'])->get()[0];
         return new PageResource($scienceAboutPage);
+    }
+
+    public function summerSchoolPage ()
+    {
+        $summerSchoolPage = SummerSchoolPage::query()->with(['getTitle', 'getContent'])->get();
+        $summerSchoolProgram = SummerSchoolProgram::query()->with(['getTitle', 'getText'])->get();
+        $summerSchoolProgram = SummerSchoolProgramResource::collection($summerSchoolProgram);
+        $documents = SummerSchoolDocument::query()->with(['getName'])->get();
+        $documents = DocumentResource::collection($documents);
+
+        foreach ($summerSchoolPage as $key => $value)
+        {
+            switch ($key)
+            {
+                case 0:
+                    $title = new PageResource($value);
+                    break;
+                case 1:
+                    $programConceptBlock = new PageResource($value);
+                    break;
+                case 2:
+                    $keyTopicsBlock = new PageResource($value);
+                    break;
+                case 3:
+                    $competeciesForBlock = new PageResource($value);
+                    break;
+                case 4:
+                    $programTitle = new PageResource($value);
+                    break;
+                case 5:
+                    $detailsBlock[] = new PageResource($value);
+                    break;
+                case 6:
+                    $detailsBlock[] = new PageResource($value);
+                    break;
+                case 7:
+                    $detailsBlock[] = new PageResource($value);
+                    break;
+                case 8:
+                    $detailsBlock[] = new PageResource($value);
+                    break;
+            }
+        }
+
+        $summerSchoolPageApi = new stdClass;
+        $summerSchoolPageApi->title = $title;
+        $summerSchoolPageApi->programConceptBlock = $programConceptBlock;
+        $summerSchoolPageApi->keyTopicsBlock = $keyTopicsBlock;
+        $summerSchoolPageApi->competeciesForBlock = $competeciesForBlock;
+        $summerSchoolPageApi->programSchedule = new stdClass;
+        $summerSchoolPageApi->programSchedule->title = $programTitle;
+        $summerSchoolPageApi->programSchedule->schedule = $summerSchoolProgram;
+        $summerSchoolPageApi->detailsBlock = $detailsBlock;
+        $summerSchoolPageApi->documents = $documents;
+        return $summerSchoolPageApi;
+        // return new PageResource($scienceAboutPage);
     }
 }

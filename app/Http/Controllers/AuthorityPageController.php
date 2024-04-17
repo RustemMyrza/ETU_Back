@@ -179,6 +179,8 @@ class AuthorityPageController extends Controller
             unlink($authority->image);
         }
         $content = Translate::find($authority->content);
+        $title = Translate::find($authority->title);
+        $title->delete();
         $content->delete();
         $authority->delete();
 

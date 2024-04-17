@@ -178,6 +178,8 @@ class AcademicPolicyPageController extends Controller
             unlink($academicPolicyPage->image);
         }
         $content = Translate::find($academicPolicyPage->content);
+        $title = Translate::find($academicPolicyPage->title);
+        $title->delete();
         $content->delete();
         $academicPolicyPage->delete();
 

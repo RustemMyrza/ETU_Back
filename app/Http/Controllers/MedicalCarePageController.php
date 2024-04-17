@@ -178,6 +178,8 @@ class MedicalCarePageController extends Controller
             unlink($medicalCarePage->image);
         }
         $content = Translate::find($medicalCarePage->content);
+        $title = Translate::find($medicalCarePage->title);
+        $title->delete();
         $content->delete();
         $medicalCarePage->delete();
 

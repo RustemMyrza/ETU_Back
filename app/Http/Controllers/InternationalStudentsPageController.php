@@ -178,6 +178,8 @@ class InternationalStudentsPageController extends Controller
             unlink($internationalStudentsPage->image);
         }
         $content = Translate::find($internationalStudentsPage->content);
+        $title = Translate::find($internationalStudentsPage->title);
+        $title->delete();
         $content->delete();
         $internationalStudentsPage->delete();
 

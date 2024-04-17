@@ -179,6 +179,8 @@ class CareerPageController extends Controller
             unlink($careerPage->image);
         }
         $content = Translate::find($careerPage->content);
+        $title = Translate::find($careerPage->title);
+        $title->delete();
         $content->delete();
         $careerPage->delete();
 

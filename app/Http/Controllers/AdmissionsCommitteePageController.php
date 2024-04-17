@@ -178,6 +178,8 @@ class AdmissionsCommitteePageController extends Controller
             unlink($admissionsCommitteePage->image);
         }
         $content = Translate::find($admissionsCommitteePage->content);
+        $title = Translate::find($admissionsCommitteePage->title);
+        $title->delete();
         $content->delete();
         $admissionsCommitteePage->delete();
 

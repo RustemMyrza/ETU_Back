@@ -178,6 +178,8 @@ class ScienceAboutPageController extends Controller
             unlink($scienceAboutPage->image);
         }
         $content = Translate::find($scienceAboutPage->content);
+        $title = Translate::find($scienceAboutPage->title);
+        $title->delete();
         $content->delete();
         $scienceAboutPage->delete();
 

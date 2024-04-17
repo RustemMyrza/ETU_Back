@@ -178,6 +178,8 @@ class LincolnUniversityPageController extends Controller
             unlink($lincolnUniversityPage->image);
         }
         $content = Translate::find($lincolnUniversityPage->content);
+        $title = Translate::find($lincolnUniversityPage->title);
+        $title->delete();
         $content->delete();
         $lincolnUniversityPage->delete();
 

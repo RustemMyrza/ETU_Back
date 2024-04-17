@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Document;
 use App\Models\Translate;
-use Illuminate\Support\Facades\Storage;
 
 abstract class DocumentController extends Controller
 {
@@ -77,7 +75,7 @@ abstract class DocumentController extends Controller
     {
         $modelClass = $this->modelClass;
         $document = $modelClass::findOrFail($id);
-        $translatedName = Translate::findOrFail($document->title);
+        $translatedName = Translate::findOrFail($document->name);
         return [$document, $translatedName];
     }
 

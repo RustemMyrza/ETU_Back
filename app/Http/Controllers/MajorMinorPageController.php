@@ -178,6 +178,8 @@ class MajorMinorPageController extends Controller
             unlink($majorMinorPage->image);
         }
         $content = Translate::find($majorMinorPage->content);
+        $title = Translate::find($majorMinorPage->title);
+        $title->delete();
         $content->delete();
         $majorMinorPage->delete();
 

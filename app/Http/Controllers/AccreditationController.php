@@ -179,6 +179,8 @@ class AccreditationController extends Controller
             unlink($accreditation->image);
         }
         $content = Translate::find($accreditation->content);
+        $title = Translate::find($accreditation->title);
+        $title->delete();
         $content->delete();
         $accreditation->delete();
 

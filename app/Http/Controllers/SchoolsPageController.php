@@ -145,6 +145,8 @@ class SchoolsPageController extends Controller
         // dd($id);
         $schoolsPages = SchoolsPage::find($id);
         $content = Translate::find($schoolsPages->tab_name);
+        $title = Translate::find($schoolsPages->title);
+        $title->delete();
         $content->delete();
         $schoolsPages->delete();
 

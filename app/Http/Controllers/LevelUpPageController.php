@@ -178,6 +178,8 @@ class LevelUpPageController extends Controller
             unlink($levelUpPage->image);
         }
         $content = Translate::find($levelUpPage->content);
+        $title = Translate::find($levelUpPage->title);
+        $title->delete();
         $content->delete();
         $levelUpPage->delete();
 

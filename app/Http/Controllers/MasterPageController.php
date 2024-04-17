@@ -178,6 +178,8 @@ class MasterPageController extends Controller
             unlink($masterPage->image);
         }
         $content = Translate::find($masterPage->content);
+        $title = Translate::find($masterPage->title);
+        $title->delete();
         $content->delete();
         $masterPage->delete();
 

@@ -178,6 +178,8 @@ class StudentHousePageController extends Controller
             unlink($studentHousePage->image);
         }
         $content = Translate::find($studentHousePage->content);
+        $title = Translate::find($studentHousePage->title);
+        $title->delete();
         $content->delete();
         $studentHousePage->delete();
 

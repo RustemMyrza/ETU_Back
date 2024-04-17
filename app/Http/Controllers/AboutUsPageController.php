@@ -179,6 +179,8 @@ class AboutUsPageController extends Controller
             unlink($aboutUs->image);
         }
         $content = Translate::find($aboutUs->content);
+        $title = Translate::find($aboutUs->title);
+        $title->delete();
         $content->delete();
         $aboutUs->delete();
 
