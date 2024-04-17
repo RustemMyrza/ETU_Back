@@ -28,6 +28,9 @@ class SciencePageController extends Controller
              case 3:
                  $this->updateForLink('/science-student-science', $id);
                  break;
+            case 4:
+                $this->updateForLink('/summer-school', $id);
+                break;
          }
      }
  
