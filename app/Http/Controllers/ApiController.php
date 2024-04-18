@@ -467,12 +467,24 @@ class ApiController extends Controller
         $partnersByType = [];
 
         foreach ($partner as $item) {
-            $partnersByType[$item->type][] = [
-                'id' => $item->id,
-                'name' => $item->name,
-                'image' => $item->image,
-                'type' => $item->type
-            ];
+            if ($item->type == 1)
+            {
+                $partnersByType['aboutPartnerOurItems'][] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'image' => $item->image,
+                    'type' => $item->type
+                ];
+            }
+            else
+            {
+                $partnersByType['aboutInternationalPartnersItems'][] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'image' => $item->image,
+                    'type' => $item->type
+                ];
+            }
         }
 
         $data['data'] = [];

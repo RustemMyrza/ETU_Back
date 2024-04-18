@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Validator;
 /*
@@ -18,6 +20,14 @@ use Illuminate\Support\Facades\Validator;
 Route::get('/', function () {
     return redirect('/login');
 });
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
+
+Auth::routes([
+    'register' => false,
+    'reset'    =>  false,
+]);
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index')->name('register');
 
 
