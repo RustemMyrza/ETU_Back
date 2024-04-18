@@ -27,8 +27,8 @@
                     <tr>
                         <th>ID</th><td>{{ $academicCouncilMember->id }}</td>
                     </tr>
-                    <tr><th> ФИО </th><td> {{ $translatedData['title']->ru }} </td></tr>
-                    <tr><th> Описание </th><td> {{ $translatedData['content']->ru }} </td></tr>
+                    <tr><th> ФИО </th><td> {{ $translatedData['name']->ru }} </td></tr>
+                    <tr><th> Описание </th><td> {{ $translatedData['description']->ru }} </td></tr>
                 </tbody>
             </table>
         </div>

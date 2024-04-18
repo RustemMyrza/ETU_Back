@@ -48,33 +48,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($vacancyApplication as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->name ? Str::limit($item->name, 50) : '' }}</td>
-                            <td>{{ $item->phone ? Str::limit($item->phone, 50) : '' }}</td>
-                            <td>{{ $item->email ? Str::limit($item->email, 50) : '' }}</td>
-                            <td><a href="{{ $item->summary ? url($item->summary) : '' }}">{{ url($item->summary) }}</a></td>
-                            <td><a href="{{ $item->letter ? url($item->letter) : '' }}">{{ url($item->letter) }}</a></td>
-                            <td><a href="{{ $item->education ? url($item->education) : '' }}">{{ url($item->education) }}</a></td>
-                            <td><a href="{{ $item->recommender ? url($item->recommender) : '' }}">{{ url($item->recommender) }}</a></td>
-                            <!-- {{ url("$item->image")}} -->
-                            <td>
-                            <a href="{{ url('/admin/vacancy/' . $vacancyId . '/applications/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                    @if(isset($vacancyApplication))
+                        @foreach($vacancyApplication as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->name ? Str::limit($item->name, 50) : '' }}</td>
+                                <td>{{ $item->phone ? Str::limit($item->phone, 50) : '' }}</td>
+                                <td>{{ $item->email ? Str::limit($item->email, 50) : '' }}</td>
+                                <td><a href="{{ $item->summary ? url($item->summary) : '' }}">{{ $item->summary ? url($item->summary) : '' }}</a></td>
+                                <td><a href="{{ $item->letter ? url($item->letter) : '' }}">{{ $item->letter ? url($item->letter) : '' }}</a></td>
+                                <td><a href="{{ $item->education ? url($item->education) : '' }}">{{ $item->education ? url($item->education) : '' }}</a></td>
+                                <td><a href="{{ $item->recommender ? url($item->recommender) : '' }}">{{$item->recommender ? url($item->recommender) : '' }}</a></td>
+                                <!-- {{ url("$item->image")}} -->
+                                <td>
+                                <a href="{{ url('/admin/vacancy/' . $vacancyId . '/applications/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
 
 
-                                <form method="POST" action="{{ url('/admin/vacancy/' . $vacancyId . '/applications' . '/' . $item->id . '/delete') }}" accept-charset="UTF-8" style="display:inline">
-                                    {{ method_field('DELETE') }}
-                                    {{ csrf_field() }}
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
-                                            onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt"
-                                                                                            aria-hidden="true"></i>
-                                        Удалить
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                                    <form method="POST" action="{{ url('/admin/vacancy/' . $vacancyId . '/applications' . '/' . $item->id . '/delete') }}" accept-charset="UTF-8" style="display:inline">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
+                                                onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt"
+                                                                                                aria-hidden="true"></i>
+                                            Удалить
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
             <div class="pagination-wrapper"> {!! $vacancyApplication->appends(['search' => Request::get('search')])->render() !!} </div>
