@@ -30,6 +30,6 @@ class HonorsStudentDiscount extends Model
 
     public function getNote()
     {
-        return $this->hasOne(Translate::class, 'id', 'student_type');
+        return $this->hasOne(Translate::class, 'id', 'note');
     }
 }

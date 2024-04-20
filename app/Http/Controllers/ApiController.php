@@ -68,6 +68,9 @@ use App\Models\ScienceAboutPage;
 use App\Models\SummerSchoolPage;
 use App\Models\SummerSchoolDocument;
 use App\Models\SummerSchoolProgram;
+use App\Models\Discount;
+use App\Models\HonorsStudentDiscount;
+use App\Models\Cost;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -96,6 +99,9 @@ use App\Http\Resources\DocumentResource;
 use App\Http\Resources\ScientificPublicationResource;
 use App\Http\Resources\MainPageSchoolResource;
 use App\Http\Resources\SummerSchoolProgramResource;
+use App\Http\Resources\DiscountTableResource;
+use App\Http\Resources\CostTableResource;
+use App\Http\Resources\HonorsStudentDiscountTableResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Block\Element\Document;
@@ -472,7 +478,7 @@ class ApiController extends Controller
                 $partnersByType['aboutPartnerOurItems'][] = [
                     'id' => $item->id,
                     'name' => $item->name,
-                    'image' => $item->image,
+                    'image' => url($item->image),
                     'type' => $item->type
                 ];
             }
@@ -481,7 +487,7 @@ class ApiController extends Controller
                 $partnersByType['aboutInternationalPartnersItems'][] = [
                     'id' => $item->id,
                     'name' => $item->name,
-                    'image' => $item->image,
+                    'image' => url($item->image),
                     'type' => $item->type
                 ];
             }
@@ -738,6 +744,36 @@ class ApiController extends Controller
     public function admissionsCommitteePage ()
     {
         $admissionsCommitteePage = AdmissionsCommitteePage::query()->with(['getTitle', 'getContent'])->get();
+
+        $discountTable = Discount::query()->with(['getCategory', 'getNote'])->get();
+        foreach ($discountTable as $item)
+        {
+            if ($item->student_type == 1)
+            {
+                $discountTable_1[] = new DiscountTableResource($item);
+            }
+            else
+            {
+                $discountTable_2[] = new DiscountTableResource($item);
+            }
+        }
+        $honorsStudentDiscountTable = HonorsStudentDiscount::query()->with(['getCategory', 'getNote'])->get();
+        
+        $honorsStudentDiscountTableResource = HonorsStudentDiscountTableResource::collection($honorsStudentDiscountTable);
+        $costTable = Cost::query()->with(['getProgram'])->get();
+
+        foreach ($costTable as $item)
+        {
+            if ($item->type == 1)
+            {
+                $costTable_1[] = new CostTableResource($item);
+            }
+            else
+            {
+                $costTable_2[] = new CostTableResource($item);
+            }
+        }
+
         foreach ($admissionsCommitteePage as $key => $value)
         {
             switch ($key)
@@ -781,11 +817,16 @@ class ApiController extends Controller
         $scientificPublicationPageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
         $scientificPublicationPageApi->discountsTitle = $discountsTitle;
         $scientificPublicationPageApi->tableTitle_1 = $tableTitle_1;
+        $scientificPublicationPageApi->discountTable_1 = $discountTable_1;
         $scientificPublicationPageApi->tableTitle_2 = $tableTitle_2;
+        $scientificPublicationPageApi->discountTable_2 = $discountTable_2;
         $scientificPublicationPageApi->tableTitle_3 = $tableTitle_3;
+        $scientificPublicationPageApi->discountTable_3 = $honorsStudentDiscountTableResource;
         $scientificPublicationPageApi->costTitle = $costTitle;
         $scientificPublicationPageApi->tableTitle_4 = $tableTitle_4;
+        $scientificPublicationPageApi->costTable_1 = $costTable_1;
         $scientificPublicationPageApi->tableTitle_5 = $tableTitle_5;
+        $scientificPublicationPageApi->costTable_2 = $costTable_2;
         $scientificPublicationPageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
         $scientificPublicationPageApi->bachelorBlock = $bachelorBlock;
         $scientificPublicationPageApi->masterBlock = $masterBlock;

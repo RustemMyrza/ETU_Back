@@ -15,14 +15,33 @@ class MainPageController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $mainPage = MainPage::where('content', 'LIKE', "%$keyword%")
-                ->orWhere('image', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+            $translatedDataId = [];
+            // $mainPage = [];
+            // $allData = MainPage::latest()->paginate($perPage);
+            // foreach($allData as $item)
+            // {
+            //     if ($item->getContent->ru == $keyword || $item->getTitle->ru == $keyword)
+            //     {
+            //         $mainPage[] = $item;
+            //     }
+            // }
+            $mainPage = Translate::where('ru', 'LIKE', "%$keyword%");
+            foreach ($mainPage as $item)
+            {
+                $translatedDataId[] = $item->id;
+            }
+            foreach ($translatedDataId as $item)
+            {
+                $mainPage = MainPage::where('title', 'LIKE', $item)
+                    ->orWhere('content', 'LIKE', $item)
+                    ->latest()->paginate($perPage);
+            }
+            return $mainPage;
         } else {
             $mainPage = MainPage::latest()->paginate($perPage);
-            $translatesData = Translate::all();
         }
         // $this->getDataFromTable();
+        $translatesData = Translate::all();
         return view('mainPage.index', compact('mainPage', 'translatesData'));
     }
 
