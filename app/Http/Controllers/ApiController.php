@@ -744,7 +744,9 @@ class ApiController extends Controller
     public function admissionsCommitteePage ()
     {
         $admissionsCommitteePage = AdmissionsCommitteePage::query()->with(['getTitle', 'getContent'])->get();
+        $documents = AdmissionsCommitteePageDocument::query()->with(['getName'])->get();
 
+        $documents = DocumentResource::collection($documents);
         $discountTable = Discount::query()->with(['getCategory', 'getNote'])->get();
         foreach ($discountTable as $item)
         {
@@ -813,24 +815,25 @@ class ApiController extends Controller
                     break;
             }
         }
-        $scientificPublicationPageApi = new stdClass;
-        $scientificPublicationPageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
-        $scientificPublicationPageApi->discountsTitle = $discountsTitle;
-        $scientificPublicationPageApi->tableTitle_1 = $tableTitle_1;
-        $scientificPublicationPageApi->discountTable_1 = $discountTable_1;
-        $scientificPublicationPageApi->tableTitle_2 = $tableTitle_2;
-        $scientificPublicationPageApi->discountTable_2 = $discountTable_2;
-        $scientificPublicationPageApi->tableTitle_3 = $tableTitle_3;
-        $scientificPublicationPageApi->discountTable_3 = $honorsStudentDiscountTableResource;
-        $scientificPublicationPageApi->costTitle = $costTitle;
-        $scientificPublicationPageApi->tableTitle_4 = $tableTitle_4;
-        $scientificPublicationPageApi->costTable_1 = $costTable_1;
-        $scientificPublicationPageApi->tableTitle_5 = $tableTitle_5;
-        $scientificPublicationPageApi->costTable_2 = $costTable_2;
-        $scientificPublicationPageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
-        $scientificPublicationPageApi->bachelorBlock = $bachelorBlock;
-        $scientificPublicationPageApi->masterBlock = $masterBlock;
-        return $scientificPublicationPageApi;
+        $admissionsCommitteePageApi = new stdClass;
+        $admissionsCommitteePageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
+        $admissionsCommitteePageApi->documents = $documents;
+        $admissionsCommitteePageApi->discountsTitle = $discountsTitle;
+        $admissionsCommitteePageApi->tableTitle_1 = $tableTitle_1;
+        $admissionsCommitteePageApi->discountTable_1 = $discountTable_1;
+        $admissionsCommitteePageApi->tableTitle_2 = $tableTitle_2;
+        $admissionsCommitteePageApi->discountTable_2 = $discountTable_2;
+        $admissionsCommitteePageApi->tableTitle_3 = $tableTitle_3;
+        $admissionsCommitteePageApi->discountTable_3 = $honorsStudentDiscountTableResource;
+        $admissionsCommitteePageApi->costTitle = $costTitle;
+        $admissionsCommitteePageApi->tableTitle_4 = $tableTitle_4;
+        $admissionsCommitteePageApi->costTable_1 = $costTable_1;
+        $admissionsCommitteePageApi->tableTitle_5 = $tableTitle_5;
+        $admissionsCommitteePageApi->costTable_2 = $costTable_2;
+        $admissionsCommitteePageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
+        $admissionsCommitteePageApi->bachelorBlock = $bachelorBlock;
+        $admissionsCommitteePageApi->masterBlock = $masterBlock;
+        return $admissionsCommitteePageApi;
     }
 
     public function masterPage ()
