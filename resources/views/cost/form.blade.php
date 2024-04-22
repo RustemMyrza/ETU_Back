@@ -14,7 +14,7 @@
     <div class="tab-pane active in ru-content" id="custom-tabs-one-ru" role="tabpanel" aria-labelledby="custom-tabs-one-ru-tab">
         <div class="form-group {{ $errors->has('program') ? 'has-error' : ''}}">
             <label for="program[ru]" class="control-label">{{ 'Группа образовательных программ RU' }}</label>
-            <input class="form-control" name="program[ru]" type="text" id="program_ru" value="{{ isset($translatedData['program']->ru) ? $translatedData['program']->ru : ''}}" >
+            <input class="form-control" name="program[ru]" type="text" id="program_ru" value="{{ isset($translatedProgram->ru) ? $translatedProgram->ru : ''}}" >
             {!! $errors->first('program[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
         <div class="form-group {{ $errors->has('program') ? 'has-error' : ''}}">
             <label for="program[en]" class="control-label">{{ 'Группа образовательных программ EN' }}</label>
-            <input class="form-control" name="program[en]" type="text" id="program_en" value="{{ isset($translatedData['program']->en) ? $translatedData['program']->en : ''}}" >
+            <input class="form-control" name="program[en]" type="text" id="program_en" value="{{ isset($translatedProgram->en) ? $translatedProgram->en : ''}}" >
             {!! $errors->first('program[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="tab-pane fade kz-content" id="custom-tabs-one-kz" role="tabpanel" aria-labelledby="custom-tabs-one-kz-tab">
         <div class="form-group {{ $errors->has('program') ? 'has-error' : ''}}">
             <label for="v[kz]" class="control-label">{{ 'Группа образовательных программ KZ' }}</label>
-            <input class="form-control" name="program[kz]" type="text" id="program_kz" value="{{ isset($translatedData['program']->kz) ? $translatedData['program']->kz : ''}}" >
+            <input class="form-control" name="program[kz]" type="text" id="program_kz" value="{{ isset($translatedProgram->kz) ? $translatedProgram->kz : ''}}" >
             {!! $errors->first('program[kz]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
