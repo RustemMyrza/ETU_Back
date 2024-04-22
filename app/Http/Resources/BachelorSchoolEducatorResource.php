@@ -20,7 +20,7 @@ class BachelorSchoolEducatorResource extends JsonResource
             'id' => $this->id,
             'professsion' => $this->getPosition ? $this->getPosition->{$lang} : '',
             'name' => $this->getName ? $this->getName->{$lang} : '',
-            'image' => $this->image ? $this->image : ''
+            'image' => $this->image ? url($this->image) : ''
         ];
     }
 }

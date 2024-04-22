@@ -43,7 +43,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (isset($translatesData))
                     @foreach($document as $item)
                         @if($item->getName != null)
                             <tr>
@@ -72,7 +71,6 @@
                             </tr>
                         @endif
                     @endforeach
-                @endif
                 </tbody>
             </table>
             <div class="pagination-wrapper"> {!! $document->appends(['search' => Request::get('search')])->render() !!} </div>

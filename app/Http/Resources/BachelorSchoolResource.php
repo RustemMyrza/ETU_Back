@@ -5,7 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\BachelorSchoolSpecialtyResource;
+use App\Models\BachelorSchool;
 use App\Http\Resources\BachelorSchoolEducatorResource;
+use App\Models\BachelorSchoolSpecialtyPage;
 use stdClass;
 
 class BachelorSchoolResource extends JsonResource
@@ -19,6 +21,8 @@ class BachelorSchoolResource extends JsonResource
     public function toArray($request)
     {
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
+        // $bachelorSchool = BachelorSchool::query()->with(['getName'])->get();
+        // return $bachelorSchool;
         $blocks = new stdClass;
         $educators = [];
         $specialties = [];
@@ -41,11 +45,13 @@ class BachelorSchoolResource extends JsonResource
                     break;
             }
         }
-
+        $specialties = new stdClass;
         foreach ($this->getSpecialties as $key => $value)
         {
-            $specialties[] = new BachelorSchoolSpecialtyResource($value);
+            $specialties->{$key} = new BachelorSchoolSpecialtyResource($value);
         }
+
+        // $specialties = BachelorSchoolSpecialtyResource::collection($this->getSpecialties);
 
         foreach ($this->getEducators as $key => $value)
         {
@@ -55,7 +61,7 @@ class BachelorSchoolResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getName ? $this->getName->{$lang} : '',
-            'icon' => $this->image ? $this->image : '',
+            'icon' => $this->image ? url($this->image) : '',
             'block' => $this->getPage ? $blocks : '',
             'program' => $this->getSpecialties ? $specialties : '',
             'teachingStaff' => $this->getEducators ? $educators : ''

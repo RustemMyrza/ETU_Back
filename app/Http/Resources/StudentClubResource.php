@@ -20,7 +20,7 @@ class StudentClubResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->getDescription ? $this->getDescription->{$lang} : '',
-            'logo' => $this->logo
+            'logo' => $this->logo ? url($this->logo) : ''
         ];
     }
 }
