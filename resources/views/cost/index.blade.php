@@ -39,6 +39,7 @@
                     <th>II курс</th>
                     <th>III курс</th>
                     <th>IV курс</th>
+                    <th>V курс</th>
                     <th>Общая стоимость</th>
                     <th>Форма обучения</th>
                     <th>Действия</th>
@@ -53,6 +54,7 @@
                             <td>{{ $item->second ? Str::limit($item->second, 50) : '' }}</td>
                             <td>{{ $item->third ? Str::limit($item->third, 50) : '' }}</td>
                             <td>{{ $item->fourth ? Str::limit($item->fourth, 50) : '' }}</td>
+                            <td>{{ $item->fifth ? Str::limit($item->fifth, 50) : '' }}</td>
                             <td>{{ $item->total ? Str::limit($item->total, 50) : '' }}</td>
                             <td>{{ $item->type ? Str::limit($formEducation[$item->type], 50) : '' }}</td>
                             <td>

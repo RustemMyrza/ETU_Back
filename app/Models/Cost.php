@@ -21,7 +21,7 @@ class Cost extends Model
      *
      * @var array
      */
-    protected $fillable = ['program', 'first', 'second', 'third', 'fourth', 'total', 'type'];
+    protected $fillable = ['program', 'first', 'second', 'third', 'fourth', 'fifth', 'total', 'type'];
 
     public function getProgram()
     {

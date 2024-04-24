@@ -546,8 +546,8 @@ class ApiController extends Controller
     public function rectorsBlogPage ()
     {
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
-
-        $questions = RectorsBlogQuestion::query()->get();
+        
+        $questions = RectorsBlogQuestion::query()->latest()->paginate(5);
         
         foreach ($questions as $item)
         {
@@ -770,9 +770,13 @@ class ApiController extends Controller
             {
                 $costTable_1[] = new CostTableResource($item);
             }
-            else
+            else if ($item->type == 2)
             {
                 $costTable_2[] = new CostTableResource($item);
+            }
+            else
+            {
+                $costTable_3[] = new CostTableResource($item);
             }
         }
 
@@ -805,12 +809,15 @@ class ApiController extends Controller
                     $tableTitle_5 = new PageResource($value);
                     break;
                 case 8:
-                    $listOfDocumentsTitle = new PageResource($value);
+                    $tableTitle_6 = new PageResource($value);
                     break;
                 case 9:
-                    $bachelorBlock = new PageResource($value);
+                    $listOfDocumentsTitle = new PageResource($value);
                     break;
                 case 10:
+                    $bachelorBlock = new PageResource($value);
+                    break;
+                case 11:
                     $masterBlock = new PageResource($value);
                     break;
             }
@@ -830,6 +837,8 @@ class ApiController extends Controller
         $admissionsCommitteePageApi->costTable_1 = $costTable_1;
         $admissionsCommitteePageApi->tableTitle_5 = $tableTitle_5;
         $admissionsCommitteePageApi->costTable_2 = $costTable_2;
+        $admissionsCommitteePageApi->tableTitle_6 = $tableTitle_6;
+        $admissionsCommitteePageApi->costTable_3 = $costTable_3;
         $admissionsCommitteePageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
         $admissionsCommitteePageApi->bachelorBlock = $bachelorBlock;
         $admissionsCommitteePageApi->masterBlock = $masterBlock;

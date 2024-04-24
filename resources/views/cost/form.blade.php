@@ -42,11 +42,12 @@
     <select name="type" id="type">
         <option value="1" {{ isset($cost->type) ? $cost->type == 1 ? 'selected' : '' : '' }} >На очное отделение Бакалавриата</option>
         <option value="2" {{ isset($cost->type) ? $cost->type == 2 ? 'selected' : '' : '' }} >На сокращенную форму Бакалавриата</option>
+        <option value="3" {{ isset($cost->type) ? $cost->type == 3 ? 'selected' : '' : '' }} >Магистратура</option>
     </select>
     {!! $errors->first('student_type"', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group {{ $errors->has('first') ? 'has-error' : ''}}" id="first_year_block">
+<div class="form-group {{ $errors->has('first') ? 'has-error' : ''}} ">
     <label for="first_year" class="control-label">{{ '1 курс' }}</label>
     <input class="form-control" name="first_year" type="number" id="first_year" value="{{ isset($cost->first) ? $cost->first : ''}}" >
     {!! $errors->first('first_year"', '<p class="help-block">:message</p>') !!}
@@ -58,16 +59,22 @@
     {!! $errors->first('second_year"', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group {{ $errors->has('third') ? 'has-error' : ''}}">
+<div class="form-group {{ $errors->has('third') ? 'has-error' : ''}} bachelor_years_block">
     <label for="third_year" class="control-label">{{ '3 курс' }}</label>
     <input class="form-control" name="third_year" type="number" id="third_year" value="{{ isset($cost->third) ? $cost->third : ''}}" >
     {!! $errors->first('third_year"', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group {{ $errors->has('fourth') ? 'has-error' : ''}}">
+<div class="form-group {{ $errors->has('fourth') ? 'has-error' : ''}} bachelor_years_block">
     <label for="fourth_year" class="control-label">{{ '4 курс' }}</label>
     <input class="form-control" name="fourth_year" type="number" id="fourth_year" value="{{ isset($cost->fourth) ? $cost->fourth : ''}}" >
     {!! $errors->first('fourth_year"', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group {{ $errors->has('fifth') ? 'has-error' : ''}} bachelor_years_block" id="fifth_year_block">
+    <label for="fifth_year" class="control-label">{{ '5 курс' }}</label>
+    <input class="form-control" name="fifth_year" type="number" id="fifth_year" value="{{ isset($cost->fifth) ? $cost->fifth : ''}}" >
+    {!! $errors->first('fifth_year"', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group {{ $errors->has('total') ? 'has-error' : ''}}">
@@ -87,19 +94,38 @@
     var enLink = document.getElementById("custom-tabs-one-en-tab");
     var kzLink = document.getElementById("custom-tabs-one-kz-tab");
     var type = document.getElementById("type");
-    var first_year = document.getElementById("first_year_block");
+    var fifth_year = document.getElementById("fifth_year_block");
+    var bachelorYears = document.getElementsByClassName("bachelor_years_block");
+    console.log("bachelor_years: ", bachelorYears);
+
 
     type.addEventListener('change', function() {
         var value = this.value
 
         if (value == 2)
         {
-            first_year.style.display = 'none';
+            for (let i = 0; i < bachelorYears.length; i++)
+            {
+                bachelorYears[i].style.display = 'block';
+            }
+            fifth_year.style.display = 'none';
         }
 
         else if (value == 1)
         {
-            first_year.style.display = 'block';
+            fifth_year.style.display = 'block';
+            for (let i = 0; i < bachelorYears.length; i++)
+            {
+                bachelorYears[i].style.display = 'block';
+            }
+        }
+
+        else if (value == 3)
+        {
+            for (let i = 0; i < bachelorYears.length; i++)
+            {
+                bachelorYears[i].style.display = 'none';
+            }
         }
     })
 

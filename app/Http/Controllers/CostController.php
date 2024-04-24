@@ -20,7 +20,8 @@ class CostController extends Controller
             $cost = Cost::latest()->paginate($perPage);
             $formEducation = [
                 1 => 'Очное отделение Бакалавриат',
-                2 => 'Сокращенное отделение Бакалавриат'
+                2 => 'Сокращенное отделение Бакалавриат',
+                3 => 'Магистратура'
             ];
             $translatesData = Translate::all();
         }
@@ -58,10 +59,11 @@ class CostController extends Controller
 
         $cost= new Cost();
         $cost->program = $programId;
-        $requestData['type'] == 1 ? $cost->first = $requestData['first_year'] : $cost->first = null;
+        $cost->first = $requestData['first_year'];
         $cost->second = $requestData['second_year'];
         $cost->third = $requestData['third_year'];
         $cost->fourth = $requestData['fourth_year'];
+        $cost->fifth = $requestData['fifth_year'];
         $cost->total = $requestData['total'];
         $cost->type = $requestData['type'];
         $cost->save();
@@ -82,7 +84,8 @@ class CostController extends Controller
         $translatedProgram = Translate::findOrFail($cost->program);
         $formEducation = [
             1 => 'На очное отделение',
-            2 => 'На сокращенную форму'
+            2 => 'На сокращенную форму',
+            3 => 'Магистратура'
         ];
         return view('cost.show', compact('cost', 'translatedProgram', 'formEducation'));
     }
@@ -124,6 +127,7 @@ class CostController extends Controller
         $cost->second = $requestData['second_year'];
         $cost->third = $requestData['third_year'];
         $cost->fourth = $requestData['fourth_year'];
+        $cost->fifth = $requestData['fifth_year'];
         $cost->total = $requestData['total'];
         $cost->type = $requestData['type'];
         $cost->update();

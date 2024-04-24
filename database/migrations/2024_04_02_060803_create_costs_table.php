@@ -21,6 +21,7 @@ class CreateCostsTable extends Migration
             $table->string('second')->nullable();
             $table->string('third')->nullable();
             $table->string('fourth')->nullable();
+            $table->string('fifth')->nullable();
             $table->string('total')->nullable();
             $table->string('type')->nullable();
         });

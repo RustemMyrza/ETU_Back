@@ -28,10 +28,11 @@
                         <th>ID</th><td>{{ $cost->id }}</td>
                     </tr>
                     <tr><th> Группа образовательных программ </th><td> {{ $translatedProgram->ru }} </td></tr>
-                    <tr><th> 1 курс </th><td> {{ $cost->first }} </td></tr>
-                    <tr><th> 2 курс </th><td> {{ $cost->second }} </td></tr>
-                    <tr><th> 3 курс </th><td> {{ $cost->third }} </td></tr>
-                    <tr><th> 4 курс </th><td> {{ $cost->fourth }} </td></tr>
+                    <tr><th> I курс </th><td> {{ $cost->first }} </td></tr>
+                    <tr><th> II курс </th><td> {{ $cost->second }} </td></tr>
+                    <tr><th> III курс </th><td> {{ $cost->third }} </td></tr>
+                    <tr><th> IV курс </th><td> {{ $cost->fourth }} </td></tr>
+                    <tr><th> V курс </th><td> {{ $cost->fifth }} </td></tr>
                     <tr><th> Общая стоимость </th><td> {{ $cost->total }} </td></tr>
                     <tr><th> Форма обучения </th><td> {{ $cost->type ? $formEducation[$cost->type] : '' }} </td></tr>
                 </tbody>

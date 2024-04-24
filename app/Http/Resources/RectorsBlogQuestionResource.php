@@ -20,8 +20,9 @@ class RectorsBlogQuestionResource extends JsonResource
                 'name' => $this->name . ' ' .$this->surname,
                 'phone' => $this->phone,
                 'email' => $this->email,
+                'date' => $this->updated_at,
                 'question' => $this->question,
-                'answer' => $this->answer
+                'answer' => $this->answer,
             ];
         }
     }
