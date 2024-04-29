@@ -15,15 +15,38 @@ class CostTableResource extends JsonResource
     public function toArray($request)
     {
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
-
-        $returnData = [
-            'program' => $this->program ? $this->getProgram->{$lang} : '',
-            'first' => $this->first,
-            'second' => $this->second,
-            'third' => $this->third,
-            'fourth' => $this->fourth,
-            'total' => $this->total
-        ];
+        if ($this->type == 1)
+        {
+            $returnData = [
+                'program' => $this->program ? $this->getProgram->{$lang} : '',
+                'first' => $this->first,
+                'second' => $this->second,
+                'third' => $this->third,
+                'fourth' => $this->fourth,
+                'fifth' => $this->fifth,
+                'total' => $this->total
+            ];
+        }
+        else if ($this->type == 2)
+        {
+            $returnData = [
+                'program' => $this->program ? $this->getProgram->{$lang} : '',
+                'first' => $this->first,
+                'second' => $this->second,
+                'third' => $this->third,
+                'fourth' => $this->fourth,
+                'total' => $this->total
+            ];
+        }
+        else
+        {
+            $returnData = [
+                'program' => $this->program ? $this->getProgram->{$lang} : '',
+                'first' => $this->first,
+                'second' => $this->second,
+                'total' => $this->total
+            ];
+        }
         return $returnData;
     }
 }

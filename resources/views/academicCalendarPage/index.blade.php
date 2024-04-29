@@ -10,23 +10,12 @@
 
     <div class="card-body">
         @include('flash-message')
+        <a href="{{ url('/admin/academicCalendarPage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
+        </a>
         <a href="{{ url('/admin/academicCalendarPageDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
             <i class="fa fa-file" aria-hidden="true"></i> Документы
         </a>
-
-        <form method="GET" action="{{ url('/admin/academicCalendarPage') }}" accept-charset="UTF-8"
-              class="form-inline my-2 my-lg-0 float-right" role="search">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Поиск..."
-                       value="{{ request('search') }}">
-                <span class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-
         <br/>
         <br/>
         <div class="table-responsive">

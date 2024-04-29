@@ -16,19 +16,6 @@
         <a href="{{ url('/admin/scientificPublicationPage') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
-        <form method="GET" action="{{ url('/admin/scientificPublicationDocument') }}" accept-charset="UTF-8"
-              class="form-inline my-2 my-lg-0 float-right" role="search">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Поиск..."
-                       value="{{ request('search') }}">
-                <span class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-
         <br/>
         <br/>
         <div class="table-responsive">

@@ -779,7 +779,6 @@ class ApiController extends Controller
                 $costTable_3[] = new CostTableResource($item);
             }
         }
-
         foreach ($admissionsCommitteePage as $key => $value)
         {
             switch ($key)

@@ -10,20 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
-
-        <form method="GET" action="{{ url('/admin/aboutUs') }}" accept-charset="UTF-8"
-              class="form-inline my-2 my-lg-0 float-right" role="search">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Поиск..."
-                       value="{{ request('search') }}">
-                <span class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-
+        <a href="{{ url('/admin/aboutUs/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
+            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
+        </a>
         <br/>
         <br/>
         <div class="table-responsive">
