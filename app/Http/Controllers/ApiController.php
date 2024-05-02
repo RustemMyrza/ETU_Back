@@ -1481,8 +1481,10 @@ class ApiController extends Controller
             ]
         ];
         $navBar = $this->headerNavBar();
-        $navBar = $navBar->push($contacts);
-        return $navBar;
+        $footerNavBar = new stdClass;
+        $footerNavBar->navbar = $navBar;
+        $footerNavBar->contacts = $contacts;
+        return $footerNavBar;
     }
 
     public function scienceAboutPage ()

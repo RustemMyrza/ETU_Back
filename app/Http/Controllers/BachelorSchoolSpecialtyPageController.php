@@ -163,7 +163,7 @@ class BachelorSchoolSpecialtyPageController extends Controller
         $content->update();
         $bachelorSpecialtyPage->update();
 
-        return redirect('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . 'page')->with('flash_message', 'Блок изменен');
+        return redirect('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/page')->with('flash_message', 'Блок изменен');
     }
 
     /**

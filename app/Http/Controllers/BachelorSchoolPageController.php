@@ -143,7 +143,7 @@ class BachelorSchoolPageController extends Controller
         $bachelorSchoolPage = BachelorSchoolPage::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($bachelorSchoolPage->image != null) {
-                unlink($bachelorSchoolPage->image);
+                // unlink($bachelorSchoolPage->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $bachelorSchoolPage->image = $path;
