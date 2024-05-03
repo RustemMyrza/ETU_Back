@@ -45,12 +45,12 @@ class SummerSchoolPageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ],
             [
                 'image.required' => 'Изображение для блока обязательно',
                 'image.mimes' => 'Проверьте формат изображения',
-                'image.max' => 'Размер файла не может превышать 2МБ'
+                'image.max' => 'Размер файла не может превышать 10МБ'
             ]);
         $requestData = $request->all();
         if ($request->hasFile('image')) {
@@ -129,11 +129,11 @@ class SummerSchoolPageController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ],
             [
                 'image.mimes' => 'Проверьте формат изображения',
-                'image.max' => 'Размер файла не может превышать 2МБ'
+                'image.max' => 'Размер файла не может превышать 10МБ'
             ]);
 
         $requestData = $request->all();

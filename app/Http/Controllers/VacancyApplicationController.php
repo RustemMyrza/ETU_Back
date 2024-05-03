@@ -44,11 +44,11 @@ class VacancyApplicationController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'document' => 'document|mimes:pdf,docx|max:2048',
+            'document' => 'document|mimes:pdf,docx|max:10240',
         ],
             [
                 'document.mimes' => 'Проверьте формат документа',
-                'document.max' => 'Размер файла не может превышать 2МБ'
+                'document.max' => 'Размер файла не может превышать 10МБ'
             ]);
         $requestData = $request->all();
         if ($request->hasFile('summary')) {

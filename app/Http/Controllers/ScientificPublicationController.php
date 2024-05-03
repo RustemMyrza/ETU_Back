@@ -48,11 +48,11 @@ class ScientificPublicationController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'document' => 'required|file|mimes:pdf|max:2048',
+            'document' => 'required|file|mimes:pdf|max:10240',
         ], [
             'document.required' => 'Документ обязателен для загрузки',
             'document.mimes' => 'Формат документа должен быть pdf',
-            'document.max' => 'Размер файла не может превышать 2МБ'
+            'document.max' => 'Размер файла не может превышать 10МБ'
         ]);
 
         $requestData = $request->all();
@@ -132,11 +132,11 @@ class ScientificPublicationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'document' => 'required|file|mimes:pdf|max:2048',
+            'document' => 'required|file|mimes:pdf|max:10240',
         ],
             [
                 'document.mimes' => 'Формат документа должен быть pdf',
-                'document.max' => 'Размер файла не может превышать 2МБ'
+                'document.max' => 'Размер файла не может превышать 10МБ'
             ]);
 
         $requestData = $request->all();

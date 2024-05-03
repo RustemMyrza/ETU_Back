@@ -40,11 +40,11 @@ abstract class DocumentController extends Controller
     {
         $modelClass = $this->modelClass;
         $request->validate([
-            'document' => 'required|file|mimes:pdf,docx,pptx|max:2048',
+            'document' => 'required|file|mimes:pdf,docx,pptx|max:10240',
         ], [
             'document.required' => 'Документ обязателен для загрузки',
             'document.mimes' => 'Формат документа должен быть pdf, docx или pptx',
-            'document.max' => 'Размер файла не может превышать 2МБ'
+            'document.max' => 'Размер файла не может превышать 10МБ'
         ]);
         $requestData = $request->all();
         if ($request->hasFile('document')) {
