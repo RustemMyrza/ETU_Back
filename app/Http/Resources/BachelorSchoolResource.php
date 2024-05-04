@@ -45,13 +45,13 @@ class BachelorSchoolResource extends JsonResource
                     break;
             }
         }
-        $specialties = new stdClass;
-        foreach ($this->getSpecialties as $key => $value)
-        {
-            $specialties->{$key} = new BachelorSchoolSpecialtyResource($value);
-        }
+        // $specialties = new stdClass;
+        // foreach ($this->getSpecialties as $key => $value)
+        // {
+        //     $specialties->{$key} = new BachelorSchoolSpecialtyResource($value);
+        // }
 
-        // $specialties = BachelorSchoolSpecialtyResource::collection($this->getSpecialties);
+        $specialties = BachelorSchoolSpecialtyResource::collection($this->getSpecialties);
 
         foreach ($this->getEducators as $key => $value)
         {

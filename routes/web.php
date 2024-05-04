@@ -115,7 +115,7 @@ Route::resource('admin/summerSchoolProgram', 'App\Http\Controllers\SummerSchoolP
 Route::resource('admin/summerSchoolDocument', 'App\Http\Controllers\SummerSchoolDocumentController')->middleware('auth');
 
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->middleware('auth')->name('specialty.page.index');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->middleware('auth')->name('specialty.page.create');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->middleware('auth')->name('specialty_page_create');
 Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@store')->middleware('auth')->name('specialty.page.store');
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@show')->middleware('auth')->name('specialty.page.show');
 Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@edit')->middleware('auth')->name('specialty.page.edit');
@@ -133,7 +133,7 @@ Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documen
 
 
 Route::get('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController@index')->middleware('auth')->name('school.page.index');
-Route::get('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@create')->middleware('auth')->name('school.page.create');
+Route::get('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@create')->middleware('auth')->name('school_page_create');
 Route::post('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@store')->middleware('auth')->name('school.page.store');
 Route::get('admin/bachelorSchool/{schoolId}/page/{id}', 'App\Http\Controllers\BachelorSchoolPageController@show')->middleware('auth')->name('school.page.show');
 Route::get('admin/bachelorSchool/{schoolId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolPageController@edit')->middleware('auth')->name('school.page.edit');
@@ -163,11 +163,12 @@ Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsConte
 Route::post('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@store')->middleware('auth')->name('news.content.store');
 Route::get('admin/news/{newsId}/content/{id}', 'App\Http\Controllers\NewsContentController@show')->middleware('auth')->name('news.content.show');
 Route::get('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\NewsContentController@edit')->middleware('auth')->name('news.content.edit');
+Route::post('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\NewsContentController@update')->middleware('auth')->name('news.content.update');
 Route::delete('admin/news/{newsId}/content/{id}/delete', 'App\Http\Controllers\NewsContentController@destroy')->middleware('auth')->name('news.content.destroy');
 Route::resource('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController')->middleware('auth')->except(['index', 'show']);
 
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page', 'App\Http\Controllers\MastersSpecialtyPageController@index')->middleware('auth')->name('mastersSpecialty.page.index');
-Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MastersSpecialtyPageController@create')->middleware('auth')->name('mastersSpecialty.page.create');
+Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MastersSpecialtyPageController@create')->middleware('auth')->name('mastersSpecialty_page_create');
 Route::post('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MastersSpecialtyPageController@store')->middleware('auth')->name('mastersSpecialty.page.store');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}', 'App\Http\Controllers\MastersSpecialtyPageController@show')->middleware('auth')->name('mastersSpecialty.page.show');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/edit', 'App\Http\Controllers\MastersSpecialtyPageController@edit')->middleware('auth')->name('mastersSpecialty.page.edit');

@@ -93,11 +93,11 @@ abstract class DocumentController extends Controller
         $requestData = $request->all();
         $document = $modelClass::findOrFail($id);
         if ($request->hasFile('document')) {
-            if ($document->document != null) {
-                unlink($document->document);
+            if ($document->link != null) {
+                unlink($document->link);
             }
             $path = $this->uploadImage($request->file('document'));
-            $document->document = $path;
+            $document->link = $path;
         }
 
         $name = Translate::find($document->name);
