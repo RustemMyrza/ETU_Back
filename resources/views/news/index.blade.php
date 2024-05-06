@@ -33,9 +33,10 @@
                             <td>{{ $item->getName ? Str::limit($item->getName->ru, 50) : '' }}</td>
                             <td>{{ $item->date ? $item->date : '' }}</td>
                             <td>
-                                <img src="url({{$item->background_image}})" alt="{{$item->background_image}}">
+                                <img src="{{ url($item->background_image) }}" alt="{{$item->background_image}}">
                             </td>
                             <td>
+                            <a href="{{ route('news.slider.index', ['newsId' => $item->id]) }}" title="Слайдер"><button class="btn btn-warning btn-sm"><i class="fa fa-clone" aria-hidden="true"></i> Слайдер</button></a>
                             <a href="{{ route('news.content.index', ['newsId' => $item->id]) }}" title="Содержимое"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Содержимое</button></a>
                             <a href="{{ url('admin/news/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                 <a href="{{ url('admin/news/' . $item->id . '/edit') }}" title="Редактировать блок">

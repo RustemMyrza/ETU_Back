@@ -13,11 +13,14 @@
         <a href="{{ url('/admin/summerSchoolPage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-        <a href="{{ url('/admin/summerSchoolProgram') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/summerSchoolProgram') }}" class="btn btn-info btn-sm" title="Программа">
             <i class="fa fa-tasks" aria-hidden="true"></i> Программа
         </a>
-        <a href="{{ url('/admin/summerSchoolDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
+        <a href="{{ url('/admin/summerSchoolDocument') }}" class="btn btn-info btn-sm" title="Документы">
             <i class="fa fa-file" aria-hidden="true"></i> Документы
+        </a>
+        <a href="{{ url('/admin/summerSchoolSlider') }}" class="btn btn-info btn-sm" title="Слайдер">
+            <i class="fa fa-clone" aria-hidden="true"></i> Слайдер
         </a>
         <br/>
         <br/>

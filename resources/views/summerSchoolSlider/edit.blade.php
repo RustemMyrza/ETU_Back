@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card-body">
-        <a href="{{ url(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId])) }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('/admin/summerSchoolSlider') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 
@@ -20,11 +20,11 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/document/' . $id . '/edit') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/summerSchoolSlider') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 
-            @include ('bachelorSpecialtyDocument.form', ['formMode' => 'edit'])
+            @include ('newsPageSlider.form', ['formMode' => 'edit'])
 
         </form>
 

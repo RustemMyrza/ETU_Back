@@ -19,11 +19,21 @@ class NewsResource extends JsonResource
     public function toArray($request)
     {
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
+        $slider = $this->getSlider ? $this->getSlider : null;
+        if (isset($slider->images))
+        {
+            foreach(json_decode($slider->images) as $item)
+            {
+                $sliderImages[] = url($item);
+            }
+        }
+
 
         $blocks = PageResource::collection($this->getChild);
         $content = new stdClass;
         $content->title = $this->getName ? $this->getName->{$lang} : '';
         $content->date = $this->date;
+        $content->slider = isset($sliderImages) ? $sliderImages : null;
         $content->blocks = $blocks;
 
         $news = [

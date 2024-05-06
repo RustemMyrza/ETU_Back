@@ -34,4 +34,9 @@ class News extends Model
     {
         return $this->hasMany(NewsContent::class, 'parent_id', 'id');
     }
+
+    public function getSlider()
+    {
+        return $this->hasOne(NewsPageSlider::class, 'news_id', 'id');
+    }
 }

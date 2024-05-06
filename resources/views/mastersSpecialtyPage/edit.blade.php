@@ -20,7 +20,7 @@
             </ul>
         @endif
 
-        <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/' . $mastersSpecialtyPage->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ url('/admin/mastersSpecialty/' . $mastersSpecialtyId . '/page/' . $mastersSpecialtyPage->id . '/edit') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
             {{ method_field('PATCH') }}
             {{ csrf_field() }}
 

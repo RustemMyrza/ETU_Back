@@ -65,7 +65,7 @@ Route::resource('admin/careerPage', 'App\Http\Controllers\CareerPageController')
 Route::resource('admin/vacancy', 'App\Http\Controllers\VacancyController')->middleware('auth');
 Route::resource('admin/rectorsBlogPage', 'App\Http\Controllers\RectorsBlogPageController')->middleware('auth');
 Route::resource('admin/rectorsBlogQuestion', 'App\Http\Controllers\RectorsBlogQuestionController')->middleware('auth');
-Route::post('admin/rectorsBlogQuestion/create', 'App\Http\Controllers\RectorsBlogQuestionController@store')->name('rectors.question.store')->middleware('auth');
+Route::post('admin/rectorsBlogQuestion/create', 'App\Http\Controllers\RectorsBlogQuestionController@store')->name('rectors.question.store');
 Route::resource('admin/academicCouncilPage', 'App\Http\Controllers\AcademicCouncilPageController')->middleware('auth');
 Route::resource('admin/academicCouncilMember', 'App\Http\Controllers\AcademicCouncilMemberController')->middleware('auth');
 Route::resource('admin/scienceInnovationPage', 'App\Http\Controllers\ScienceInnovationPageController')->middleware('auth');
@@ -113,65 +113,32 @@ Route::resource('admin/admissionsCommitteePageDocument', 'App\Http\Controllers\A
 Route::resource('admin/summerSchoolPage', 'App\Http\Controllers\SummerSchoolPageController')->middleware('auth');
 Route::resource('admin/summerSchoolProgram', 'App\Http\Controllers\SummerSchoolProgramController')->middleware('auth');
 Route::resource('admin/summerSchoolDocument', 'App\Http\Controllers\SummerSchoolDocumentController')->middleware('auth');
-
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->middleware('auth')->name('specialty.page.index');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->middleware('auth')->name('specialty_page_create');
-Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@store')->middleware('auth')->name('specialty.page.store');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@show')->middleware('auth')->name('specialty.page.show');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@edit')->middleware('auth')->name('specialty.page.edit');
-Route::delete('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@destroy')->middleware('auth')->name('specialty.page.destroy');
-Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController')->middleware('auth')->except(['index', 'show']);
-
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents', 'App\Http\Controllers\BachelorSpecialtyDocumentController@index')->middleware('auth')->name('bachelorSpecialty.document.index');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/create', 'App\Http\Controllers\BachelorSpecialtyDocumentController@create')->middleware('auth')->name('bachelorSpecialty.document.create');
-Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/create', 'App\Http\Controllers\BachelorSpecialtyDocumentController@store')->middleware('auth')->name('bachelorSpecialty.document.store');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}', 'App\Http\Controllers\BachelorSpecialtyDocumentController@show')->middleware('auth')->name('bachelorSpecialty.document.show');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}/edit', 'App\Http\Controllers\BachelorSpecialtyDocumentController@edit')->middleware('auth')->name('bachelorSpecialty.document.edit');
-Route::delete('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}/delete', 'App\Http\Controllers\BachelorSpecialtyDocumentController@destroy')->middleware('auth')->name('bachelorSpecialty.document.destroy');
-Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents', 'App\Http\Controllers\BachelorSpecialtyDocumentController')->middleware('auth')->except(['index', 'show']);
-
-
-
-Route::get('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController@index')->middleware('auth')->name('school.page.index');
-Route::get('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@create')->middleware('auth')->name('school_page_create');
-Route::post('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@store')->middleware('auth')->name('school.page.store');
-Route::get('admin/bachelorSchool/{schoolId}/page/{id}', 'App\Http\Controllers\BachelorSchoolPageController@show')->middleware('auth')->name('school.page.show');
-Route::get('admin/bachelorSchool/{schoolId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolPageController@edit')->middleware('auth')->name('school.page.edit');
-Route::delete('admin/bachelorSchool/{schoolId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolPageController@destroy')->middleware('auth')->name('school.page.destroy');
-Route::resource('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController')->middleware('auth')->except(['index', 'show']);
-
-Route::get('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController@index')->middleware('auth')->name('school.specialty.index');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@create')->middleware('auth')->name('school.specialty.create');
-Route::post('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@store')->middleware('auth')->name('school.specialty.store');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyController@show')->middleware('auth')->name('school.specialty.show');
-Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyController@edit')->middleware('auth')->name('school.specialty.edit');
-Route::delete('admin/bachelorSchool/{schoolId}/specialty/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyController@destroy')->middleware('auth')->name('school.specialty.destroy');
-Route::resource('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController')->middleware('auth')->except(['index', 'show']);
-
-
-
-Route::get('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController@index')->middleware('auth')->name('school.educator.index');
-Route::get('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@create')->middleware('auth')->name('school.educator.create');
-Route::post('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@store')->middleware('auth')->name('school.educator.store');
-Route::get('admin/bachelorSchool/{schoolId}/educator/{id}', 'App\Http\Controllers\BachelorSchoolEducatorController@show')->middleware('auth')->name('school.educator.show');
-Route::get('admin/bachelorSchool/{schoolId}/educator/{id}/edit', 'App\Http\Controllers\BachelorSchoolEducatorController@edit')->middleware('auth')->name('school.educator.edit');
-Route::delete('admin/bachelorSchool/{schoolId}/educator/{id}/delete', 'App\Http\Controllers\BachelorSchoolEducatorController@destroy')->middleware('auth')->name('school.educator.destroy');
-Route::resource('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController')->middleware('auth')->except(['index', 'show']);
+Route::resource('admin/summerSchoolSlider', 'App\Http\Controllers\SummerSchoolSliderController')->middleware('auth');
 
 Route::get('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController@index')->middleware('auth')->name('news.content.index');
 Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@create')->middleware('auth')->name('news.content.create');
 Route::post('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@store')->middleware('auth')->name('news.content.store');
 Route::get('admin/news/{newsId}/content/{id}', 'App\Http\Controllers\NewsContentController@show')->middleware('auth')->name('news.content.show');
 Route::get('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\NewsContentController@edit')->middleware('auth')->name('news.content.edit');
-Route::post('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\NewsContentController@update')->middleware('auth')->name('news.content.update');
+Route::patch('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\NewsContentController@update')->middleware('auth')->name('news.content.update');
 Route::delete('admin/news/{newsId}/content/{id}/delete', 'App\Http\Controllers\NewsContentController@destroy')->middleware('auth')->name('news.content.destroy');
 Route::resource('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController')->middleware('auth')->except(['index', 'show']);
+
+Route::get('admin/news/{newsId}/slider', 'App\Http\Controllers\NewsPageSliderController@index')->middleware('auth')->name('news.slider.index');
+Route::get('admin/news/{newsId}/slider/create', 'App\Http\Controllers\NewsPageSliderController@create')->middleware('auth')->name('news.slider.create');
+Route::post('admin/news/{newsId}/slider/create', 'App\Http\Controllers\NewsPageSliderController@store')->middleware('auth')->name('news.slider.store');
+Route::get('admin/news/{newsId}/slider/{id}', 'App\Http\Controllers\NewsPageSliderController@show')->middleware('auth')->name('news.slider.show');
+Route::get('admin/news/{newsId}/slider/{id}/edit', 'App\Http\Controllers\NewsPageSliderController@edit')->middleware('auth')->name('news.slider.edit');
+Route::patch('admin/news/{newsId}/slider/{id}/edit', 'App\Http\Controllers\NewsPageSliderController@update')->middleware('auth')->name('news.slider.update');
+Route::delete('admin/news/{newsId}/slider/{id}/delete', 'App\Http\Controllers\NewsPageSliderController@destroy')->middleware('auth')->name('news.slider.destroy');
+Route::resource('admin/news/{newsId}/slider', 'App\Http\Controllers\NewsPageSliderController')->middleware('auth')->except(['index', 'show']);
 
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page', 'App\Http\Controllers\MastersSpecialtyPageController@index')->middleware('auth')->name('mastersSpecialty.page.index');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MastersSpecialtyPageController@create')->middleware('auth')->name('mastersSpecialty_page_create');
 Route::post('admin/mastersSpecialty/{mastersSpecialtyId}/page/create', 'App\Http\Controllers\MastersSpecialtyPageController@store')->middleware('auth')->name('mastersSpecialty.page.store');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}', 'App\Http\Controllers\MastersSpecialtyPageController@show')->middleware('auth')->name('mastersSpecialty.page.show');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/edit', 'App\Http\Controllers\MastersSpecialtyPageController@edit')->middleware('auth')->name('mastersSpecialty.page.edit');
+Route::patch('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/edit', 'App\Http\Controllers\MastersSpecialtyPageController@update')->middleware('auth');
 Route::delete('admin/mastersSpecialty/{mastersSpecialtyId}/page/{id}/delete', 'App\Http\Controllers\MastersSpecialtyPageController@destroy')->middleware('auth')->name('mastersSpecialty.page.destroy');
 Route::resource('admin/mastersSpecialty/{mastersSpecialtyId}/page', 'App\Http\Controllers\MastersSpecialtyPageController')->middleware('auth')->except(['index', 'show']);
 
@@ -180,11 +147,62 @@ Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/documents/create', 'App\
 Route::post('admin/mastersSpecialty/{mastersSpecialtyId}/documents/create', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@store')->middleware('auth')->name('mastersSpecialty.document.store');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/documents/{id}', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@show')->middleware('auth')->name('mastersSpecialty.document.show');
 Route::get('admin/mastersSpecialty/{mastersSpecialtyId}/documents/{id}/edit', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@edit')->middleware('auth')->name('mastersSpecialty.document.edit');
+Route::patch('admin/mastersSpecialty/{mastersSpecialtyId}/documents/{id}/edit', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@update')->middleware('auth');
 Route::delete('admin/mastersSpecialty/{mastersSpecialtyId}/documents/{id}/delete', 'App\Http\Controllers\MasterSpecialtyPageDocumentController@destroy')->middleware('auth')->name('mastersSpecialty.document.destroy');
 Route::resource('admin/mastersSpecialty/{mastersSpecialtyId}/documents', 'App\Http\Controllers\MasterSpecialtyPageDocumentController')->middleware('auth')->except(['index', 'show']);
 
 Route::get('admin/vacancy/{vacancyId}/applications', 'App\Http\Controllers\VacancyApplicationController@index')->middleware('auth')->name('vacancy.application.index');
 // Route::get('admin/vacancy/{vacancyId}/applications/create', 'App\Http\Controllers\VacancyApplicationController@create')->name('vacancy.application.create');
-Route::post('admin/vacancy/{vacancyId}/applications/create', 'App\Http\Controllers\VacancyApplicationController@store')->middleware('auth')->name('vacancy.application.store');
+Route::post('admin/vacancy/{vacancyId}/applications/create', 'App\Http\Controllers\VacancyApplicationController@store')->name('vacancy.application.store');
 Route::get('admin/vacancy/{vacancyId}/applications/{id}', 'App\Http\Controllers\VacancyApplicationController@show')->middleware('auth')->name('vacancy.application.show');
 Route::delete('admin/vacancy/{vacancyId}/applications/{id}/delete', 'App\Http\Controllers\VacancyApplicationController@destroy')->middleware('auth')->name('vacancy.application.destroy');
+
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@index')->middleware('auth')->name('specialty.page.index');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@create')->middleware('auth')->name('specialty_page_create');
+Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/create', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@store')->middleware('auth')->name('specialty.page.store');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@show')->middleware('auth')->name('specialty.page.show');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@edit')->middleware('auth')->name('specialty.page.edit');
+Route::patch('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@update')->middleware('auth');
+Route::delete('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController@destroy')->middleware('auth')->name('specialty.page.destroy');
+// Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/page', 'App\Http\Controllers\BachelorSchoolSpecialtyPageController')->middleware('auth')->except(['index', 'show']);
+
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents', 'App\Http\Controllers\BachelorSpecialtyDocumentController@index')->middleware('auth')->name('bachelorSpecialty.document.index');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/create', 'App\Http\Controllers\BachelorSpecialtyDocumentController@create')->middleware('auth')->name('bachelorSpecialty.document.create');
+Route::post('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/create', 'App\Http\Controllers\BachelorSpecialtyDocumentController@store')->middleware('auth')->name('bachelorSpecialty.document.store');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}', 'App\Http\Controllers\BachelorSpecialtyDocumentController@show')->middleware('auth')->name('bachelorSpecialty.document.show');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}/edit', 'App\Http\Controllers\BachelorSpecialtyDocumentController@edit')->middleware('auth')->name('bachelorSpecialty.document.edit');
+Route::patch('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}/edit', 'App\Http\Controllers\BachelorSpecialtyDocumentController@update')->middleware('auth');
+Route::delete('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents/{id}/delete', 'App\Http\Controllers\BachelorSpecialtyDocumentController@destroy')->middleware('auth')->name('bachelorSpecialty.document.destroy');
+// Route::resource('admin/bachelorSchool/{schoolId}/specialty/{specialtyId}/documents', 'App\Http\Controllers\BachelorSpecialtyDocumentController')->middleware('auth')->except(['index', 'show']);
+
+
+
+Route::get('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController@index')->middleware('auth')->name('school.page.index');
+Route::get('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@create')->middleware('auth')->name('school_page_create');
+Route::post('admin/bachelorSchool/{schoolId}/page/create', 'App\Http\Controllers\BachelorSchoolPageController@store')->middleware('auth')->name('school.page.store');
+Route::get('admin/bachelorSchool/{schoolId}/page/{id}', 'App\Http\Controllers\BachelorSchoolPageController@show')->middleware('auth')->name('school.page.show');
+Route::get('admin/bachelorSchool/{schoolId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolPageController@edit')->middleware('auth')->name('school.page.edit');
+Route::patch('admin/bachelorSchool/{schoolId}/page/{id}/edit', 'App\Http\Controllers\BachelorSchoolPageController@update')->middleware('auth');
+Route::delete('admin/bachelorSchool/{schoolId}/page/{id}/delete', 'App\Http\Controllers\BachelorSchoolPageController@destroy')->middleware('auth')->name('school.page.destroy');
+// Route::resource('admin/bachelorSchool/{schoolId}/page', 'App\Http\Controllers\BachelorSchoolPageController')->middleware('auth')->except(['index', 'show']);
+
+Route::get('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController@index')->middleware('auth')->name('school.specialty.index');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@create')->middleware('auth')->name('school.specialty.create');
+Route::post('admin/bachelorSchool/{schoolId}/specialty/create', 'App\Http\Controllers\BachelorSchoolSpecialtyController@store')->middleware('auth')->name('school.specialty.store');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}', 'App\Http\Controllers\BachelorSchoolSpecialtyController@show')->middleware('auth')->name('school.specialty.show');
+Route::get('admin/bachelorSchool/{schoolId}/specialty/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyController@edit')->middleware('auth')->name('school.specialty.edit');
+Route::patch('admin/bachelorSchool/{schoolId}/specialty/{id}/edit', 'App\Http\Controllers\BachelorSchoolSpecialtyController@update')->middleware('auth');
+Route::delete('admin/bachelorSchool/{schoolId}/specialty/{id}/delete', 'App\Http\Controllers\BachelorSchoolSpecialtyController@destroy')->middleware('auth')->name('school.specialty.destroy');
+// Route::resource('admin/bachelorSchool/{schoolId}/specialty', 'App\Http\Controllers\BachelorSchoolSpecialtyController')->middleware('auth')->except(['index', 'show']);
+
+
+
+Route::get('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController@index')->middleware('auth')->name('school.educator.index');
+Route::get('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@create')->middleware('auth')->name('school.educator.create');
+Route::post('admin/bachelorSchool/{schoolId}/educator/create', 'App\Http\Controllers\BachelorSchoolEducatorController@store')->middleware('auth')->name('school.educator.store');
+Route::get('admin/bachelorSchool/{schoolId}/educator/{id}', 'App\Http\Controllers\BachelorSchoolEducatorController@show')->middleware('auth')->name('school.educator.show');
+Route::get('admin/bachelorSchool/{schoolId}/educator/{id}/edit', 'App\Http\Controllers\BachelorSchoolEducatorController@edit')->middleware('auth')->name('school.educator.edit');
+Route::patch('admin/bachelorSchool/{schoolId}/educator/{id}/edit', 'App\Http\Controllers\BachelorSchoolEducatorController@update')->middleware('auth');
+Route::delete('admin/bachelorSchool/{schoolId}/educator/{id}/delete', 'App\Http\Controllers\BachelorSchoolEducatorController@destroy')->middleware('auth')->name('school.educator.destroy');
+// Route::resource('admin/bachelorSchool/{schoolId}/educator', 'App\Http\Controllers\BachelorSchoolEducatorController')->middleware('auth')->except(['index', 'show']);
+

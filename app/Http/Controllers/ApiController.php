@@ -71,6 +71,7 @@ use App\Models\SummerSchoolProgram;
 use App\Models\Discount;
 use App\Models\HonorsStudentDiscount;
 use App\Models\Cost;
+use App\Models\SummerSchoolSlider;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -1498,6 +1499,15 @@ class ApiController extends Controller
         $summerSchoolPage = SummerSchoolPage::query()->with(['getTitle', 'getContent'])->get();
         $summerSchoolProgram = SummerSchoolProgram::query()->with(['getTitle', 'getText'])->get();
         $summerSchoolProgram = SummerSchoolProgramResource::collection($summerSchoolProgram);
+        $slider = SummerSchoolSlider::first();
+        if (isset($slider->images))
+        {
+            foreach(json_decode($slider->images) as $item)
+            {
+                $sliderImages[] = url($item);
+            }
+        }
+        // return $sliderImages;
         $documents = SummerSchoolDocument::query()->with(['getName'])->get();
         $documents = DocumentResource::collection($documents);
 
@@ -1536,7 +1546,9 @@ class ApiController extends Controller
         }
 
         $summerSchoolPageApi = new stdClass;
+
         $summerSchoolPageApi->title = $title;
+        $summerSchoolPageApi->slider = isset($sliderImages) ? $sliderImages : null;
         $summerSchoolPageApi->programConceptBlock = $programConceptBlock;
         $summerSchoolPageApi->keyTopicsBlock = $keyTopicsBlock;
         $summerSchoolPageApi->competeciesForBlock = $competeciesForBlock;

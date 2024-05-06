@@ -39,6 +39,9 @@ class RectorsBlogQuestionController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if ($request->session()->token() !== $request->input('_token')) {
+            abort(403, 'Invalid CSRF token');
+        }
         $requestData = $request->all();
 
         $question= new RectorsBlogQuestion();

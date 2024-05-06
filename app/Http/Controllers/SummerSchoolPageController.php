@@ -174,7 +174,7 @@ class SummerSchoolPageController extends Controller
     {
         $summerSchoolPage = SummerSchoolPage::find($id);
         if ($summerSchoolPage->image != null) {
-            unlink($summerSchoolPage->image);
+            // unlink($summerSchoolPage->image);
         }
         $title = Translate::find($summerSchoolPage->title);
         $content = Translate::find($summerSchoolPage->content);

@@ -100,7 +100,7 @@ class DormitoryController extends Controller
         $requestData = $request->all();
         $dormitory = Dormitory::findOrFail($id);
 
-        $category = Translate::find($dormitory->category);
+        $category = Translate::find($dormitory->content);
         $category->ru = $requestData['content']['ru'];
         $category->en = $requestData['content']['en'];
         $category->kz = $requestData['content']['kz'];
