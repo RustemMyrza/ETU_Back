@@ -10,9 +10,6 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/scientificPublicationPage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
-            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
-        </a>
         <a href="{{ url('/admin/scientificPublicationDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
             <i class="fa fa-file" aria-hidden="true"></i> Издания
         </a>
@@ -45,17 +42,6 @@
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
-
-                                    <form method="POST" action="{{ url('/admin/scientificPublicationPage' . '/' . $item->id) }}"
-                                        accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
-                                                onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt"
-                                                                                                aria-hidden="true"></i>
-                                            Удалить
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                         @endif

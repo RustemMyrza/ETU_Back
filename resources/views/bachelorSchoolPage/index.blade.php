@@ -10,9 +10,6 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/page/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
-            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
-        </a>
         <a href="{{ url('/admin/bachelorSchool') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
@@ -45,16 +42,6 @@
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
-
-                                    <form method="POST" action="{{ url('/admin/bachelorSchool/' . $schoolId . '/page' . '/' . $item->id  . '/delete') }}" accept-charset="UTF-8" style="display:inline">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
-                                                onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt"
-                                                                                                aria-hidden="true"></i>
-                                            Удалить
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                     @endforeach

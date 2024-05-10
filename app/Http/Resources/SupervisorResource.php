@@ -22,7 +22,7 @@ class SupervisorResource extends JsonResource
             'position' => $this->getPosition ? $this->getPosition->{$lang} : '',
             'email' => $this->email,
             'phone' => $this->phone,
-            'position' => $this->getAddress ? $this->getAddress->{$lang} : '',
+            'address' => $this->getAddress ? $this->getAddress->{$lang} : '',
             'image' => $this->image ? url($this->image) : ''
         ];
     }
