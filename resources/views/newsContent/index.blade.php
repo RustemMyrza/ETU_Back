@@ -47,7 +47,7 @@
                                         </button>
                                     </a>
 
-                                    <form method="POST" action="{{ url('/admin/news/' . $newsId . '/content' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{ url('/admin/news/' . $newsId . '/content' . '/' . $item->id  . '/delete') }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"

@@ -1388,11 +1388,11 @@ class ApiController extends Controller
         $studentHousePageApi->title = $title;
         $studentHousePageApi->aboutBlock = $aboutBlock;
         $studentHousePageApi->images = $images;
-        $studentHousePageApi->dormitoryButton_1 = $dormitoryButton_1;
+        $studentHousePageApi->dormitoryButton_1 = isset($dormitoryButton_1) ? $dormitoryButton_1 : null;
         $studentHousePageApi->dormitory_1 = $dormitories->first_dormitory;
-        $studentHousePageApi->dormitoryButton_2 = $dormitoryButton_2;
+        $studentHousePageApi->dormitoryButton_2 = isset($dormitoryButton_2) ? $dormitoryButton_2 : null;
         $studentHousePageApi->dormitory_2 = $dormitories->second_dormitory;
-        $studentHousePageApi->dormitoryButton_3 = $dormitoryButton_3;
+        $studentHousePageApi->dormitoryButton_3 = isset($dormitoryButton_3) ? $dormitoryButton_3 : null;
         $studentHousePageApi->dormitory_3 = $dormitories->third_dormitory;
         return $studentHousePageApi;
     }
