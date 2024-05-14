@@ -72,6 +72,9 @@ use App\Models\Discount;
 use App\Models\HonorsStudentDiscount;
 use App\Models\Cost;
 use App\Models\SummerSchoolSlider;
+use App\Models\YoutubeVideo;
+use App\Models\InstagramLink;
+use App\Models\InstagramImage;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -103,6 +106,7 @@ use App\Http\Resources\SummerSchoolProgramResource;
 use App\Http\Resources\DiscountTableResource;
 use App\Http\Resources\CostTableResource;
 use App\Http\Resources\HonorsStudentDiscountTableResource;
+use App\Http\Resources\InstagramImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Block\Element\Document;
@@ -216,6 +220,10 @@ class ApiController extends Controller
     {
         $mainPageData = MainPage::query()->with(['getTitle', 'getContent'])->get();
         $schools = BachelorSchool::query()->with(['getName'])->get();
+        $youtubeLink = YoutubeVideo::first() ? YoutubeVideo::first()->link : null;
+        $instagramLink = InstagramLink::first() ? InstagramLink::first()->link : null;
+        $instagramImages = InstagramImage::query()->get() ? InstagramImage::query()->get() : null;
+        $instagramImages = InstagramImageResource::collection($instagramImages);
         foreach ($mainPageData as $key => $value)
         {
             switch($key){
@@ -271,31 +279,37 @@ class ApiController extends Controller
                     $news = new MainPageResource($value);
                     break;
                 case 17:
-                    $applicationTitle = new MainPageResource($value);
+                    $instagramTitle = new MainPageResource($value);
                     break;
                 case 18:
-                    $faqTitle = new MainPageResource($value);
+                    $youtubeTitle = new MainPageResource($value);
                     break;
                 case 19:
-                    $faqQuestions[] = new MainPageResource($value);
+                    $applicationTitle = new MainPageResource($value);
                     break;
                 case 20:
-                    $faqQuestions[] = new MainPageResource($value);
+                    $applicationDescription = new MainPageResource($value);
                     break;
                 case 21:
-                    $faqQuestions[] = new MainPageResource($value);
+                    $applicationButton = new MainPageResource($value);
                     break;
                 case 22:
-                    $faqQuestions[] = new MainPageResource($value);
+                    $faqTitle = new MainPageResource($value);
                     break;
                 case 23:
                     $faqQuestions[] = new MainPageResource($value);
                     break;
                 case 24:
-                    $applicationDescription = new MainPageResource($value);
+                    $faqQuestions[] = new MainPageResource($value);
                     break;
                 case 25:
-                    $applicationButton = new MainPageResource($value);
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 26:
+                    $faqQuestions[] = new MainPageResource($value);
+                    break;
+                case 27:
+                    $faqQuestions[] = new MainPageResource($value);
                     break;
                 }
             }
@@ -314,6 +328,13 @@ class ApiController extends Controller
         $mainPageApi->news = $news;
         $newsItems = $this->news($request);
         $mainPageApi->newsItems = $newsItems;
+        $mainPageApi->youtube = new stdClass;
+        $mainPageApi->youtube->title = $youtubeTitle;
+        $mainPageApi->youtube->link =  $youtubeLink;
+        $mainPageApi->instagram = new stdClass;
+        $mainPageApi->instagram->title = $instagramTitle;
+        $mainPageApi->instagram->link = $instagramLink;
+        $mainPageApi->instagram->images = $instagramImages;
         $mainPageApi->application = new stdClass;
         $mainPageApi->application->title = $applicationTitle;
         $mainPageApi->application->description = $applicationDescription;

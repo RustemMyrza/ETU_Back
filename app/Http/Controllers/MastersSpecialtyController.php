@@ -44,6 +44,20 @@ class MastersSpecialtyController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
+
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+        [
+            'image.required' => 'Изображение для блока обязательно',
+            'image.mimes' => 'Проверьте формат изображения',
+            'image.max' => 'Размер файла не может превышать 10МБ'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $this->uploadImage($request->file('image'));
+        }
+
         $name = new Translate();
         $name->ru = $requestData['name']['ru'];
         $name->en = $requestData['name']['en'];
@@ -54,6 +68,7 @@ class MastersSpecialtyController extends Controller
 
         $mastersSpecialty= new MastersSpecialty();
         $mastersSpecialty->name = $nameId;
+        $mastersSpecialty->image = $path;
         $mastersSpecialty->save();
 
         return redirect('admin/mastersSpecialty')->with('flash_message', 'Блок добавлен');
@@ -99,14 +114,38 @@ class MastersSpecialtyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+            [
+                'image.mimes' => 'Проверьте формат изображения',
+                'image.max' => 'Размер файла не может превышать 10МБ'
+            ]);
+
         $requestData = $request->all();
         $mastersSpecialty = MastersSpecialty::findOrFail($id);
+
+        if ($request->hasFile('image')) 
+        {
+            if ($mastersSpecialty->image != null) {
+                unlink($mastersSpecialty->image);
+            }
+            $path = $this->uploadImage($request->file('image'));
+        }
+        else
+        {
+            if ($mastersSpecialty->image != null) {
+                unlink($mastersSpecialty->image);
+            }
+        }
 
         $name = Translate::find($mastersSpecialty->name);
         $name->ru = $requestData['name']['ru'];
         $name->en = $requestData['name']['en'];
         $name->kz = $requestData['name']['kz'];
         $name->update();
+        $mastersSpecialty->image = $path ?? null;
+        $mastersSpecialty->update();
 
         return redirect('admin/mastersSpecialty')->with('flash_message', 'Блок изменен');
     }
@@ -121,6 +160,9 @@ class MastersSpecialtyController extends Controller
     public function destroy($id)
     {
         $mastersSpecialty = MastersSpecialty::find($id);
+        if ($mastersSpecialty->image != null) {
+            unlink($mastersSpecialty->image);
+        }
         $name = Translate::find($mastersSpecialty->name);
         $name->delete();
         $mastersSpecialty->delete();

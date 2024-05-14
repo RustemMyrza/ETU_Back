@@ -52,7 +52,17 @@ class BachelorSchoolSpecialtyController extends Controller
      */
     public function store(Request $request, $schoolId)
     {
-        // dd($request->all());
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+        [
+            'image.required' => 'Изображение для блока обязательно',
+            'image.mimes' => 'Проверьте формат изображения',
+            'image.max' => 'Размер файла не может превышать 10МБ'
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $this->uploadImage($request->file('image'));
+        }
         $requestData = $request->all();
 
         $name = new Translate();
@@ -64,6 +74,7 @@ class BachelorSchoolSpecialtyController extends Controller
 
         $bachelorSchoolSpecialty= new BachelorSchoolSpecialty();
         $bachelorSchoolSpecialty->name = $nameId;
+        $bachelorSchoolSpecialty->image = $path ?? null;
         $bachelorSchoolSpecialty->school_id = $schoolId;
         $bachelorSchoolSpecialty->save();
 
@@ -110,14 +121,38 @@ class BachelorSchoolSpecialtyController extends Controller
      */
     public function update(Request $request, $schoolId, $id)
     {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+            [
+                'image.mimes' => 'Проверьте формат изображения',
+                'image.max' => 'Размер файла не может превышать 10МБ'
+            ]);
+
         $requestData = $request->all();
         $bachelorSchoolSpecialty = BachelorSchoolSpecialty::findOrFail($id);
+
+        if ($request->hasFile('image')) 
+        {
+            if ($bachelorSchoolSpecialty->image != null) {
+                unlink($bachelorSchoolSpecialty->image);
+            }
+            $path = $this->uploadImage($request->file('image'));
+        }
+        else
+        {
+            if ($bachelorSchoolSpecialty->image != null) {
+                unlink($bachelorSchoolSpecialty->image);
+            }
+        }
 
         $name = Translate::find($bachelorSchoolSpecialty->name);
         $name->ru = $requestData['name']['ru'];
         $name->en = $requestData['name']['en'];
         $name->kz = $requestData['name']['kz'];
         $name->update();
+
+        $bachelorSchoolSpecialty->image = $path ?? null;
         $bachelorSchoolSpecialty->update();
 
         return redirect('admin/bachelorSchool/' . $schoolId . '/specialty')->with('flash_message', 'Блок изменен');
@@ -176,6 +211,9 @@ class BachelorSchoolSpecialtyController extends Controller
         }
 
         $name = Translate::find($bachelorSchoolSpecialty->name);
+        if ($bachelorSchoolSpecialty->image != null) {
+            unlink($bachelorSchoolSpecialty->image);
+        }
         $name->delete();
         $bachelorSchoolSpecialty->delete();
 

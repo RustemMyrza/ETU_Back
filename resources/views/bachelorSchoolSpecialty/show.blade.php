@@ -28,6 +28,7 @@
                         <th>ID</th><td>{{ $bachelorSchoolSpecialty->id }}</td>
                     </tr>
                     <tr><th> Название </th><td> {{ $translatedData['name']->ru }} </td></tr>
+                    <tr><th> Изображение </th><td> <img src="{{ $bachelorSchoolSpecialty->image ? url($bachelorSchoolSpecialty->image) : '' }}" alt="{{ $bachelorSchoolSpecialty->image ? url($bachelorSchoolSpecialty->image) : '' }}"> </td></tr>
                 </tbody>
             </table>
         </div>

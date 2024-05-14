@@ -28,6 +28,7 @@
                         <th>ID</th><td>{{ $mastersSpecialty->id }}</td>
                     </tr>
                     <tr><th> Название </th><td> {{ $mastersSpecialty->getName->ru }} </td></tr>
+                    <tr><th> Изображение </th><td> <img src="{{ $mastersSpecialty->image ? url($mastersSpecialty->image) : '' }}" alt="{{ $mastersSpecialty->image ? url($mastersSpecialty->image) : '' }}"></td></tr>
                 </tbody>
             </table>
         </div>

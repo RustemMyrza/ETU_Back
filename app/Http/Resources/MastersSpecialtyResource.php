@@ -70,6 +70,7 @@ class MastersSpecialtyResource extends JsonResource
             return [
                 'id' => $this->id,
                 'name' => $this->getName ? $this->getName->{$lang} : '',
+                'image' => $this->image ? url($this->image) : '',
                 'pageContent' => $pageApi
             ];
         }
@@ -78,6 +79,7 @@ class MastersSpecialtyResource extends JsonResource
             return [
                 'id' => $this->id,
                 'name' => $this->getName ? $this->getName->{$lang} : '',
+                'image' => $this->image ? url($this->image) : '',
                 'pageContent' => ''
             ];
         }

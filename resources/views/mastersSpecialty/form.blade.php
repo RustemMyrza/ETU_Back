@@ -36,6 +36,17 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
+    <label for="image" class="control-label">{{ 'Изображение' }}</label>
+    <input class="form-control" name="image" type="file" id="image" value="{{ isset($mastersSpecialty->image) ? url($mastersSpecialty->image) : ''}}" >
+    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
+</div>
+@if (isset($mastersSpecialty->image))
+    <div class="form-group">
+        <img src="{{ url($mastersSpecialty->image) }}" alt="{{ url($mastersSpecialty->image) }}" width="300px;">
+    </div>
+@endif
+
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Обновить' : 'Создать' }}">
 </div>

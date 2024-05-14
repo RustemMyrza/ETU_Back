@@ -66,6 +66,7 @@ class BachelorSchoolSpecialtyResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getName ? $this->getName->{$lang} : '',
+            'image' => $this->image ? url($this->image) : '',
             'items' => $this->getPage ? $blocks : ''
         ];
     }

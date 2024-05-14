@@ -114,6 +114,9 @@ Route::resource('admin/summerSchoolPage', 'App\Http\Controllers\SummerSchoolPage
 Route::resource('admin/summerSchoolProgram', 'App\Http\Controllers\SummerSchoolProgramController')->middleware('auth');
 Route::resource('admin/summerSchoolDocument', 'App\Http\Controllers\SummerSchoolDocumentController')->middleware('auth');
 Route::resource('admin/summerSchoolSlider', 'App\Http\Controllers\SummerSchoolSliderController')->middleware('auth');
+Route::resource('admin/youtube', 'App\Http\Controllers\YoutubeVideoController')->middleware('auth');
+Route::resource('admin/instagramLink', 'App\Http\Controllers\InstagramLinkController')->middleware('auth');
+Route::resource('admin/instagramImage', 'App\Http\Controllers\InstagramImageController')->middleware('auth');
 
 Route::get('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController@index')->middleware('auth')->name('news.content.index');
 Route::get('admin/news/{newsId}/content/create', 'App\Http\Controllers\NewsContentController@create')->middleware('auth')->name('news.content.create');
