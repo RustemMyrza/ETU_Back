@@ -76,6 +76,7 @@ use App\Models\AboutUniversityPagesMeta;
 use App\Models\EnrollmentPagesMeta;
 use App\Models\StudentsPagesMeta;
 use App\Models\BachelorSchoolMeta;
+use App\Models\LibraryPageDocument;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -1211,6 +1212,7 @@ class ApiController extends Controller
     public function libraryPage ()
     {
         $libraryPage = LibraryPage::query()->with(['getTitle', 'getContent'])->get();
+        $document = LibraryPageDocument::query()->with(['getName'])->first();
         foreach ($libraryPage as $key => $value)
         {
             switch ($key)
@@ -1231,6 +1233,7 @@ class ApiController extends Controller
         }
         $libraryPageApi = new stdClass;
         $libraryPageApi->title = $title;
+        $libraryPageApi->document = $document ? new DocumentResource($document) : null;
         $libraryPageApi->aboutLibraryBlock = $aboutLibraryBlock;
         $libraryPageApi->aboutLibraryText = $aboutLibraryText;
         $libraryPageApi->button = $button;

@@ -83,6 +83,7 @@ Route::resource('admin/lincolnUniversityPage', 'App\Http\Controllers\LincolnUniv
 Route::resource('admin/academicPolicyPage', 'App\Http\Controllers\AcademicPolicyPageController')->middleware('auth');
 Route::resource('admin/academicCalendarPage', 'App\Http\Controllers\AcademicCalendarPageController')->middleware('auth');
 Route::resource('admin/libraryPage', 'App\Http\Controllers\LibraryPageController')->middleware('auth');
+Route::resource('admin/libraryPageDocument', 'App\Http\Controllers\LibraryPageDocumentController')->middleware('auth');
 Route::resource('admin/ethicsCodePage', 'App\Http\Controllers\EthicsCodePageController')->middleware('auth');
 Route::resource('admin/careerCenterPage', 'App\Http\Controllers\CareerCenterPageController')->middleware('auth');
 Route::resource('admin/militaryDepartmentPage', 'App\Http\Controllers\MilitaryDepartmentPageController')->middleware('auth');
