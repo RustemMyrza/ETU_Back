@@ -36,7 +36,7 @@
                                 <td>{{ $item->date ? Str::limit($item->date, 50) : '' }}</td>
                                 <td>{{ $item->experience ? Str::limit($item->experience, 50) : '' }}</td>
                                 <td>
-                                <a href="{{ route('vacancy.application.index', ['vacancyId' => $item->id]) }}" title="Заявки"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Заявки</button></a>
+                                <a href="{{ url('admin/vacancy/' . $item->id . '/applications') }}" title="Заявки"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Заявки</button></a>
                                 <a href="{{ url('/admin/vacancy/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('/admin/vacancy/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"

@@ -4,7 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\PageResource;
+use App\Http\Resources\MetaDataResource;
 use App\Models\Translate;
+use App\Models\NewsMeta;
 use stdClass;
 
 class NewsResource extends JsonResource
@@ -41,6 +43,7 @@ class NewsResource extends JsonResource
             'name' => $this->getName ? $this->getName->{$lang} : '',
             'date' => $this->date,
             'image' => $this->background_image ? url($this->background_image) : '',
+            'meta' => NewsMeta::where('page_id', $this->id)->first(),
             'child' => $this->getChild ? $content : []
         ];
 

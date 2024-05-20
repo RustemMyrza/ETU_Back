@@ -13,6 +13,9 @@
         <a href="{{ url('/admin/studentScience/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
+        <a href="{{ url('/admin/studentSciencePageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <a href="{{ url('/admin/studentSciencePageDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
             <i class="fa fa-file" aria-hidden="true"></i> Документы
         </a>

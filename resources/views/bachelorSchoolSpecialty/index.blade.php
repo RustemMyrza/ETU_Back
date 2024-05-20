@@ -37,8 +37,8 @@
                                 <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
                                 <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}"></td>
                                 <td>
-                                <a href="{{ route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $item->id]) }}" title="Документы"><button class="btn btn-secondary btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Документы</button></a>
-                                <a href="{{ route('specialty.page.index', ['schoolId' => $schoolId, 'specialtyId' => $item->id]) }}" title="Страница"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Страница</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id' . '/documents') }}" title="Документы"><button class="btn btn-secondary btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Документы</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id . '/page') }}" title="Страница"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Страница</button></a>
                                 <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('/admin/bachelorSchool/' . $schoolId . '/specialty/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"

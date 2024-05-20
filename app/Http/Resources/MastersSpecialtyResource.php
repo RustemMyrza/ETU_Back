@@ -4,8 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\MasterSpecialtyPageDocument;
+use App\Models\MasterSpecialtyMeta;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\DocumentResource;
+use App\Http\Resources\MetaDataResource;
 use League\CommonMark\Block\Element\Document;
 use stdClass;
 
@@ -25,7 +27,6 @@ class MastersSpecialtyResource extends JsonResource
         {
             $pageApi = new stdClass;
             $documents = MasterSpecialtyPageDocument::query()->with(['getName'])->get();
-            
             foreach ($documents as $item)
             {
                 if ($item->specialty_id == $this->id)
@@ -71,6 +72,7 @@ class MastersSpecialtyResource extends JsonResource
                 'id' => $this->id,
                 'name' => $this->getName ? $this->getName->{$lang} : '',
                 'image' => $this->image ? url($this->image) : '',
+                'metaData' => $this->getMeta ? new MetaDataResource($this->getMeta) : null,
                 'pageContent' => $pageApi
             ];
         }
@@ -80,6 +82,7 @@ class MastersSpecialtyResource extends JsonResource
                 'id' => $this->id,
                 'name' => $this->getName ? $this->getName->{$lang} : '',
                 'image' => $this->image ? url($this->image) : '',
+                'metaData' => $this->getMeta ? new MetaDataResource($this->getMeta) : null,
                 'pageContent' => ''
             ];
         }

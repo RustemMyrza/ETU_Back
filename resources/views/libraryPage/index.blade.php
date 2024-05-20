@@ -10,7 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
-
+        <a href="{{ url('/admin/libraryPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <br/>
         <br/>
         <div class="table-responsive">

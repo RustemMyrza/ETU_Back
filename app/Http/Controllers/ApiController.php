@@ -46,10 +46,6 @@ use App\Models\TravelGuidePage;
 use App\Models\StudentClubPage;
 use App\Models\StudentClub;
 use App\Models\BachelorSchool;
-use App\Models\BachelorSchoolEducator;
-use App\Models\BachelorSchoolPage;
-use App\Models\BachelorSchoolSpecialty;
-use App\Models\BachelorSchoolSpecialtyPage;
 use App\Models\AcademicPolicyPageDocument;
 use App\Models\AcademicCalendarPageDocument;
 use App\Models\AccreditationPageDocument;
@@ -75,6 +71,11 @@ use App\Models\SummerSchoolSlider;
 use App\Models\YoutubeVideo;
 use App\Models\InstagramLink;
 use App\Models\InstagramImage;
+use App\Models\MainPageMeta;
+use App\Models\AboutUniversityPagesMeta;
+use App\Models\EnrollmentPagesMeta;
+use App\Models\StudentsPagesMeta;
+use App\Models\BachelorSchoolMeta;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -107,6 +108,10 @@ use App\Http\Resources\DiscountTableResource;
 use App\Http\Resources\CostTableResource;
 use App\Http\Resources\HonorsStudentDiscountTableResource;
 use App\Http\Resources\InstagramImageResource;
+use App\Http\Resources\MetaDataResource;
+use App\Models\AboutUniversityPage;
+use App\Models\MetaData;
+use App\Models\SciencePagesMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Block\Element\Document;
@@ -350,6 +355,7 @@ class ApiController extends Controller
     public function aboutUs ()
     {
         $aboutUs = AboutUsPage::query()->with(['getTitle', 'getContent'])->get();
+        $metaData = AboutUniversityPagesMeta::where('page_id', 1)->first();
         foreach ($aboutUs as $key => $value)
         {
             switch($key){
@@ -402,6 +408,7 @@ class ApiController extends Controller
         $aboutUsApi->history = $history;
         $aboutUsApi->historyYears = $historyYears;
         $aboutUsApi->blocks = $blocks;
+        $aboutUsApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $aboutUsApi;
     }
 
@@ -409,6 +416,7 @@ class ApiController extends Controller
     {
         $authority = AuthorityPage::query()->with(['getTitle', 'getContent'])->get();
         $supervisor = Supervisor::query()->with(['getName', 'getPosition', 'getAddress'])->get();
+        $metaData = AboutUniversityPagesMeta::where('page_id', 2)->first();
         $supervisors = SupervisorResource::collection($supervisor);
         foreach($authority as $key => $value)
         {
@@ -421,14 +429,14 @@ class ApiController extends Controller
         $authorityApi = new stdClass;
         $authorityApi->title = $title;
         $authorityApi->supervisors = $supervisors;
-
+        $authorityApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $authorityApi;
     }
 
     public function accreditation (Request $request)
     {
         $accreditation = Accreditation::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = AboutUniversityPagesMeta::where('page_id', 3)->first();
         $limit = $request->limit;
         $specialty = Specialty::query()->with(['getName'])->take($limit)->get();
         $specialties = SpecialtyResource::collection($specialty);
@@ -455,13 +463,14 @@ class ApiController extends Controller
         $accreditationApi->button = $button;
         $accreditationApi->documents = $resourceDocuments;
         $accreditationApi->documentsDownloadButton = $documentsDownloadButton;
+        $accreditationApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $accreditationApi;
     }
 
     public function partnersPage ()
     {
         $partnersPage = PartnersPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = AboutUniversityPagesMeta::where('page_id', 4)->first();
         $partners = $this->partner()['data'];
 
         foreach ($partnersPage as $key => $value)
@@ -485,6 +494,7 @@ class ApiController extends Controller
         $partnersPageApi->ourPartnersButton = $ourPartnersButton;
         $partnersPageApi->internationalPartnersButton = $internationalPartnersButton;
         $partnersPageApi->partners = $partners;
+        $partnersPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $partnersPageApi;
     }
 
@@ -527,7 +537,7 @@ class ApiController extends Controller
     public function careerPage ()
     {
         $careerPage = CareerPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = AboutUniversityPagesMeta::where('page_id', 6)->first();
         $vacancy = Vacancy::query()->get();
         $vacancies = VacancyResource::collection($vacancy);
 
@@ -562,13 +572,14 @@ class ApiController extends Controller
         $careerPageApi->vacancyTitle = $vacancyTitle;
         $careerPageApi->vacancies = $vacancies;
         $careerPageApi->button = $button;
+        $careerPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $careerPageApi;
     }
 
     public function rectorsBlogPage ()
     {
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
-        
+        $metaData = AboutUniversityPagesMeta::where('page_id', 5)->first();
         $questions = RectorsBlogQuestion::query()->latest()->paginate(5);
         
         foreach ($questions as $item)
@@ -595,13 +606,14 @@ class ApiController extends Controller
         $rectorsBlogPageApi->title = $title;
         $rectorsBlogPageApi->rector = $rector;
         $rectorsBlogPageApi->questions = $answeredQuestions;
+        $rectorsBlogPageApi->meta = $metaData ? new MetaDataResource($metaData) : null; 
         return $rectorsBlogPageApi;
     }
 
     public function academicCouncilPage ()
     {
         $academicCouncilPage = AcademicCouncilPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = AboutUniversityPagesMeta::where('page_id', 8)->first();
         $academicCouncilMember = AcademicCouncilMember::query()->with(['getName', 'getDescription'])->get();
         $academicCouncilMembers = AcademicCouncilMemberResource::collection($academicCouncilMember);
 
@@ -632,6 +644,7 @@ class ApiController extends Controller
         $academicCouncilPageApi->infoBlock = $infoBlock;
         $academicCouncilPageApi->images = $images;
         $academicCouncilPageApi->members = $academicCouncilMembers;
+        $academicCouncilPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $academicCouncilPageApi;
     }
 
@@ -767,7 +780,7 @@ class ApiController extends Controller
     {
         $admissionsCommitteePage = AdmissionsCommitteePage::query()->with(['getTitle', 'getContent'])->get();
         $documents = AdmissionsCommitteePageDocument::query()->with(['getName'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 1)->first();
         $documents = DocumentResource::collection($documents);
         $discountTable = Discount::query()->with(['getCategory', 'getNote'])->get();
         foreach ($discountTable as $item)
@@ -863,16 +876,16 @@ class ApiController extends Controller
         $admissionsCommitteePageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
         $admissionsCommitteePageApi->bachelorBlock = $bachelorBlock;
         $admissionsCommitteePageApi->masterBlock = $masterBlock;
+        $admissionsCommitteePageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $admissionsCommitteePageApi;
     }
 
     public function masterPage ()
     {
         $masterPage = MasterPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 3)->first();
         $masterSpecialties = MastersSpecialty::query()->with(['getName', 'getPage'])->get();
         $masterSpecialties = MastersSpecialtyResource::collection($masterSpecialties);
-
         foreach ($masterPage as $key => $value)
         {
             switch ($key)
@@ -885,13 +898,14 @@ class ApiController extends Controller
         $masterPageApi = new stdClass;
         $masterPageApi->title = $title;
         $masterPageApi->specalties = $masterSpecialties;
+        $masterPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $masterPageApi;
     }
 
     public function internationalStudentsPage ()
     {
         $internationalStudentsPage = InternationalStudentsPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 4)->first();
         $documents = InternationalStudentsPageDocument::query()->with(['getName'])->get();
         $documentsResource = DocumentResource::collection($documents);
 
@@ -932,12 +946,14 @@ class ApiController extends Controller
         $internationalStudentsPageApi->usefulInfoTitle = $usefulInfoTitle;
         $internationalStudentsPageApi->usefulInfoBlocks = $usefulInfoBlocks;
         $internationalStudentsPageApi->documents = $documentsResource;
+        $internationalStudentsPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $internationalStudentsPageApi;
     }
 
     public function languageCoursesPage ()
     {
         $languageCoursesPage = LanguageCoursesPage::query()->with(['getTitle', 'getContent'])->get();
+        $metaData = EnrollmentPagesMeta::where('page_id', 5)->first();
         foreach ($languageCoursesPage as $key => $value)
         {
             switch ($key)
@@ -949,13 +965,14 @@ class ApiController extends Controller
         }
         $languageCoursesPageApi = new stdClass;
         $languageCoursesPageApi->languageCourseBlock = $languageCourseBlock;
+        $languageCoursesPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $languageCoursesPageApi;
     }
 
     public function majorMinorPage ()
     {
         $majorMinorPage = MajorMinorPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 6)->first();
         foreach ($majorMinorPage as $key => $value)
         {
             switch ($key)
@@ -967,13 +984,14 @@ class ApiController extends Controller
         }
         $majorMinorPageApi = new stdClass;
         $majorMinorPageApi->majorMinorBlock = $majorMinorBlock;
+        $majorMinorPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $majorMinorPageApi;
     }
 
     public function levelUpPage ()
     {
         $levelUpPage = LevelUpPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 7)->first();
         foreach ($levelUpPage as $key => $value)
         {
             switch ($key)
@@ -985,13 +1003,14 @@ class ApiController extends Controller
         }
         $levelUpPageApi = new stdClass;
         $levelUpPageApi->levelUpBlock = $levelUpBlock;
+        $levelUpPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $levelUpPageApi;
     }
 
     public function olympicsPage ()
     {
         $olympicsPage = OlympicsPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 8)->first();
         $documents = OlympicsPageDocument::query()->with(['getName'])->get();
         $documentsResource = DocumentResource::collection($documents);
         
@@ -1048,13 +1067,14 @@ class ApiController extends Controller
         $olympicsPageApi->olympiadInfoTitle = $olympiadInfoTitle;
         $olympicsPageApi->olympiadInfoText = $olympiadInfoText;
         $olympicsPageApi->documents = $documentsResource;
+        $olympicsPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $olympicsPageApi;
     }
 
     public function lincolnUniversityPage ()
     {
         $lincolnUniversityPage = LincolnUniversityPage::query()->with(['getTitle', 'getContent'])->get();
-
+        $metaData = EnrollmentPagesMeta::where('page_id', 9)->first();
         $documents = LincolnUniversityPageDocument::query()->with(['getName'])->get();
         $documentsResource = DocumentResource::collection($documents);
 
@@ -1132,6 +1152,7 @@ class ApiController extends Controller
         $lincolnUniversityPageApi->consultButton = $consultButton;
         $lincolnUniversityPageApi->downloadButton = $downloadButton;
         $lincolnUniversityPageApi->documents = $documentsResource;
+        $lincolnUniversityPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $lincolnUniversityPageApi;
     }
 
@@ -1512,6 +1533,8 @@ class ApiController extends Controller
     public function scienceAboutPage ()
     {
         $scienceAboutPage = ScienceAboutPage::query()->with(['getTitle', 'getContent'])->get()[0];
+        $metaData = AboutUniversityPagesMeta::where('page_id', 7)->first();
+
         return new PageResource($scienceAboutPage);
     }
 
@@ -1581,4 +1604,56 @@ class ApiController extends Controller
         return $summerSchoolPageApi;
         // return new PageResource($scienceAboutPage);
     }
+
+    public function metaData()
+    {
+        $mainPage = MainPageMeta::first();
+        $pages = [
+            'aboutUs' => ['model' => AboutUniversityPagesMeta::class, 'id' => 1],
+            'authority' => ['model' => AboutUniversityPagesMeta::class, 'id' => 2],
+            'accreditation' => ['model' => AboutUniversityPagesMeta::class, 'id' => 3],
+            'ourPartners' => ['model' => AboutUniversityPagesMeta::class, 'id' => 4],
+            'rectorsBlog' => ['model' => AboutUniversityPagesMeta::class, 'id' => 5],
+            'career' => ['model' => AboutUniversityPagesMeta::class, 'id' => 6],
+            'scienceAbout' => ['model' => AboutUniversityPagesMeta::class, 'id' => 7],
+            'academicCouncil' => ['model' => AboutUniversityPagesMeta::class, 'id' => 8],
+            'admissionsCommittee' => ['model' => EnrollmentPagesMeta::class, 'id' => 1],
+            'bachelor' => ['model' => EnrollmentPagesMeta::class, 'id' => 2],
+            'master' => ['model' => EnrollmentPagesMeta::class, 'id' => 3],
+            'internationalStudents' => ['model' => EnrollmentPagesMeta::class, 'id' => 4],
+            'languageCourse' => ['model' => EnrollmentPagesMeta::class, 'id' => 5],
+            'majorMinor' => ['model' => EnrollmentPagesMeta::class, 'id' => 6],
+            'levelUp' => ['model' => EnrollmentPagesMeta::class, 'id' => 7],
+            'olympics' => ['model' => EnrollmentPagesMeta::class, 'id' => 8],
+            'lincolnUniversity' => ['model' => EnrollmentPagesMeta::class, 'id' => 9],
+            'academicPolicy' => ['model' => StudentsPagesMeta::class, 'id' => 1],
+            'academicCalendar' => ['model' => StudentsPagesMeta::class, 'id' => 2],
+            'library' => ['model' => StudentsPagesMeta::class, 'id' => 3],
+            'ethicalCode' => ['model' => StudentsPagesMeta::class, 'id' => 4],
+            'careerCenter' => ['model' => StudentsPagesMeta::class, 'id' => 5],
+            'militaryDepartment' => ['model' => StudentsPagesMeta::class, 'id' => 6],
+            'medicalCare' => ['model' => StudentsPagesMeta::class, 'id' => 7],
+            'studentHouse' => ['model' => StudentsPagesMeta::class, 'id' => 8],
+            'travelGuide' => ['model' => StudentsPagesMeta::class, 'id' => 9],
+            'studentOrganization' => ['model' => StudentsPagesMeta::class, 'id' => 10],
+            'bachelorSchools_1' => ['model' => BachelorSchoolMeta::class, 'id' => 1],
+            'bachelorSchools_2' => ['model' => BachelorSchoolMeta::class, 'id' => 2],
+            'bachelorSchools_3' => ['model' => BachelorSchoolMeta::class, 'id' => 3],
+            'bachelorSchools_4' => ['model' => BachelorSchoolMeta::class, 'id' => 4],
+            'scienceInnovation' => ['model' => SciencePagesMeta::class, 'id' => 1],
+            'scientificPublication' => ['model' => SciencePagesMeta::class, 'id' => 2],
+            'studentScience' => ['model' => SciencePagesMeta::class, 'id' => 3],
+            'summerSchool' => ['model' => SciencePagesMeta::class, 'id' => 4],
+        ];
+
+        $metaData = new stdClass;
+        $metaData->mainPage = $mainPage ? new MetaDataResource($mainPage) : null;
+        foreach ($pages as $key => $page) {
+            $pageData = $page['model']::where('page_id', $page['id'])->first();
+            $metaData->$key = $pageData ? new MetaDataResource($pageData) : null;
+        }
+
+        return $metaData;
+}
+
 }

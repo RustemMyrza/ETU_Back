@@ -10,8 +10,8 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/mainPage/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
-            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
+        <a href="{{ url('/admin/mainPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
         </a>
         <a href="{{ url('/admin/youtube/') }}" class="btn btn-danger btn-sm" title="Youtube">
             <i class="fa fa-play" aria-hidden="true"></i> YouTube

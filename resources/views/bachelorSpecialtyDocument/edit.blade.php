@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card-body">
-        <a href="{{ url(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId])) }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
         <br />
         <br />
 

@@ -32,7 +32,8 @@
                             <td>{{ $item->getName ? Str::limit($item->getName->ru, 50) : '' }}</td>
                             <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}"></td>
                             <td>
-                            <a href="{{ route('mastersSpecialty.page.index', ['mastersSpecialtyId' => $item->id]) }}" title="Страница"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Страница</button></a>
+                            <a href="{{ url('admin/mastersSpecialty/' . $item->id . '/meta') }}" title="Метаданные"><button class="btn btn-secondary btn-sm"><i class="fa fa-info" aria-hidden="true"></i> Метаданные</button></a>
+                            <a href="{{ url('admin/mastersSpecialty/' . $item->id . '/page') }}" title="Страница"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Страница</button></a>
                             <a href="{{ url('admin/mastersSpecialty/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                 <a href="{{ url('admin/mastersSpecialty/' . $item->id . '/edit') }}" title="Редактировать блок">
                                     <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"

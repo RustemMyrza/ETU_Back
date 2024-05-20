@@ -34,4 +34,9 @@ class MastersSpecialty extends Model
     {
         return $this->hasMany(MastersSpecialtyPage::class, 'parent_id', 'id');
     }
+
+    public function getMeta()
+    {
+        return $this->hasOne(MasterSpecialtyMeta::class, 'page_id', 'id');
+    }
 }

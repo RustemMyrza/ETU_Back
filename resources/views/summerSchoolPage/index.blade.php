@@ -10,6 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
+        <a href="{{ url('/admin/summerSchoolPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <a href="{{ url('/admin/summerSchoolProgram') }}" class="btn btn-info btn-sm" title="Программа">
             <i class="fa fa-tasks" aria-hidden="true"></i> Программа
         </a>

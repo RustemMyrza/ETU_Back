@@ -13,7 +13,7 @@
         <a href="{{ url( 'admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents/create' ) }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
-        <a href="{{ url(route( 'school.specialty.index', ['schoolId' => $schoolId] ) ) }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
+        <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
         <br/>
@@ -37,7 +37,7 @@
                                 <td><a href="{{ $item->link ? url($item->link) : '' }}">{{$item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : ''}}</a></td>
                                 <!-- {{ url("$item->image")}} -->
                                 <td>
-                                <a href="{{ url(route('bachelorSpecialty.document.show', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId, 'id' => $item->id])) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents/' . $item->id }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"
                                                                                 aria-hidden="true"></i> Редактировать

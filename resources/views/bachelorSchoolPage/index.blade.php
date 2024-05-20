@@ -10,6 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
+        <a href="{{ url('/admin/supervisorsPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <a href="{{ url('/admin/bachelorSchool') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>

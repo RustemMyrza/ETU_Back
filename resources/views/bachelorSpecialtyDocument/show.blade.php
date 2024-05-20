@@ -10,8 +10,8 @@
 
     <div class="card-body">
 
-        <a href="{{ url(route('bachelorSpecialty.document.index', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId])) }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
-        <a href="{{ url(route('bachelorSpecialty.document.edit', ['schoolId' => $schoolId, 'specialtyId' => $specialtyId, 'id' => $id])) }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Редактировать</button></a>
+        <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents') }}" title="Назад"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Назад</button></a>
+        <a href="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents/' . $document->id . '/edit' }}" title="Редактировать блок"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt" aria-hidden="true"></i> Редактировать</button></a>
 
         <form method="POST" action="{{ url('admin/bachelorSchool/' . $schoolId . '/specialty/' . $specialtyId . '/documents/' . $id . '/delete') }}" accept-charset="UTF-8" style="display:inline">
             {{ method_field('DELETE') }}

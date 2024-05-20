@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\VacancyApplication;
 use App\Models\Vacancy;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class VacancyApplicationController extends Controller
 {
@@ -42,15 +42,29 @@ class VacancyApplicationController extends Controller
      */
     public function store(Request $request, $vacancyId)
     {
-        // dd($request->all());
-        $request->validate([
-            'document' => 'document|mimes:pdf,docx|max:10240',
-        ],
-            [
-                'document.mimes' => 'Проверьте формат документа',
-                'document.max' => 'Размер файла не может превышать 10МБ'
-            ]);
         $requestData = $request->all();
+        foreach($requestData as $key => $value)
+        {
+            if ($key != 'name' && $key != 'phone' && $key != 'email')
+            {
+                $validator = Validator::make($request->all(), [
+                    $key => 'file|mimes:pdf,docx|max:10240',
+                ], [
+                    $key.'.mimes' => 'Format error',
+                    $key.'.max' => 'Size of document cant be more than 10 mb',
+                ]);
+    
+                if ($validator->fails()) {
+                    // Возвращаем первую ошибку для данного ключа
+                    $errorMessage = $validator->errors()->first($key);
+    
+                    return response()->json([
+                        'success' => false,
+                        'error' => $errorMessage,
+                    ]);
+                }
+            }
+        }
         if ($request->hasFile('summary')) {
             $summaryPath = $this->uploadDocument($request->file('summary'));
         }
@@ -64,6 +78,8 @@ class VacancyApplicationController extends Controller
             $recommenderPath = $this->uploadDocument($request->file('recommender'));
         }
 
+
+
         $vacancyApplication= new VacancyApplication();
         $vacancyApplication->name = $requestData['name'];
         $vacancyApplication->phone = $requestData['phone'];
@@ -73,9 +89,21 @@ class VacancyApplicationController extends Controller
         $vacancyApplication->education = $educationPath ?? null;
         $vacancyApplication->recommender = $recommenderPath ?? null;
         $vacancyApplication->parent_id = $vacancyId;
-        $vacancyApplication->save();
-
-        return 'Заявка была отправлена';
+        $resultMessage = $vacancyApplication->save();
+        if ($resultMessage == 1)
+        {
+            return response()->json([
+                'success' => true,
+                'message' => 'Application is sended successfully',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Application is didnt sended',
+            ]);
+        }
     }
 
     /**

@@ -10,6 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
+        <a href="{{ url('/admin/bachelorPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <a href="{{ url('/admin/bachelorSchool/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
             <i class="fa fa-plus" aria-hidden="true"></i> Добавить
         </a>
@@ -34,9 +37,10 @@
                                 <td>{{ $item->name ? Str::limit($translatesData->find($item->name)->ru, 50) : '' }}</td>
                                 <td><img src="{{ $item->image ? url($item->image) : '' }}" alt="{{ $item->image ? url($item->image) : '' }}" width="200px;"></td>
                                 <td>
-                                <a href="{{ route('school.page.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Страница</button></a>
-                                <a href="{{ route('school.specialty.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-university" aria-hidden="true"></i> Специальности</button></a>
-                                <a href="{{ route('school.educator.index', ['schoolId' => $item->id]) }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-user-circle" aria-hidden="true"></i> Педагоги</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $item->id . '/meta') }}" title="Метаданные"><button class="btn btn-secondary btn-sm"><i class="fa fa-info" aria-hidden="true"></i> Метаданные</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $item . '/page' }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Страница</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $item . '/specialty') }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-university" aria-hidden="true"></i> Специальности</button></a>
+                                <a href="{{ url('admin/bachelorSchool/' . $item . '/educator') }}" title="Посмотреть блок"><button class="btn btn-secondary btn-sm"><i class="fa fa-user-circle" aria-hidden="true"></i> Педагоги</button></a>
                                 <a href="{{ url('/admin/bachelorSchool/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                     <a href="{{ url('/admin/bachelorSchool/' . $item->id . '/edit') }}" title="Редактировать блок">
                                         <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"

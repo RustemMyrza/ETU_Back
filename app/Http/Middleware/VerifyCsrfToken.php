@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
             'http://127.0.0.1:8000/admin/vacancy/*/applications/create',
             'http://127.0.0.1:8000/admin/rectorsBlogQuestion/create',
-            'https://admin.etu.edu.kz/admin/rectorsBlogQuestion/create'
+            'https://admin.etu.edu.kz/admin/rectorsBlogQuestion/create',
+            'https://admin.etu.edu.kz/admin/vacancy/*/applications/create'
         ];
 }

@@ -10,6 +10,9 @@
 
     <div class="card-body">
         @include('flash-message')
+        <a href="{{ url('/admin/ethicalCodePageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+            <i class="fa fa-info" aria-hidden="true"></i> Метаданные
+        </a>
         <a href="{{ url('/admin/ethicalCodePageDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
             <i class="fa fa-file" aria-hidden="true"></i> Документы
         </a>
