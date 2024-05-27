@@ -176,6 +176,17 @@ Route::post('admin/travelGuidePageMeta', 'App\Http\Controllers\TravelGuidePageMe
 Route::get('admin/studentClubPageMeta', 'App\Http\Controllers\StudentClubPageMetaController@index')->middleware('auth');
 Route::post('admin/studentClubPageMeta', 'App\Http\Controllers\StudentClubPageMetaController@store')->middleware('auth');
 
+Route::get('admin/scienceInnovationPageMeta', 'App\Http\Controllers\ScienceInnovationPageMetaController@index')->middleware('auth');
+Route::post('admin/scienceInnovationPageMeta', 'App\Http\Controllers\ScienceInnovationPageMetaController@store')->middleware('auth');
+Route::get('admin/studentSciencePageMeta', 'App\Http\Controllers\StudentSciencePageMetaController@index')->middleware('auth');
+Route::post('admin/studentSciencePageMeta', 'App\Http\Controllers\StudentSciencePageMetaController@store')->middleware('auth');
+Route::get('admin/scientificPublicationPageMeta', 'App\Http\Controllers\ScientificPublicationPageMetaController@index')->middleware('auth');
+Route::post('admin/scientificPublicationPageMeta', 'App\Http\Controllers\ScientificPublicationPageMetaController@store')->middleware('auth');
+Route::get('admin/summerSchoolPageMeta', 'App\Http\Controllers\SummerSchoolPageMetaController@index')->middleware('auth');
+Route::post('admin/summerSchoolPageMeta', 'App\Http\Controllers\SummerSchoolPageMetaController@store')->middleware('auth');
+Route::get('admin/academicCalendarPageMeta', 'App\Http\Controllers\AcademicCalendarPageMetaController@index')->middleware('auth');
+Route::post('admin/academicCalendarPageMeta', 'App\Http\Controllers\AcademicCalendarPageMetaController@store')->middleware('auth');
+
 Route::get('admin/bachelorSchool/{schoolId}/meta', 'App\Http\Controllers\BachelorSchoolMetaController@index')->middleware('auth');
 Route::post('admin/bachelorSchool/{schoolId}/meta', 'App\Http\Controllers\BachelorSchoolMetaController@store')->middleware('auth');
 Route::get('admin/news/{newsId}/meta', 'App\Http\Controllers\NewsMetaController@index')->middleware('auth');

@@ -10,7 +10,7 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/academicСalendarPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
+        <a href="{{ url('/admin/academicCalendarPageMeta') }}" class="btn btn-secondary btn-sm" title="Метаданные">
             <i class="fa fa-info" aria-hidden="true"></i> Метаданные
         </a>
         <a href="{{ url('/admin/academicCalendarPageDocument') }}" class="btn btn-info btn-sm" title="Добавить новый блок">
