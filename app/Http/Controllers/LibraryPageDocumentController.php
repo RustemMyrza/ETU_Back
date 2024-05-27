@@ -20,6 +20,10 @@ class LibraryPageDocumentController extends DocumentController
     }
     public function create ()
     {
+        if (count(LibraryPageDocument::all()) == 1)
+        {
+            return redirect($this->redirectUrl)->with('error', 'Вы не можете добавить больше одного элемента');
+        }
         return view('libraryPageDocument.create');
     }
     public function store (Request $request)
