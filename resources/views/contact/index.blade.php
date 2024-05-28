@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : ''}}">
-                    <label for="director_name" class="control-label">{{ 'Номер приемной комиссии №2' }}</label>
+                    <label for="director_name" class="control-label">{{ 'Номер приемной комиссии' }}</label>
                     <input class="form-control" name="admissions_committee_num_2" type="text" id="admissions_committee_num_2"
                             value="{{ isset($contacts->admissions_committee_num_2) ? $contacts->admissions_committee_num_2: ''}}">
                 </div>
