@@ -429,7 +429,7 @@ class ApiController extends Controller
         }
         $authorityApi = new stdClass;
         $authorityApi->title = $title;
-        $authorityApi->supervisors = $supervisors;
+        $authorityApi->supervisors = isset($supervisors) ? $supervisors : [];
         $authorityApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $authorityApi;
     }
@@ -460,7 +460,7 @@ class ApiController extends Controller
         }
         $accreditationApi = new stdClass;
         $accreditationApi->titleDescription = $titleDescription;
-        $accreditationApi->specialties = $specialties;
+        $accreditationApi->specialties = isset($specialties) ? $specialties : [];
         $accreditationApi->button = $button;
         $accreditationApi->documents = $resourceDocuments;
         $accreditationApi->documentsDownloadButton = $documentsDownloadButton;
@@ -494,7 +494,7 @@ class ApiController extends Controller
         $partnersPageApi->title = $title;
         $partnersPageApi->ourPartnersButton = $ourPartnersButton;
         $partnersPageApi->internationalPartnersButton = $internationalPartnersButton;
-        $partnersPageApi->partners = $partners;
+        $partnersPageApi->partners = isset($partners) ? $partners : [];
         $partnersPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $partnersPageApi;
     }
@@ -571,7 +571,7 @@ class ApiController extends Controller
         $careerPageApi->title = $title;
         $careerPageApi->infoBlocks = $infoBlocks;
         $careerPageApi->vacancyTitle = $vacancyTitle;
-        $careerPageApi->vacancies = $vacancies;
+        $careerPageApi->vacancies = isset($vacancies) ? $vacancies : [];
         $careerPageApi->button = $button;
         $careerPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $careerPageApi;
@@ -644,7 +644,7 @@ class ApiController extends Controller
         $academicCouncilPageApi->title = $title;
         $academicCouncilPageApi->infoBlock = $infoBlock;
         $academicCouncilPageApi->images = $images;
-        $academicCouncilPageApi->members = $academicCouncilMembers;
+        $academicCouncilPageApi->members = isset($academicCouncilMembers) ? $academicCouncilMembers : [];
         $academicCouncilPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $academicCouncilPageApi;
     }
@@ -859,21 +859,21 @@ class ApiController extends Controller
         }
         $admissionsCommitteePageApi = new stdClass;
         $admissionsCommitteePageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
-        $admissionsCommitteePageApi->documents = $documents;
+        $admissionsCommitteePageApi->documents = isset($documents) ? $documents : [];
         $admissionsCommitteePageApi->discountsTitle = $discountsTitle;
         $admissionsCommitteePageApi->tableTitle_1 = $tableTitle_1;
-        $admissionsCommitteePageApi->discountTable_1 = $discountTable_1;
+        $admissionsCommitteePageApi->discountTable_1 = isset($discountTable_1) ? $discountTable_1 : [];
         $admissionsCommitteePageApi->tableTitle_2 = $tableTitle_2;
-        $admissionsCommitteePageApi->discountTable_2 = $discountTable_2;
+        $admissionsCommitteePageApi->discountTable_2 = isset($discountTable_2) ? $discountTable_2 : [];
         $admissionsCommitteePageApi->tableTitle_3 = $tableTitle_3;
-        $admissionsCommitteePageApi->discountTable_3 = $honorsStudentDiscountTableResource;
+        $admissionsCommitteePageApi->discountTable_3 = isset($honorsStudentDiscountTableResource) ? $honorsStudentDiscountTableResource : [];
         $admissionsCommitteePageApi->costTitle = $costTitle;
         $admissionsCommitteePageApi->tableTitle_4 = $tableTitle_4;
-        $admissionsCommitteePageApi->costTable_1 = $costTable_1;
+        $admissionsCommitteePageApi->costTable_1 = isset($costTable_1) ? $costTable_1 : [];
         $admissionsCommitteePageApi->tableTitle_5 = $tableTitle_5;
-        $admissionsCommitteePageApi->costTable_2 = $costTable_2;
+        $admissionsCommitteePageApi->costTable_2 = isset($costTable_2) ? $costTable_2 : [];
         $admissionsCommitteePageApi->tableTitle_6 = $tableTitle_6;
-        $admissionsCommitteePageApi->costTable_3 = $costTable_3;
+        $admissionsCommitteePageApi->costTable_3 = isset($costTable_3) ? $costTable_3 : [];
         $admissionsCommitteePageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
         $admissionsCommitteePageApi->bachelorBlock = $bachelorBlock;
         $admissionsCommitteePageApi->masterBlock = $masterBlock;
@@ -898,7 +898,7 @@ class ApiController extends Controller
         }
         $masterPageApi = new stdClass;
         $masterPageApi->title = $title;
-        $masterPageApi->specalties = $masterSpecialties;
+        $masterPageApi->specalties = isset($masterSpecialties) ? $masterSpecialties : [];
         $masterPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $masterPageApi;
     }
@@ -1434,11 +1434,11 @@ class ApiController extends Controller
         $studentHousePageApi->aboutBlock = $aboutBlock;
         $studentHousePageApi->images = $images;
         $studentHousePageApi->dormitoryButton_1 = isset($dormitoryButton_1) ? $dormitoryButton_1 : null;
-        $studentHousePageApi->dormitory_1 = $dormitories->first_dormitory;
+        $studentHousePageApi->dormitory_1 = isset($dormitories->first_dormitory) ? $dormitories->first_dormitory : [];
         $studentHousePageApi->dormitoryButton_2 = isset($dormitoryButton_2) ? $dormitoryButton_2 : null;
-        $studentHousePageApi->dormitory_2 = $dormitories->second_dormitory;
+        $studentHousePageApi->dormitory_2 = isset($dormitories->second_dormitory) ? $dormitories->second_dormitory : [];
         $studentHousePageApi->dormitoryButton_3 = isset($dormitoryButton_3) ? $dormitoryButton_3 : null;
-        $studentHousePageApi->dormitory_3 = $dormitories->third_dormitory;
+        $studentHousePageApi->dormitory_3 = isset($dormitories->third_dormitory) ? $dormitories->third_dormitory : [];
         return $studentHousePageApi;
     }
 
@@ -1495,7 +1495,7 @@ class ApiController extends Controller
         $studentClubPageApi->title = $title;
         $studentClubPageApi->aboutBlock = $aboutBlock;
         $studentClubPageApi->ourClubsTitle = $ourClubsTitle;
-        $studentClubPageApi->studentClubs = $studentClubs;
+        $studentClubPageApi->studentClubs = isset($studentClubs) ? $studentClubs : [];
         
         return $studentClubPageApi;
     }
