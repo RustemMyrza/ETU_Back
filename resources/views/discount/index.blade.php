@@ -20,10 +20,8 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Категория</th>
-                    <th>Размер скидки %</th>
-                    <th>Примечание</th>
-                    <th>Для студентов</th>
+                    <th>Название</th>
+                    <th>Таблица</th>
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -31,10 +29,8 @@
                     @foreach($discount as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->category ? Str::limit($translatesData->find($item->category)->ru, 50) : '' }}</td>
-                            <td>{{ $item->amount ? Str::limit($item->amount, 50) : '' }}</td>
-                            <td>{{ $item->note ? Str::limit($translatesData->find($item->note)->ru, 50) : '' }}</td>
-                            <td>{{ $item->student_type ? Str::limit($forTypeStudents[$item->student_type], 50) : '' }}</td>
+                            <td>{{ $item->name ? Str::limit($item->getName->ru, 50) : '' }}</td>
+                            <td><img src=" {{ url($item->image) }} " alt=" {{ url($item->image) }} " width="300"></td>
                             <td>
                             <a href="{{ url('/admin/discount/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                 <a href="{{ url('/admin/discount/' . $item->id . '/edit') }}" title="Редактировать блок">

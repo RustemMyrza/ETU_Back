@@ -16,10 +16,8 @@ class CreateDiscountsTable extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('category');
-            $table->string('amount');
-            $table->string('note')->nullable();
-            $table->string('student_type')->nullable();
+            $table->string('name');
+            $table->string('image');
         });
     }
 

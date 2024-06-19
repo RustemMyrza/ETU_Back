@@ -10,22 +10,10 @@ class DiscountController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
         $perPage = 25;
+        $discount = Discount::latest()->paginate($perPage);
 
-        if (!empty($keyword)) {
-            $discount = Discount::where('category', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $discount = Discount::latest()->paginate($perPage);
-            $forTypeStudents = [
-                1 => 'Для абитуриентов',
-                2 => 'Для поступающих в магистратуру'
-            ];
-            $translatesData = Translate::all();
-        }
-
-        return view('discount.index', compact('discount', 'translatesData', 'forTypeStudents'));
+        return view('discount.index', compact('discount'));
     }
 
     /**
@@ -48,26 +36,29 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $category = new Translate();
-        $category->ru = $requestData['category']['ru'];
-        $category->en = $requestData['category']['en'];
-        $category->kz = $requestData['category']['kz'];
-        $category->save();
-        $categoryId = $category->id;
 
-        $note = new Translate();
-        $note->ru = $requestData['note']['ru'];
-        $note->en = $requestData['note']['en'];
-        $note->kz = $requestData['note']['kz'];
-        $note->save();
-        $noteId = $note->id;
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+        [
+            'image.required' => 'Изображение для блока обязательно',
+            'image.mimes' => 'Проверьте формат изображения',
+            'image.max' => 'Размер файла не может превышать 10МБ'
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $this->uploadImage($request->file('image'));
+        }
+        $name = new Translate();
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->save();
+        $nameId = $name->id;
 
 
         $discount= new Discount();
-        $discount->category = $categoryId;
-        $discount->note = $noteId;
-        $discount->amount = $requestData['amount'];
-        $discount->student_type = $requestData['student_type'];
+        $discount->name = $nameId;
+        $discount->image = $path;
         $discount->save();
 
         return redirect('admin/discount')->with('flash_message', 'Блок добавлен');
@@ -83,15 +74,7 @@ class DiscountController extends Controller
     public function show($id)
     {
         $discount = Discount::findOrFail($id);
-        $translatedCategory = Translate::findOrFail($discount->category);
-        $translatedNote = Translate::findOrFail($discount->note);
-        $translatedData['category'] = $translatedCategory;
-        $translatedData['note'] = $translatedNote;
-        $forTypeStudents = [
-            1 => 'Для абитуриентов',
-            2 => 'Для поступающих в магистратуру'
-        ];
-        return view('discount.show', compact('discount', 'translatedData', 'forTypeStudents'));
+        return view('discount.show', compact('discount'));
     }
 
     /**
@@ -104,11 +87,7 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::findOrFail($id);
-        $translatedCategory = Translate::findOrFail($discount->category);
-        $translatedNote = Translate::findOrFail($discount->note);
-        $translatedData['category'] = $translatedCategory;
-        $translatedData['note'] = $translatedNote;
-        return view('discount.edit', compact('discount', 'translatedData'));
+        return view('discount.edit', compact('discount'));
     }
 
     /**
@@ -124,21 +103,26 @@ class DiscountController extends Controller
         $requestData = $request->all();
         $discount = Discount::findOrFail($id);
 
-        $category = Translate::find($discount->category);
-        $category->ru = $requestData['category']['ru'];
-        $category->en = $requestData['category']['en'];
-        $category->kz = $requestData['category']['kz'];
-        $category->update();
+        if ($request->hasFile('image')) 
+        {
+            if ($discount->image != null) {
+                // unlink($discount->image);
+            }
+            $path = $this->uploadImage($request->file('image'));
+            $discount->image = $path;
+        }
+        else
+        {
+            if ($discount->image != null) {
+                // unlink($discount->image);
+            }
+        }
 
-        $note = Translate::find($discount->note);
-        $note->ru = $requestData['note']['ru'];
-        $note->en = $requestData['note']['en'];
-        $note->kz = $requestData['note']['kz'];
-        $note->update();
-
-        $discount->amount = $requestData['amount'];
-        $discount->student_type = $requestData['student_type'];
-        $discount->update();
+        $name = Translate::find($discount->name);
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->update();
 
         return redirect('admin/discount')->with('flash_message', 'Блок изменен');
     }
@@ -153,11 +137,13 @@ class DiscountController extends Controller
     public function destroy($id)
     {
         $discount = Discount::find($id);
-        $category = Translate::find($discount->category);
-        $note = Translate::find($discount->note);
-        $category->delete();
-        $note->delete();
+        $name = Translate::find($discount->name);
+        $name->delete();
         $discount->delete();
+        if ($discount->image != null) 
+        {
+            // unlink($discount->image);
+        }
 
         return redirect('admin/discount')->with('flash_message', 'Блок удален');
     }

@@ -275,11 +275,6 @@ return [
             'url'  => '/admin/discount',
         ],
         [
-            'text' => 'Скидки для студентов-отличников',
-            'icon' => 'fas fa-fw fa-table',
-            'url'  => '/admin/honorsStudentDiscount',
-        ],
-        [
             'text' => 'Стоимости',
             'icon' => 'fas fa-fw fa-credit-card',
             'url'  => '/admin/cost',

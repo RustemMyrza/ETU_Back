@@ -606,7 +606,7 @@ class ApiController extends Controller
         $rectorsBlogPageApi = new stdClass;
         $rectorsBlogPageApi->title = $title;
         $rectorsBlogPageApi->rector = $rector;
-        $rectorsBlogPageApi->questions = $answeredQuestions;
+        $rectorsBlogPageApi->questions = isset($answeredQuestions) ? $answeredQuestions : [];
         $rectorsBlogPageApi->meta = $metaData ? new MetaDataResource($metaData) : null; 
         return $rectorsBlogPageApi;
     }
@@ -783,21 +783,9 @@ class ApiController extends Controller
         $documents = AdmissionsCommitteePageDocument::query()->with(['getName'])->get();
         $metaData = EnrollmentPagesMeta::where('page_id', 1)->first();
         $documents = DocumentResource::collection($documents);
-        $discountTable = Discount::query()->with(['getCategory', 'getNote'])->get();
-        foreach ($discountTable as $item)
-        {
-            if ($item->student_type == 1)
-            {
-                $discountTable_1[] = new DiscountTableResource($item);
-            }
-            else
-            {
-                $discountTable_2[] = new DiscountTableResource($item);
-            }
-        }
-        $honorsStudentDiscountTable = HonorsStudentDiscount::query()->with(['getCategory', 'getNote'])->get();
+        $discountTable = Discount::query()->with(['getName'])->get();
+        $discounts = DiscountTableResource::collection($discountTable);
         
-        $honorsStudentDiscountTableResource = HonorsStudentDiscountTableResource::collection($honorsStudentDiscountTable);
         $costTable = Cost::query()->with(['getProgram'])->get();
 
         foreach ($costTable as $item)
@@ -861,12 +849,7 @@ class ApiController extends Controller
         $admissionsCommitteePageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
         $admissionsCommitteePageApi->documents = isset($documents) ? $documents : [];
         $admissionsCommitteePageApi->discountsTitle = $discountsTitle;
-        $admissionsCommitteePageApi->tableTitle_1 = $tableTitle_1;
-        $admissionsCommitteePageApi->discountTable_1 = isset($discountTable_1) ? $discountTable_1 : [];
-        $admissionsCommitteePageApi->tableTitle_2 = $tableTitle_2;
-        $admissionsCommitteePageApi->discountTable_2 = isset($discountTable_2) ? $discountTable_2 : [];
-        $admissionsCommitteePageApi->tableTitle_3 = $tableTitle_3;
-        $admissionsCommitteePageApi->discountTable_3 = isset($honorsStudentDiscountTableResource) ? $honorsStudentDiscountTableResource : [];
+        $admissionsCommitteePageApi->discounts = $discounts;
         $admissionsCommitteePageApi->costTitle = $costTitle;
         $admissionsCommitteePageApi->tableTitle_4 = $tableTitle_4;
         $admissionsCommitteePageApi->costTable_1 = isset($costTable_1) ? $costTable_1 : [];

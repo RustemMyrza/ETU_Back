@@ -17,9 +17,8 @@ class DiscountTableResource extends JsonResource
         $lang = in_array($request->lang, ['ru', 'en', 'kz']) ? $request->lang : 'ru';
 
         $returnData = [
-            'category' => $this->category ? $this->getCategory->{$lang} : '',
-            'amount' => $this->amount,
-            'note' => $this->note ? $this->getNote->{$lang} : ''
+            'name' => $this->name ? $this->getName->{$lang} : '',
+            'image' => url($this->image)
         ];
         return $returnData;
     }

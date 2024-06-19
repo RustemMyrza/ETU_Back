@@ -12,78 +12,44 @@
 
 <div class="tab-content col-md-12" id="custom-tabs-one-tabContent">
     <div class="tab-pane active in ru-content" id="custom-tabs-one-ru" role="tabpanel" aria-labelledby="custom-tabs-one-ru-tab">
-        <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
-            <label for="category[ru]" class="control-label">{{ 'Категория RU' }}</label>
-            <input class="form-control" name="category[ru]" type="text" id="category_ru" value="{{ isset($translatedData['category']->ru) ? $translatedData['category']->ru : ''}}" >
-            {!! $errors->first('category[ru]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+            <label for="name[ru]" class="control-label">{{ 'Название RU' }}</label>
+            <input class="form-control" name="name[ru]" type="text" id="name_ru" value="{{ isset($discount->getName->ru) ? $discount->getName->ru : ''}}" >
+            {!! $errors->first('name[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
-        <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
-            <label for="category[en]" class="control-label">{{ 'Категория EN' }}</label>
-            <input class="form-control" name="category[en]" type="text" id="category_en" value="{{ isset($translatedData['category']->en) ? $translatedData['category']->en : ''}}" >
-            {!! $errors->first('category[ru]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+            <label for="name[en]" class="control-label">{{ 'Название EN' }}</label>
+            <input class="form-control" name="name[en]" type="text" id="name_en" value="{{ isset($discount->getName->en) ? $discount->getName->en : ''}}" >
+            {!! $errors->first('name[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade kz-content" id="custom-tabs-one-kz" role="tabpanel" aria-labelledby="custom-tabs-one-kz-tab">
-        <div class="form-group {{ $errors->has('category') ? 'has-error' : ''}}">
-            <label for="category[kz]" class="control-label">{{ 'Категория KZ' }}</label>
-            <input class="form-control" name="category[kz]" type="text" id="category_kz" value="{{ isset($translatedData['category']->kz) ? $translatedData['category']->kz : ''}}" >
-            {!! $errors->first('category[kz]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+            <label for="name[kz]" class="control-label">{{ 'Название KZ' }}</label>
+            <input class="form-control" name="name[kz]" type="text" id="name_kz" value="{{ isset($discount->getName->kz) ? $discount->getName->kz : ''}}" >
+            {!! $errors->first('name[kz]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
 
-
-
-
-<div class="tab-content col-md-12" id="custom-tabs-one-tabContent">
-    <div class="tab-pane active in ru-content" id="custom-tabs-one-ru" role="tabpanel" aria-labelledby="custom-tabs-one-ru-tab">
-        <div class="form-group {{ $errors->has('note') ? 'has-error' : ''}}">
-            <label for="note[ru]" class="control-label">{{ 'Примечание RU' }}</label>
-            <input class="form-control" name="note[ru]" type="text" id="note_ru" value="{{ isset($translatedData['note']->ru) ? $translatedData['note']->ru : ''}}" >
-            {!! $errors->first('category[ru]"', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
-    <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
-        <div class="form-group {{ $errors->has('note') ? 'has-error' : ''}}">
-            <label for="note[en]" class="control-label">{{ 'Примечание EN' }}</label>
-            <input class="form-control" name="note[en]" type="text" id="note_en" value="{{ isset($translatedData['note']->en) ? $translatedData['note']->en : ''}}" >
-            {!! $errors->first('note[ru]"', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
-    <div class="tab-pane fade kz-content" id="custom-tabs-one-kz" role="tabpanel" aria-labelledby="custom-tabs-one-kz-tab">
-        <div class="form-group {{ $errors->has('note') ? 'has-error' : ''}}">
-            <label for="note[kz]" class="control-label">{{ 'Примечание KZ' }}</label>
-            <input class="form-control" name="note[kz]" type="text" id="note_kz" value="{{ isset($translatedData['note']->kz) ? $translatedData['note']->kz : ''}}" >
-            {!! $errors->first('note[kz]"', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-</div>
-
-<div class="form-group {{ $errors->has('note') ? 'has-error' : ''}}">
-    <label for="amount" class="control-label">{{ 'Размер скидки %' }}</label>
-    <input class="form-control" name="amount" type="number" id="amount" value="{{ isset($discount->amount) ? $discount->amount : ''}}" >
-    {!! $errors->first('amount"', '<p class="help-block">:message</p>') !!}
-</div>
-
-<div class="form-group {{ $errors->has('student_type') ? 'has-error' : ''}}">
-    <label for="student_type" class="control-label">{{ 'Для студентов' }}</label>
-    <br>
-    <select name="student_type" id="student_type">
-        <option value="1" {{ isset($discount->student_type) ? $discount->student_type == 1 ? 'selected' : '' : '' }} >Для абитуриентов</option>
-        <option value="2" {{ isset($discount->student_type) ? $discount->student_type == 2 ? 'selected' : '' : '' }} >Для поступающих в магистратуру</option>
-    </select>
-    {!! $errors->first('student_type"', '<p class="help-block">:message</p>') !!}
+<div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
+    <label for="image" class="control-label">{{ 'Изображение' }}</label>
+    <input class="form-control" name="image" type="file" id="image" value="{{ isset($image) ? url($image) : ''}}" >
+    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Обновить' : 'Создать' }}">
 </div>
+<br>
+
+@if(isset($discount->image))
+    <img src=" {{ url($discount->image) }} " alt=" {{ url($discount->image) }} " width="400">
+@endif
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

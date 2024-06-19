@@ -71,7 +71,6 @@ Route::resource('admin/academicCouncilMember', 'App\Http\Controllers\AcademicCou
 Route::resource('admin/scienceInnovationPage', 'App\Http\Controllers\ScienceInnovationPageController')->middleware('auth');
 Route::resource('admin/studentScience', 'App\Http\Controllers\StudentScienceController')->middleware('auth');
 Route::resource('admin/discount', 'App\Http\Controllers\DiscountController')->middleware('auth');
-Route::resource('admin/honorsStudentDiscount', 'App\Http\Controllers\HonorsStudentDiscountController')->middleware('auth');
 Route::resource('admin/cost', 'App\Http\Controllers\CostController')->middleware('auth');
 Route::resource('admin/mastersSpecialty', 'App\Http\Controllers\MastersSpecialtyController')->middleware('auth');
 Route::resource('admin/languageCoursesPage', 'App\Http\Controllers\LanguageCoursesPageController')->middleware('auth');

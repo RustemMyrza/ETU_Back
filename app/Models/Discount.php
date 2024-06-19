@@ -21,15 +21,10 @@ class Discount extends Model
      *
      * @var array
      */
-    protected $fillable = ['category', 'amount', 'note', 'student_type'];
+    protected $fillable = ['name', 'image'];
 
-    public function getCategory()
+    public function getName()
     {
-        return $this->hasOne(Translate::class, 'id', 'category');
-    }
-
-    public function getNote()
-    {
-        return $this->hasOne(Translate::class, 'id', 'note');
+        return $this->hasOne(Translate::class, 'id', 'name');
     }
 }

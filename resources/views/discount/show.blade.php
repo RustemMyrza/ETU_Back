@@ -27,10 +27,15 @@
                     <tr>
                         <th>ID</th><td>{{ $discount->id }}</td>
                     </tr>
-                    <tr><th> Категория </th><td> {{ $translatedData['category']->ru }} </td></tr>
-                    <tr><th> Размер скидки % </th><td> {{ $discount->amount }} </td></tr>
-                    <tr><th> Примечание </th><td> {{ $translatedData['note']->ru }} </td></tr>
-                    <tr><th> Для студентов </th><td> {{ $discount->student_type ? $forTypeStudents[$discount->student_type] : '' }} </td></tr>
+                    <tr><th> Название </th><td> {{ $discount->getName->ru }} </td></tr>
+                    <tr>
+                        <th> Таблица </th>
+                        <td>
+                            @if($discount->image != null)
+                                <img src=" {{ url($discount->image) }} " alt=" {{ url($discount->image) }} " width="300">
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
