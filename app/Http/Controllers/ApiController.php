@@ -340,7 +340,7 @@ class ApiController extends Controller
         $mainPageApi->instagram = new stdClass;
         $mainPageApi->instagram->title = $instagramTitle;
         $mainPageApi->instagram->link = $instagramLink;
-        $mainPageApi->instagram->images = $instagramImages;
+        $mainPageApi->instagram->images = isset($instagramImages) ? $instagramImages : [];
         $mainPageApi->application = new stdClass;
         $mainPageApi->application->title = $applicationTitle;
         $mainPageApi->application->description = $applicationDescription;
@@ -462,7 +462,7 @@ class ApiController extends Controller
         $accreditationApi->titleDescription = $titleDescription;
         $accreditationApi->specialties = isset($specialties) ? $specialties : [];
         $accreditationApi->button = $button;
-        $accreditationApi->documents = $resourceDocuments;
+        $accreditationApi->documents = isset($resourceDocuments) ? $resourceDocuments : [];
         $accreditationApi->documentsDownloadButton = $documentsDownloadButton;
         $accreditationApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $accreditationApi;
@@ -751,7 +751,7 @@ class ApiController extends Controller
         }
         $studentScienceApi = new stdClass;
         $studentScienceApi->studentScienceBlock = $studentScienceBlock;
-        $studentScienceApi->documents = $documentsResource;
+        $studentScienceApi->documents = isset($documentsResource) ? $documentsResource : [];
         return $studentScienceApi;
     }
 
@@ -773,7 +773,7 @@ class ApiController extends Controller
         }
         $scientificPublicationPageApi = new stdClass;
         $scientificPublicationPageApi->title = $title;
-        $scientificPublicationPageApi->documents = $documentsResource;
+        $scientificPublicationPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         return $scientificPublicationPageApi;
     }
 
@@ -849,7 +849,7 @@ class ApiController extends Controller
         $admissionsCommitteePageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
         $admissionsCommitteePageApi->documents = isset($documents) ? $documents : [];
         $admissionsCommitteePageApi->discountsTitle = $discountsTitle;
-        $admissionsCommitteePageApi->discounts = $discounts;
+        $admissionsCommitteePageApi->discounts = isset($discounts) ? $discounts : [];
         $admissionsCommitteePageApi->costTitle = $costTitle;
         $admissionsCommitteePageApi->tableTitle_4 = $tableTitle_4;
         $admissionsCommitteePageApi->costTable_1 = isset($costTable_1) ? $costTable_1 : [];
@@ -929,7 +929,7 @@ class ApiController extends Controller
         $internationalStudentsPageApi->welcomeText = $welcomeText;
         $internationalStudentsPageApi->usefulInfoTitle = $usefulInfoTitle;
         $internationalStudentsPageApi->usefulInfoBlocks = $usefulInfoBlocks;
-        $internationalStudentsPageApi->documents = $documentsResource;
+        $internationalStudentsPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         $internationalStudentsPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $internationalStudentsPageApi;
     }
@@ -1050,7 +1050,7 @@ class ApiController extends Controller
         $olympicsPageApi->olympiadResults = $olympiadResults;
         $olympicsPageApi->olympiadInfoTitle = $olympiadInfoTitle;
         $olympicsPageApi->olympiadInfoText = $olympiadInfoText;
-        $olympicsPageApi->documents = $documentsResource;
+        $olympicsPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         $olympicsPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $olympicsPageApi;
     }
@@ -1135,7 +1135,7 @@ class ApiController extends Controller
         $lincolnUniversityPageApi->programDetail = $programDetail;
         $lincolnUniversityPageApi->consultButton = $consultButton;
         $lincolnUniversityPageApi->downloadButton = $downloadButton;
-        $lincolnUniversityPageApi->documents = $documentsResource;
+        $lincolnUniversityPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         $lincolnUniversityPageApi->meta = $metaData ? new MetaDataResource($metaData) : null;
         return $lincolnUniversityPageApi;
     }
@@ -1162,7 +1162,7 @@ class ApiController extends Controller
         $academicPolicyPageApi = new stdClass;
         $academicPolicyPageApi->title = $title;
         $academicPolicyPageApi->text = $text;
-        $academicPolicyPageApi->documents = $documentsResource;
+        $academicPolicyPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         return $academicPolicyPageApi;
     }
 
@@ -1188,7 +1188,7 @@ class ApiController extends Controller
         $academicCalendarPageApi = new stdClass;
         $academicCalendarPageApi->title = $title;
         $academicCalendarPageApi->block = $block;
-        $academicCalendarPageApi->documents = $documentsResource;
+        $academicCalendarPageApi->documents = isset($documentsResource) ? $documentsResource : [];
         return $academicCalendarPageApi;
     }
 
@@ -1245,7 +1245,7 @@ class ApiController extends Controller
         $ethicsCodePageApi = new stdClass;
         $ethicsCodePageApi->title = $title;
         $ethicsCodePageApi->block = $block;
-        $ethicsCodePageApi->documents = $documentsResource;
+        $ethicsCodePageApi->documents = isset($documentsResource) ? $documentsResource : [];
         return $ethicsCodePageApi;
     }
 
@@ -1447,7 +1447,7 @@ class ApiController extends Controller
         $travelGuidePageApi = new stdClass;
         $travelGuidePageApi->title = $title;
         $travelGuidePageApi->block = $block;
-        $travelGuidePageApi->documents = $documentsResource;
+        $travelGuidePageApi->documents = isset($documentsResource) ? $documentsResource : [];
         
         return $travelGuidePageApi;
     }
@@ -1584,9 +1584,9 @@ class ApiController extends Controller
         $summerSchoolPageApi->competeciesForBlock = $competeciesForBlock;
         $summerSchoolPageApi->programSchedule = new stdClass;
         $summerSchoolPageApi->programSchedule->title = $programTitle;
-        $summerSchoolPageApi->programSchedule->schedule = $summerSchoolProgram;
+        $summerSchoolPageApi->programSchedule->schedule = isset($summerSchoolProgram) ? $summerSchoolProgram : [];
         $summerSchoolPageApi->detailsBlock = $detailsBlock;
-        $summerSchoolPageApi->documents = $documents;
+        $summerSchoolPageApi->documents = isset($documents) ? $documents : [];
         return $summerSchoolPageApi;
         // return new PageResource($scienceAboutPage);
     }
