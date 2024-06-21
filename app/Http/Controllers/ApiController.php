@@ -77,6 +77,8 @@ use App\Models\EnrollmentPagesMeta;
 use App\Models\StudentsPagesMeta;
 use App\Models\BachelorSchoolMeta;
 use App\Models\LibraryPageDocument;
+use App\Models\InfrastructurePage;
+use App\Models\InfrastructureSlider;
 use App\Http\Resources\NewsResource;
 use App\Http\Resources\HeaderNavBarResource;
 use App\Http\Resources\ContactResource;
@@ -110,6 +112,7 @@ use App\Http\Resources\CostTableResource;
 use App\Http\Resources\HonorsStudentDiscountTableResource;
 use App\Http\Resources\InstagramImageResource;
 use App\Http\Resources\MetaDataResource;
+use App\Http\Resources\InfrastructureSliderResource;
 use App\Models\AboutUniversityPage;
 use App\Models\MetaData;
 use App\Models\SciencePagesMeta;
@@ -785,24 +788,11 @@ class ApiController extends Controller
         $documents = DocumentResource::collection($documents);
         $discountTable = Discount::query()->with(['getName'])->get();
         $discounts = DiscountTableResource::collection($discountTable);
-        
-        $costTable = Cost::query()->with(['getProgram'])->get();
+        $bachelorCostTables = Cost::query()->where('type', 1)->with(['getName'])->get();
+        $masterCostTables = Cost::query()->where('type', 2)->with(['getName'])->get();
+        $bachelorCosts = DiscountTableResource::collection($bachelorCostTables);
+        $masterCosts = DiscountTableResource::collection($masterCostTables);
 
-        foreach ($costTable as $item)
-        {
-            if ($item->type == 1)
-            {
-                $costTable_1[] = new CostTableResource($item);
-            }
-            else if ($item->type == 2)
-            {
-                $costTable_2[] = new CostTableResource($item);
-            }
-            else
-            {
-                $costTable_3[] = new CostTableResource($item);
-            }
-        }
         foreach ($admissionsCommitteePage as $key => $value)
         {
             switch ($key)
@@ -814,49 +804,39 @@ class ApiController extends Controller
                     $discountsTitle = new PageResource($value);
                     break;
                 case 2:
-                    $tableTitle_1 = new PageResource($value);
-                    break;
-                case 3:
-                    $tableTitle_2 = new PageResource($value);
-                    break;
-                case 4:
-                    $tableTitle_3 = new PageResource($value);
-                    break;
-                case 5:
                     $costTitle = new PageResource($value);
                     break;
-                case 6:
-                    $tableTitle_4 = new PageResource($value);
+                case 3:
+                    $bachelorCostTitle = new PageResource($value);
                     break;
-                case 7:
-                    $tableTitle_5 = new PageResource($value);
+                case 4:
+                    $masterCostTitle = new PageResource($value);
                     break;
-                case 8:
-                    $tableTitle_6 = new PageResource($value);
-                    break;
-                case 9:
+                case 5:
                     $listOfDocumentsTitle = new PageResource($value);
                     break;
-                case 10:
+                case 6:
                     $bachelorBlock = new PageResource($value);
                     break;
-                case 11:
+                case 7:
                     $masterBlock = new PageResource($value);
                     break;
             }
         }
         $admissionsCommitteePageApi = new stdClass;
+        $admissionsCommitteePageApi->discount = new stdClass;
+        $admissionsCommitteePageApi->cost = new stdClass;
+        $admissionsCommitteePageApi->cost->bachelor = new stdClass;
+        $admissionsCommitteePageApi->cost->master = new stdClass;
         $admissionsCommitteePageApi->admissionsCommitteeTitle = $admissionsCommitteeTitle;
         $admissionsCommitteePageApi->documents = isset($documents) ? $documents : [];
-        $admissionsCommitteePageApi->discountsTitle = $discountsTitle;
-        $admissionsCommitteePageApi->discounts = isset($discounts) ? $discounts : [];
-        $admissionsCommitteePageApi->costTitle = $costTitle;
-        $admissionsCommitteePageApi->tableTitle_4 = $tableTitle_4;
-        $admissionsCommitteePageApi->costTable_1 = isset($costTable_1) ? $costTable_1 : [];
-        $admissionsCommitteePageApi->tableTitle_5 = $tableTitle_5;
-        $admissionsCommitteePageApi->costTable_2 = isset($costTable_2) ? $costTable_2 : [];
-        $admissionsCommitteePageApi->tableTitle_6 = $tableTitle_6;
-        $admissionsCommitteePageApi->costTable_3 = isset($costTable_3) ? $costTable_3 : [];
+        $admissionsCommitteePageApi->discount->title = $discountsTitle;
+        $admissionsCommitteePageApi->discount->tables = isset($discounts) ? $discounts : [];
+        $admissionsCommitteePageApi->cost->title = $costTitle;
+        $admissionsCommitteePageApi->cost->bachelor->title = $bachelorCostTitle;
+        $admissionsCommitteePageApi->cost->bachelor->tables = isset($bachelorCosts) ? $bachelorCosts : [];
+        $admissionsCommitteePageApi->cost->master->title = $masterCostTitle;
+        $admissionsCommitteePageApi->cost->master->tables = isset($masterCosts) ? $masterCosts : [];
         $admissionsCommitteePageApi->listOfDocumentsTitle = $listOfDocumentsTitle;
         $admissionsCommitteePageApi->bachelorBlock = $bachelorBlock;
         $admissionsCommitteePageApi->masterBlock = $masterBlock;
@@ -1591,6 +1571,18 @@ class ApiController extends Controller
         // return new PageResource($scienceAboutPage);
     }
 
+    public function infrastructurePage ()
+    {
+        $infrastructurePageTitle = InfrastructurePage::query()->with('getTitle')->first();
+        $infrastructureSliders = InfrastructureSlider::query()->with('getTitle')->get();
+        $infrastructureSliders = InfrastructureSliderResource::collection($infrastructureSliders);
+        $infrastructurePageTitle = new PageResource($infrastructurePageTitle);
+        $infrastructurePageApi = new stdClass;
+        $infrastructurePageApi->title = $infrastructurePageTitle;
+        $infrastructurePageApi->sliders = $infrastructureSliders;
+        return $infrastructurePageApi;
+    }
+
     public function metaData()
     {
         $mainPage = MainPageMeta::first();
@@ -1603,6 +1595,7 @@ class ApiController extends Controller
             'career' => ['model' => AboutUniversityPagesMeta::class, 'id' => 6],
             'scienceAbout' => ['model' => AboutUniversityPagesMeta::class, 'id' => 7],
             'academicCouncil' => ['model' => AboutUniversityPagesMeta::class, 'id' => 8],
+            'infrastructure' => ['model' => AboutUniversityPagesMeta::class, 'id' => 9],
             'admissionsCommittee' => ['model' => EnrollmentPagesMeta::class, 'id' => 1],
             'bachelor' => ['model' => EnrollmentPagesMeta::class, 'id' => 2],
             'master' => ['model' => EnrollmentPagesMeta::class, 'id' => 3],

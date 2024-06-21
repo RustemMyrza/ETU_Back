@@ -12,52 +12,33 @@
 
 <div class="tab-content col-md-12" id="custom-tabs-one-tabContent">
     <div class="tab-pane active in ru-content" id="custom-tabs-one-ru" role="tabpanel" aria-labelledby="custom-tabs-one-ru-tab">
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-            <label for="name[ru]" class="control-label">{{ 'Название RU' }}</label>
-            <input class="form-control" name="name[ru]" type="text" id="name_ru" value="{{ isset($cost->getName->ru) ? $cost->getName->ru : ''}}" >
-            {!! $errors->first('name[ru]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+            <label for="title[ru]" class="control-label">{{ 'Заголовок RU' }}</label>
+            <input class="form-control" name="title[ru]" type="text" id="title_ru" value="{{ isset($infrastructurePage->getTitle->ru) ? $infrastructurePage->getTitle->ru : ''}}" >
+            {!! $errors->first('title[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade en-content" id="custom-tabs-one-en" role="tabpanel" aria-labelledby="custom-tabs-one-en-tab">
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-            <label for="name[en]" class="control-label">{{ 'Название EN' }}</label>
-            <input class="form-control" name="name[en]" type="text" id="name_en" value="{{ isset($cost->getName->en) ? $cost->getName->en : ''}}" >
-            {!! $errors->first('name[ru]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+            <label for="title[en]" class="control-label">{{ 'Заголовок EN' }}</label>
+            <input class="form-control" name="title[en]" type="text" id="title_en" value="{{ isset($infrastructurePage->getTitle->en) ? $infrastructurePage->getTitle->en : ''}}" >
+            {!! $errors->first('title[ru]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
     <div class="tab-pane fade kz-content" id="custom-tabs-one-kz" role="tabpanel" aria-labelledby="custom-tabs-one-kz-tab">
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-            <label for="name[kz]" class="control-label">{{ 'Название KZ' }}</label>
-            <input class="form-control" name="name[kz]" type="text" id="name_kz" value="{{ isset($cost->getName->kz) ? $cost->getName->kz : ''}}" >
-            {!! $errors->first('name[kz]"', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('title') ? 'has-error' : ''}}">
+            <label for="title[kz]" class="control-label">{{ 'Заголовок KZ' }}</label>
+            <input class="form-control" name="title[kz]" type="text" id="title_kz" value="{{ isset($infrastructurePage->getTitle->kz) ? $infrastructurePage->getTitle->kz : ''}}" >
+            {!! $errors->first('title[kz]"', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-</div>
-
-<div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
-    <label for="type" class="control-label">{{ 'Тип' }}</label>
-    <select name="type" id="type">
-        <option value="1">Бакалавриат</option>
-        <option value="2">Магистратура</option>
-    </select>
-</div>
-
-<div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
-    <label for="image" class="control-label">{{ 'Изображение' }}</label>
-    <input class="form-control" name="image" type="file" id="image" value="{{ isset($image) ? url($image) : ''}}" >
-    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Обновить' : 'Создать' }}">
 </div>
-<br>
-
-@if(isset($cost->image))
-    <img src=" {{ url($cost->image) }} " alt=" {{ url($cost->image) }} " width="400">
-@endif
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

@@ -46,6 +46,16 @@
                                                                                 aria-hidden="true"></i> Редактировать
                                         </button>
                                     </a>
+                                    <form method="POST" action="{{ url('/admin/admissionsCommitteePage/' . $item->id) }}"
+                                        accept-charset="UTF-8" style="display:inline">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Удалить блок"
+                                                onclick="return confirm(&quot;Удалить?&quot;)"><i class="fa fa-trash-alt"
+                                                                                                aria-hidden="true"></i>
+                                            Удалить
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endif

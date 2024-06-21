@@ -39,7 +39,7 @@
                                     </button>
                                 </a>
 
-                                <form method="POST" action="{{ url('/admin/discount' . '/' . $item->id) }}"
+                                <form method="POST" action="{{ url('/admin/discount/' . $item->id) }}"
                                     accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}

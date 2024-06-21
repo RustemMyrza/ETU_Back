@@ -10,23 +10,10 @@ class CostController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
         $perPage = 25;
+        $cost = Cost::latest()->paginate($perPage);
 
-        if (!empty($keyword)) {
-            $cost = Cost::where('program', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $cost = Cost::latest()->paginate($perPage);
-            $formEducation = [
-                1 => 'Очное отделение Бакалавриат',
-                2 => 'Сокращенное отделение Бакалавриат',
-                3 => 'Магистратура'
-            ];
-            $translatesData = Translate::all();
-        }
-
-        return view('cost.index', compact('cost', 'translatesData', 'formEducation'));
+        return view('cost.index', compact('cost'));
     }
 
     /**
@@ -49,22 +36,29 @@ class CostController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        // dd($requestData);
-        $program = new Translate();
-        $program->ru = $requestData['program']['ru'];
-        $program->en = $requestData['program']['en'];
-        $program->kz = $requestData['program']['kz'];
-        $program->save();
-        $programId = $program->id;
+
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+        ],
+        [
+            'image.required' => 'Изображение для блока обязательно',
+            'image.mimes' => 'Проверьте формат изображения',
+            'image.max' => 'Размер файла не может превышать 10МБ'
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $this->uploadImage($request->file('image'));
+        }
+        $name = new Translate();
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->save();
+        $nameId = $name->id;
+
 
         $cost= new Cost();
-        $cost->program = $programId;
-        $cost->first = $requestData['first_year'];
-        $cost->second = $requestData['second_year'];
-        $cost->third = $requestData['third_year'];
-        $cost->fourth = $requestData['fourth_year'];
-        $cost->fifth = $requestData['fifth_year'];
-        $cost->total = $requestData['total'];
+        $cost->name = $nameId;
+        $cost->image = $path;
         $cost->type = $requestData['type'];
         $cost->save();
 
@@ -81,13 +75,7 @@ class CostController extends Controller
     public function show($id)
     {
         $cost = Cost::findOrFail($id);
-        $translatedProgram = Translate::findOrFail($cost->program);
-        $formEducation = [
-            1 => 'На очное отделение',
-            2 => 'На сокращенную форму',
-            3 => 'Магистратура'
-        ];
-        return view('cost.show', compact('cost', 'translatedProgram', 'formEducation'));
+        return view('cost.show', compact('cost'));
     }
 
     /**
@@ -100,8 +88,7 @@ class CostController extends Controller
     public function edit($id)
     {
         $cost = Cost::findOrFail($id);
-        $translatedProgram = Translate::findOrFail($cost->program);
-        return view('cost.edit', compact('cost', 'translatedProgram'));
+        return view('cost.edit', compact('cost'));
     }
 
     /**
@@ -117,22 +104,19 @@ class CostController extends Controller
         $requestData = $request->all();
         $cost = Cost::findOrFail($id);
 
-        $program = Translate::find($cost->program);
-        $program->ru = $requestData['program']['ru'];
-        $program->en = $requestData['program']['en'];
-        $program->kz = $requestData['program']['kz'];
-        $program->update();
+        if ($request->hasFile('image')) 
+        {
+            $path = $this->uploadImage($request->file('image'));
+            $cost->image = $path;
+        }
 
-        $cost->first = $requestData['first_year'];
-        $cost->second = $requestData['second_year'];
-        $cost->third = $requestData['third_year'];
-        $cost->fourth = $requestData['fourth_year'];
-        $cost->fifth = $requestData['fifth_year'];
-        $cost->total = $requestData['total'];
-        $cost->type = $requestData['type'];
-        $cost->update();
+        $name = Translate::find($cost->name);
+        $name->ru = $requestData['name']['ru'];
+        $name->en = $requestData['name']['en'];
+        $name->kz = $requestData['name']['kz'];
+        $name->update();
 
-        return redirect('admin/cost')->with('flash_message', 'Блок изменен');
+        return redirect('admin/Cost')->with('flash_message', 'Блок изменен');
     }
 
     /**
@@ -145,9 +129,13 @@ class CostController extends Controller
     public function destroy($id)
     {
         $cost = Cost::find($id);
-        $program = Translate::find($cost->program);
-        $program->delete();
+        $name = Translate::find($cost->name);
+        $name->delete();
         $cost->delete();
+        if ($cost->image != null) 
+        {
+            unlink($cost->image);
+        }
 
         return redirect('admin/cost')->with('flash_message', 'Блок удален');
     }

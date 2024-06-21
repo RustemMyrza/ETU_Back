@@ -117,6 +117,8 @@ Route::resource('admin/summerSchoolSlider', 'App\Http\Controllers\SummerSchoolSl
 Route::resource('admin/youtube', 'App\Http\Controllers\YoutubeVideoController')->middleware('auth');
 Route::resource('admin/instagramLink', 'App\Http\Controllers\InstagramLinkController')->middleware('auth');
 Route::resource('admin/instagramImage', 'App\Http\Controllers\InstagramImageController')->middleware('auth');
+Route::resource('admin/infrastructure', 'App\Http\Controllers\InfrastructurePageController')->middleware('auth');
+Route::resource('admin/infrastructureSlider', 'App\Http\Controllers\InfrastructureSliderController')->middleware('auth');
 
 Route::get('admin/mainPageMeta', 'App\Http\Controllers\MainPageMetaController@index')->middleware('auth');
 Route::post('admin/mainPageMeta', 'App\Http\Controllers\MainPageMetaController@store')->middleware('auth');
@@ -174,6 +176,8 @@ Route::get('admin/travelGuidePageMeta', 'App\Http\Controllers\TravelGuidePageMet
 Route::post('admin/travelGuidePageMeta', 'App\Http\Controllers\TravelGuidePageMetaController@store')->middleware('auth');
 Route::get('admin/studentClubPageMeta', 'App\Http\Controllers\StudentClubPageMetaController@index')->middleware('auth');
 Route::post('admin/studentClubPageMeta', 'App\Http\Controllers\StudentClubPageMetaController@store')->middleware('auth');
+Route::get('admin/infrastructurePageMeta', 'App\Http\Controllers\InfrastructurePageMetaController@index')->middleware('auth');
+Route::post('admin/infrastructurePageMeta', 'App\Http\Controllers\InfrastructurePageMetaController@store')->middleware('auth');
 
 Route::get('admin/scienceInnovationPageMeta', 'App\Http\Controllers\ScienceInnovationPageMetaController@index')->middleware('auth');
 Route::post('admin/scienceInnovationPageMeta', 'App\Http\Controllers\ScienceInnovationPageMetaController@store')->middleware('auth');

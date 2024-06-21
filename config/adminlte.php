@@ -392,6 +392,11 @@ return [
                         'text' => 'Ученый совет',
                         'icon' => 'fas fa-fw fa-file',
                         'url'  => '/admin/academicCouncilPage',
+                    ],
+                    [
+                        'text' => 'Инфраструктура',
+                        'icon' => 'fas fa-fw fa-file',
+                        'url'  => '/admin/infrastructure',
                     ]
                 ]
                 ],

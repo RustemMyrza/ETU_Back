@@ -65,6 +65,7 @@ Route::get('/bachelorSchool', [ApiController::class, 'bachelorSchool'])->name('b
 Route::get('/newsContent', [ApiController::class, 'newsContent'])->name('newsContent');
 Route::get('/scienceAboutPage', [ApiController::class, 'scienceAboutPage'])->name('scienceAboutPage');
 Route::get('/summerSchoolPage', [ApiController::class, 'summerSchoolPage'])->name('summerSchoolPage');
+Route::get('/infrastructurePage', [ApiController::class, 'infrastructurePage'])->name('infrastructurePage');
 Route::get('/metaData', [ApiController::class, 'metaData'])->name('metaData');
 
 

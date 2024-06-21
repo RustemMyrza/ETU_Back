@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cost extends Model
+class InfrastructureSlider extends Model
 {
-    protected $table = 'costs';
+    use HasFactory;
+
+    protected $table = 'infrastructure_sliders';
 
     /**
     * The database primary key value.
@@ -21,10 +23,10 @@ class Cost extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'image'];
+    protected $fillable = ['title', 'images'];
 
-    public function getName()
+    public function getTitle()
     {
-        return $this->hasOne(Translate::class, 'id', 'name');
+        return $this->hasOne(Translate::class, 'id', 'title');
     }
 }

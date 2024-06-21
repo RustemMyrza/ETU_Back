@@ -105,17 +105,8 @@ class DiscountController extends Controller
 
         if ($request->hasFile('image')) 
         {
-            if ($discount->image != null) {
-                // unlink($discount->image);
-            }
             $path = $this->uploadImage($request->file('image'));
             $discount->image = $path;
-        }
-        else
-        {
-            if ($discount->image != null) {
-                // unlink($discount->image);
-            }
         }
 
         $name = Translate::find($discount->name);
@@ -142,7 +133,7 @@ class DiscountController extends Controller
         $discount->delete();
         if ($discount->image != null) 
         {
-            // unlink($discount->image);
+            unlink($discount->image);
         }
 
         return redirect('admin/discount')->with('flash_message', 'Блок удален');

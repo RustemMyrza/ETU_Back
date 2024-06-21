@@ -43,6 +43,9 @@ class AboutUniversityPageController extends Controller
             case 8:
                 $this->updateForLink('/about-academic-council', $id);
                 break;
+            case 9:
+                $this->updateForLink('/about-infrastructure', $id);
+                break;
         }
     }
 
