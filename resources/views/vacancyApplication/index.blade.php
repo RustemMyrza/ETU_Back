@@ -10,9 +10,6 @@
 
     <div class="card-body">
         @include('flash-message')
-        <a href="{{ url('/admin/vacancy/' . $vacancyId . '/applications/create') }}" class="btn btn-success btn-sm" title="Добавить новый блок">
-            <i class="fa fa-plus" aria-hidden="true"></i> Добавить
-        </a>
         <a href="{{ url('/admin/vacancy') }}" class="btn btn-danger btn-sm" title="Добавить новый блок">
             <i class="fa fa-arrow-left" aria-hidden="true"></i> Назад
         </a>
