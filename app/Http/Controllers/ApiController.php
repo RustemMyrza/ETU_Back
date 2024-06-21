@@ -584,16 +584,9 @@ class ApiController extends Controller
     {
         $rectorsBlogPage = RectorsBlogPage::query()->with(['getTitle', 'getContent'])->get();
         $metaData = AboutUniversityPagesMeta::where('page_id', 5)->first();
-        $questions = RectorsBlogQuestion::query()->latest()->paginate(5);
+        $questions = RectorsBlogQuestion::query()->whereNotNull('answer')->latest()->paginate(5);
+        $answeredQuestions = RectorsBlogQuestionResource::collection($questions);
         
-        foreach ($questions as $item)
-        {
-            if ($item->answer)
-            {
-                $answeredQuestions[] = new RectorsBlogQuestionResource($item);
-            }
-        }
-
         foreach ($rectorsBlogPage as $key => $value)
         {
             switch ($key)
