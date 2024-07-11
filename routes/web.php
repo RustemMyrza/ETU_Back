@@ -208,6 +208,15 @@ Route::patch('admin/news/{newsId}/content/{id}/edit', 'App\Http\Controllers\News
 Route::delete('admin/news/{newsId}/content/{id}/delete', 'App\Http\Controllers\NewsContentController@destroy')->middleware('auth')->name('news.content.destroy');
 Route::resource('admin/news/{newsId}/content', 'App\Http\Controllers\NewsContentController')->middleware('auth')->except(['index', 'show']);
 
+Route::get('admin/news/{newsId}/document', 'App\Http\Controllers\NewsDocumentController@index')->middleware('auth')->name('news.document.index');
+Route::get('admin/news/{newsId}/document/create', 'App\Http\Controllers\NewsDocumentController@create')->middleware('auth')->name('news.document.create');
+Route::post('admin/news/{newsId}/document/create', 'App\Http\Controllers\NewsDocumentController@store')->middleware('auth')->name('news.document.store');
+Route::get('admin/news/{newsId}/document/{id}', 'App\Http\Controllers\NewsDocumentController@show')->middleware('auth')->name('news.document.show');
+Route::get('admin/news/{newsId}/document/{id}/edit', 'App\Http\Controllers\NewsDocumentController@edit')->middleware('auth')->name('news.document.edit');
+Route::patch('admin/news/{newsId}/document/{id}/edit', 'App\Http\Controllers\NewsDocumentController@update')->middleware('auth')->name('news.document.update');
+Route::delete('admin/news/{newsId}/document/{id}/delete', 'App\Http\Controllers\NewsDocumentController@destroy')->middleware('auth')->name('news.document.destroy');
+Route::resource('admin/news/{newsId}/document', 'App\Http\Controllers\NewsDocumentController')->middleware('auth')->except(['index', 'show']);
+
 Route::get('admin/news/{newsId}/slider', 'App\Http\Controllers\NewsPageSliderController@index')->middleware('auth')->name('news.slider.index');
 Route::get('admin/news/{newsId}/slider/create', 'App\Http\Controllers\NewsPageSliderController@create')->middleware('auth')->name('news.slider.create');
 Route::post('admin/news/{newsId}/slider/create', 'App\Http\Controllers\NewsPageSliderController@store')->middleware('auth')->name('news.slider.store');

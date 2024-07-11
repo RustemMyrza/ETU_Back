@@ -33,12 +33,13 @@
                             <td>{{ $item->getName ? Str::limit($item->getName->ru, 50) : '' }}</td>
                             <td>{{ $item->date ? $item->date : '' }}</td>
                             <td>
-                                <img src="{{ url($item->background_image) }}" alt="{{$item->background_image}}">
+                                <img src="{{ url($item->background_image) }}" alt="{{$item->background_image}}" width="200px">
                             </td>
                             <td>
                             <a href="{{ url('admin/news/' . $item->id . '/meta') }}" title="Метаданные"><button class="btn btn-secondary btn-sm"><i class="fa fa-info" aria-hidden="true"></i> Метаданные</button></a>
                             <a href="{{ url('admin/news/' . $item->id . '/slider') }}" title="Слайдер"><button class="btn btn-warning btn-sm"><i class="fa fa-clone" aria-hidden="true"></i> Слайдер</button></a>
                             <a href="{{ url('admin/news/' . $item->id . '/content') }}" title="Содержимое"><button class="btn btn-secondary btn-sm"><i class="fa fa-align-center" aria-hidden="true"></i> Содержимое</button></a>
+                            <a href="{{ url('admin/news/' . $item->id . '/document') }}" title="Документы"><button class="btn btn-secondary btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Документы</button></a>
                             <a href="{{ url('admin/news/' . $item->id) }}" title="Посмотреть блок"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Просмотр</button></a>
                                 <a href="{{ url('admin/news/' . $item->id . '/edit') }}" title="Редактировать блок">
                                     <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"

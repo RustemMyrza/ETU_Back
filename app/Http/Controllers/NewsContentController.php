@@ -148,7 +148,7 @@ class NewsContentController extends Controller
         $newsContent = NewsContent::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($newsContent->image != null) {
-                // unlink($newsContent->image);
+                unlink($newsContent->image);
             }
             $path = $this->uploadImage($request->file('image'));
             $newsContent->image = $path;
@@ -182,7 +182,7 @@ class NewsContentController extends Controller
     {
         $newsContent = NewsContent::find($id);
         if ($newsContent->image != null) {
-            // unlink($newsContent->image);
+            unlink($newsContent->image);
         }
 
         $content = Translate::find($newsContent->content);
