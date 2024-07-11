@@ -114,7 +114,7 @@ class DiscountController extends Controller
         $name->en = $requestData['name']['en'];
         $name->kz = $requestData['name']['kz'];
         $name->update();
-
+        $discount->update();
         return redirect('admin/discount')->with('flash_message', 'Блок изменен');
     }
 
